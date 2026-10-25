@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>文心雕码 — 汉语言文学 × 软件工程互动沙龙</title>
+  <link rel="stylesheet" href="./src/styles/main.css" />
+</head>
+<body>
+  <div class="app-root">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="top-bar-inner">
+        <button type="button" class="brand-identity" id="brand-home-btn">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span class="brand-title">文心雕码</span>
+          <span class="brand-badge">以文驭码</span>
+        </button>
+
+        <!-- Desktop Segmented Switcher -->
+        <nav class="desktop-tabs" aria-label="主导航">
+          <button type="button" class="desktop-tab-btn active" data-tab="arch">
+            <span class="tab-idx">01</span>营造法式
+          </button>
+          <button type="button" class="desktop-tab-btn" data-tab="dict">
+            <span class="tab-idx">02</span>格物词典
+          </button>
+          <button type="button" class="desktop-tab-btn" data-tab="stacks">
+            <span class="tab-idx">03</span>器用选型
+          </button>
+          <button type="button" class="desktop-tab-btn" data-tab="cases">
+            <span class="tab-idx">04</span>纪事本末
+          </button>
+          <button type="button" class="desktop-tab-btn" data-tab="prompts">
+            <span class="tab-idx">05</span>案头手札
+          </button>
+        </nav>
+
+        <!-- Utility Actions: Mobile Viewport Preview & Theme Toggle -->
+        <div class="top-actions">
+          <button
+            type="button"
+            id="mobile-sim-toggle"
+            class="util-btn"
+            title="在电脑上直接预览手机端单手交互手感"
+          >
+            手机端预览
+          </button>
+          <button
+            type="button"
+            id="theme-toggle-btn"
+            class="util-btn"
+            title="切换浅色纸本与深色墨本"
+          >
+            深色墨本
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Single Active View Mount -->
+    <main id="active-view-mount" class="view-container"></main>
+
+    <!-- Mobile Thumb-Zone Bottom Tab Bar -->
+    <nav class="bottom-tab-bar" aria-label="底部五卷切换">
+      <button type="button" class="bottom-tab-item active" data-tab="arch">
+        <span class="b-num">01</span>
+        <span class="b-label">营造</span>
+        <span class="b-sub">书院全景</span>
+      </button>
+      <button type="button" class="bottom-tab-item" data-tab="dict">
+        <span class="b-num">02</span>
+        <span class="b-label">词典</span>
+        <span class="b-sub">双语16则</span>
+      </button>
+      <button type="button" class="bottom-tab-item" data-tab="stacks">
+        <span class="b-num">03</span>
+        <span class="b-label">器用</span>
+        <span class="b-sub">技术选型</span>
+      </button>
+      <button type="button" class="bottom-tab-item" data-tab="cases">
+        <span class="b-num">04</span>
+        <span class="b-label">案例</span>
+        <span class="b-sub">三大实战</span>
+      </button>
+      <button type="button" class="bottom-tab-item" data-tab="prompts">
+        <span class="b-num">05</span>
+        <span class="b-label">手札</span>
+        <span class="b-sub">AI指令集</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Progressive Disclosure Bottom Sheet / Editorial Drawer -->
+  <div id="sheet-backdrop" class="sheet-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div id="sheet-drawer" class="sheet-drawer">
+      <div class="sheet-handle-bar">
+        <span id="sheet-kicker" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent);"></span>
+        <div class="sheet-pill-indicator" aria-hidden="true"></div>
+        <button type="button" id="sheet-close-btn" class="sheet-close-btn">收起 ✕</button>
+      </div>
+      <div id="sheet-scroll-body" class="sheet-scroll-body"></div>
+      <div id="sheet-bottom-nav" class="sheet-bottom-nav"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

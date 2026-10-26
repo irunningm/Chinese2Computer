@@ -1,391 +1,391 @@
-// 卷二 · 格物词典：汉语言文学 ↔ 软件工程与 AI 编程双语对照词典
+// 02 · 概念词典：用《现代汉语》《文学理论》与写论文日常，秒懂 16 个软件工程核心概念
 
 export const DICTIONARY_CATEGORIES = [
   {
     id: 'all',
     name: '全部词条',
-    sub: '共十六则核心映射'
+    sub: '共 16 个核心概念'
   },
   {
     id: 'linguistics',
-    name: '文字语法与训诂',
-    sub: '对应：语法 · 变量 · 作用域 · 命名'
+    name: '现代汉语·语法篇',
+    sub: '主谓宾 · 复句 · 改病句 · 语境'
   },
   {
     id: 'composition',
-    name: '文章与叙事学',
-    sub: '对应：架构 · 模块化 · 组件 · 开源库'
+    name: '文学理论·结构篇',
+    sub: '内容与形式 · 提纲 · 分段 · 模板'
   },
   {
     id: 'bibliography',
-    name: '版本目录与校勘',
-    sub: '对应：目录树 · Git · 调试 · 重构'
+    name: '论文写作·改稿篇',
+    sub: '文件夹 · 版本存档 · 引用 · 删繁'
   },
   {
     id: 'rhetoric',
-    name: '修辞与文体学',
-    sub: '对应：JSON协议 · 系统规则 · 审稿'
+    name: 'AI 沟通·审稿篇',
+    sub: '体例规范 · 填表格 · 注释 · 验收'
   }
 ];
 
 export const DICTIONARY_ENTRIES = [
-  // ==================== 一、文字语法与训诂 ====================
+  // ==================== 一、现代汉语·语法篇 ====================
   {
     id: 'parts-of-speech',
     category: 'linguistics',
-    categoryLabel: '文字语法与训诂',
-    literaryTerm: '实词（名/动）与虚词',
-    classicQuote: '《马氏文通》：“凡字有事理可解者，曰实字；无解而惟以助实字之情态者，曰虚字。”',
-    engTerm: '变量状态 (State) · 函数 (Function) · 控制流 (Control Flow)',
-    engKeywords: ['Variable', 'Object', 'Function', 'if / else / for'],
-    epiphany: '名词是“数据与状态”，动词是“函数与操作”，而之乎者也般的虚词则是控制转折与循环的“逻辑流”。',
+    categoryLabel: '现代汉语·语法篇',
+    literaryTerm: '主谓宾定状补（句子成分）',
+    classicQuote: '黄伯荣、廖序东《现代汉语》：“主语、谓语、宾语是句子的主干；定语、状语、补语是枝叶。”',
+    engTerm: '数据对象 (Object) · 函数 (Function) · 参数 (Args)',
+    engKeywords: ['Object', 'Function', 'Property', 'Arguments'],
+    epiphany: '名词（主语/宾语）是“数据对象”，动词（谓语）是“执行函数”，定语是对象的“属性”，状语是调用函数时传进去的“参数”。',
     litPerspective:
-      '汉语造句离不开三类词：名词指称万事万物（如“书生”、“诗卷”），动词描摹行为变化（如“吟诵”、“刊印”），连词介词等虚词（“若……则……”、“既……又……”）则负责把散碎的词串成严密的句意转折。',
+      '汉语言文学大一必修的《现代汉语》句子成分分析法：比如“（热心的）图书管理员【快速地】借出了《活着》”。其中“管理员”和“《活着》”是名词（主宾），“借出”是核心动词（谓语），“热心的”修饰名词（定语），“快速地”限制动作方式（状语）。',
     engPerspective:
-      '任何编程语言扒开外壳，也只有这三样东西：用对象/变量（名词）存储当前的数据状态；用函数/方法（动词）对数据施加动作；用 `if/else/for`（虚词）决定哪段代码先跑、哪段代码重复跑。',
+      '写任何程序代码，底层逻辑跟造句一模一样：先定义有哪些名词对象（如 `user` 用户、`book` 图书）以及它们的定语属性（`user.role = "管理员"`）；再写动词函数去操作它们（`borrowBook(book, { speed: "fast" })`）。',
     visualCompare: {
-      litTitle: '汉语句法结构拆解',
-      litCode: `【名词·主宾】苏轼（人物对象）、《赤壁赋》（作品数据）\n【虚词·条件】若（if）夜游黄州赤壁，则（then）：\n【动词·谓语】撰文（createArticle）、酾酒临江（drinkWine）`,
-      engTitle: 'JavaScript 代码同构映射',
-      engCode: `const poet = { name: "苏轼", location: "黄州" }; // 名词：变量与对象\n\nif (poet.location === "黄州") {                 // 虚词：条件控制流\n  composeArticle(poet, "前赤壁赋");             // 动词：调用函数\n}`
+      litTitle: '现代汉语句子成分划分',
+      litCode: `【主语/宾语（名词）】读者 (reader)、《活着》(book)\n【定语（修饰名词）】已登录的读者 (reader.isLoggedIn = true)\n【谓语（动词）】收藏 (collectBook)\n【状语（限制动作）】按分类悄悄地收藏 (传入参数 category="小说")`,
+      engTitle: '完全对应的 JavaScript 代码',
+      engCode: `const reader = { name: "小林", isLoggedIn: true }; // 名词 + 定语属性\nconst book = { title: "活着" };\n\n// 动词（函数） + 宾语与状语（参数）\ncollectBook(reader, book, { category: "小说" });`
     },
     aiAction:
-      '向 AI 描述需求时，先列清楚你的【名词清单】（有哪些核心数据对象，如“作者、诗篇、评点”）和【动词清单】（读者能做什么动作，如“筛选、收藏、导出”），AI 就能生成极度干净的代码结构。'
+      '向 AI 提需求时，先用“主谓宾法”帮它理清主干：先列出你的项目里有哪些【核心名词】（比如：文章、作者、评论），再列出用户能对它们做哪些【核心动词】（比如：搜索、筛选、导出），AI 写出来的代码结构会无比清晰。'
+  },
+  {
+    id: 'compound-sentences',
+    category: 'linguistics',
+    categoryLabel: '现代汉语·语法篇',
+    literaryTerm: '关联词与复句（如果…就… / 每当…都…）',
+    classicQuote: '《现代汉语》：“复句由两个或两个以上意义上相关、结构上互不包含的分句加上关联词语组成。”',
+    engTerm: '条件分支 (if / else) · 循环遍历 (for / map)',
+    engKeywords: ['if / else', 'for loop', 'Array.map', 'Control Flow'],
+    epiphany: '假设复句“如果……就……否则……”就是代码里的 `if / else`；排比句把同一句式套在十个人身上，就是代码里的 `map` 循环。',
+    litPerspective:
+      '我们写文章离不开关联词：表示假设条件时写“如果明天不下雨，我们就去踏青，否则就待在图书馆”；表示批量逐一处理时写“把书架上的每一本书，都贴上分类标签”。',
+    engPerspective:
+      '很多文科生觉得程序的“算法逻辑”很神秘，其实 90% 的日常代码逻辑就只是这两个复句：用 `if (...) { ... } else { ... }` 做条件判断；用 `books.map(...)` 把列表里的每一项批量变成页面上的卡片。',
+    visualCompare: {
+      litTitle: '汉语复句逻辑',
+      litCode: `1. 【假设复句】：如果（if）搜索框为空，就提示“请输入关键词”；否则（else）开始检索。\n2. 【批量排比】：对书单里的每一本书（map），都生成一张带书名和作者的卡片。`,
+      engTitle: '代码里的条件与循环',
+      engCode: `// 1. 假设复句 (if / else)\nif (keyword === "") {\n  alert("请输入关键词");\n} else {\n  searchBooks(keyword);\n}\n\n// 2. 批量循环渲染 (map)\nbooks.map(book => <Card title={book.title} />);`
+    },
+    aiAction:
+      '跟 AI 描述交互规则时，多用“如果 A，就 B；否则 C”的严谨复句句式。比如：“如果用户搜索不到结果，就显示‘暂无匹配文章’并提供重置按钮；否则正常显示卡片列表。”'
   },
   {
     id: 'syntax-vs-semantics',
     category: 'linguistics',
-    categoryLabel: '文字语法与训诂',
-    literaryTerm: '句法合律 vs 辞意畅达（病句辨析）',
-    classicQuote: '刘勰《文心雕龙·章句》：“夫人之立言，因字而生句，积句而成章，积章而成篇。”',
-    engTerm: '编译语法错 (Syntax Error) vs 运行时逻辑错 (Logic Bug)',
-    engKeywords: ['Syntax Error', 'TypeScript', 'Linter', 'Runtime Bug'],
-    epiphany: '缺主语、错别字叫“语法报错（程序直接罢工）”；主谓宾俱全但张冠李戴叫“逻辑 Bug（程序跑偏了）”。',
+    categoryLabel: '现代汉语·语法篇',
+    literaryTerm: '改病句：标点错字 vs 逻辑歧义',
+    classicQuote: '吕叔湘《语法修辞讲话》：“一句话语法结构没毛病，但事理不通或有歧义，同样是病句。”',
+    engTerm: '语法报错 (Syntax Error) vs 业务逻辑错 (Logic Bug)',
+    engKeywords: ['Syntax Error', 'Type Error', 'Logic Bug', 'Ambiguity'],
+    epiphany: '少写了半边括号叫“语法错（程序直接红字罢工）”；像“咬死了猎人的狗”这种句子通顺但意思跑偏，叫“逻辑 Bug”。',
     litPerspective:
-      '改文章有两种毛病：第一种是硬伤，比如括号没闭合、多写了个顿号、主谓搭配不当，教书先生一眼就能拿红笔圈出来；第二种是“合乎语法的胡话”，比如“关公战秦琼”，句子本身挑不出语病，但史实逻辑全错。',
+      '改文章有两种错：第一种是硬伤，比如书名号只写了一半《活着，或者错别字，Word 会直接画红波浪线；第二种是逻辑歧义，比如“三个学校的老师来开会”（到底是“三所学校”还是“三位老师”？），字面挑不出语病，但读者理解全歪了。',
     engPerspective:
-      '代码报错也分这两类：少写个括号或拼错属性名，叫 `SyntaxError` 或 `TypeError`，编辑器会直接画红波浪线（Linter）；而如果把“按年代升序”写成了“按字数升序”，代码不会报错，但结果不对，这叫业务逻辑 Bug。',
+      'AI 写代码极少犯“少写半边括号”这种低级语法错（`Syntax Error`）；AI 编程 95% 的翻车，都是因为你的提示词有“歧义”，导致 AI 写出了语法完全正确、但效果跟你想的不一样的“逻辑 Bug（`Logic Bug`）”。',
     visualCompare: {
-      litTitle: '两类文章病病灶',
-      litCode: `[句法硬伤 / 编译报错]：“李白在长安写下了《将进酒”（缺右书名号）\n[逻辑谬误 / 运行时Bug]：“清代诗人李白写下了《将进酒》”（句法通顺，朝代张冠李戴）`,
-      engTitle: '两类代码错误对比',
-      engCode: `// [SyntaxError] 缺少右括号，程序无法启动\nconsole.log("将进酒";\n\n// [Logic Bug] 语法完全合法，但把朝代赋错了值\nconst libai = { name: "李白", dynasty: "清代" };`
+      litTitle: '两种病句对比',
+      litCode: `[语法硬伤]：“余华写下了《活着”（缺右书名号，一眼能看见红线报错）\n[逻辑歧义]：“请按时间排序”（到底是按“作家出生时间”还是“图书出版时间”？升序还是降序？）`,
+      engTitle: '两种代码错误对比',
+      engCode: `// [SyntaxError] 少了右括号，程序直接无法启动\nconsole.log("活着";\n\n// [Logic Bug] 程序没报错，但把“最新出版排前面”写成了“最旧排前面”\nbooks.sort((a, b) => a.year - b.year);`
     },
     aiAction:
-      'AI 写代码极少犯“少括号”这种低级句法错，它最常犯的是“关公战秦琼”式的逻辑错。所以你验收 AI 作品时，不必紧盯代码标点，而要像审史书一样核验业务边界与逻辑结果。'
+      '像做《现代汉语》“消除歧义”练习一样检查你发给 AI 的话：凡是说到“排序、筛选、删除、好看”，一定补齐定语和状语（比如“按出版年份从新到旧降序排列”），不给 AI 留任何猜谜空间。'
   },
   {
     id: 'context-scope',
     category: 'linguistics',
-    categoryLabel: '文字语法与训诂',
-    literaryTerm: '语境、言外之意与词义界域',
-    classicQuote: '王夫之《姜斋诗话》：“无论诗歌与长行文字，俱以意为主。意犹帅也。”',
-    engTerm: '作用域 (Scope) 与 上下文窗口 (Context Window)',
-    engKeywords: ['Global / Local Scope', 'Context Window', 'Closure'],
-    epiphany: '同一个“道”字在老子与韩愈文中含义迥异，这就是变量的“局部作用域”；AI 聊久了忘掉前文，就是超出了“上下文窗口”。',
+    categoryLabel: '现代汉语·语法篇',
+    literaryTerm: '语境（上下文）与一词多义',
+    classicQuote: '陈望道《修辞学发凡》：“离开具体的语境，便无从断定辞语的恰当与否。”',
+    engTerm: '变量作用域 (Scope) · AI 上下文窗口 (Context Window)',
+    engKeywords: ['Local Scope', 'Global Scope', 'Context Window'],
+    epiphany: '同一个词在不同段落里意思不同叫“局部作用域”；跟 AI 聊太久它忘了最开始的要求，是因为装满了它的“上下文窗口”。',
     litPerspective:
-      '训诂学最重“因文定义”：同一个“信”字，在《诗经》里指信使，在《左传》里指诚信，在李白诗里指实在（“海客谈瀛洲，烟涛微茫信难求”）。脱离了当前篇章段落（局部语境），孤立谈字义必生谬误。',
+      '语言学最重“语境”：同样说一句“这书真行”，在夸奖语境里是赞美，在吐槽语境里是反讽；在《第一章》里简称“老王”指的是王熙凤，到了《第二章》简称“老王”可能指的是王冕，各章内部互不干扰。',
     engPerspective:
-      '编程中的“作用域（Scope）”同理：在 A 函数内部定义的变量 `title`（局部变量），B 函数是看不见的，互不污染；而在 AI 编程中，大模型一次能记住的字数上限叫“上下文窗口（Context Window）”，塞进太多无关杂文就会冲淡核心语境。',
+      '在代码里，A 函数内部定义的变量（局部变量 `Local Scope`）只在 A 函数内部有效，绝不会污染外面的同名变量。而在跟 AI 对话时，AI 一次能记住的对话总字数叫“上下文窗口（`Context Window`）”，聊得太杂太长，前面的重点就会被挤出记忆区。',
     visualCompare: {
-      litTitle: '语境决定词义（局部 vs 全局）',
-      litCode: `【通行的字书本义（全局 Global）】“风” = 空气流动之气象\n【《诗经》章节语境（局部 Local）】“风” = 十五国风之地方民谣\n（在《诗经》篇章内谈“风”，优先取局部变量之义）`,
-      engTitle: '代码作用域 (Variable Scope)',
-      engCode: `const meaning = "空气流动"; // 全局变量 (Global Scope)\n\nfunction readShiJing() {\n  const meaning = "十五国风民谣"; // 局部变量 (Local Scope)\n  return meaning; // 输出："十五国风民谣"\n}`
+      litTitle: '篇章语境边界',
+      litCode: `【全书通用简称（全局 Global）】本社 = 人民文学出版社\n【第一回内部语境（局部 Local）】本村 = 绍兴鲁镇\n【第二回内部语境（局部 Local）】本村 = 湘西茶峒`,
+      engTitle: '代码里的全局与局部作用域',
+      engCode: `const publisher = "人民文学出版社"; // 全局变量\n\nfunction chapterOne() {\n  const village = "鲁镇"; // 局部变量，只在第一回内生效\n}\nfunction chapterTwo() {\n  const village = "茶峒"; // 与第一回互不冲突\n}`
     },
     aiAction:
-      '跟 AI 开启新任务时，如果前一段对话已经聊了十几轮杂事，果断开启新会话（清空旧语境污染），只把当前要改的那两个文件 `@` 进来，保持最纯净的“局部语境”。'
-  },
-  {
-    id: 'xungu-naming',
-    category: 'linguistics',
-    categoryLabel: '文字语法与训诂',
-    literaryTerm: '正名与训诂辨析（顾名思义）',
-    classicQuote: '《论语·子路》：“名不正则言不顺，言不顺则事不成。”',
-    engTerm: '命名规范与自解释代码 (Naming Convention)',
-    engKeywords: ['camelCase', 'Semantic Naming', 'Self-Documenting'],
-    epiphany: '把变量起名叫 `a1`、`temp` 就像写文章通篇用“某人”、“某事”；好代码如好文章，见名即知其义。',
-    litPerspective:
-      '古人极重“正名”与修辞炼字：同是“看”，有瞻、仰、睨、瞰、瞥之分；同是文集，有总集、别集、单行本之别。用词精准，读者不待翻检注释便能洞察幽微。',
-    engPerspective:
-      '软件工程名言：“计算机科学中最难的两件事，一是缓存失效，二是给变量命名。”优秀的工程代码讲究“自解释（Self-Documenting）”——函数名用精准的动宾短语（如 `filterPoemsByDynasty`），布尔值用是非问句（如 `isRareEdition`）。',
-    visualCompare: {
-      litTitle: '含糊其辞 vs 炼字正名',
-      litCode: `[含糊其辞]：“某甲于某年将某书做了一番处理。”\n[炼字正名]：“毛晋于崇祯年间将《六十种曲》重加雠校刊行。”`,
-      engTitle: '劣质命名 vs 语义化命名',
-      engCode: `// [反例] 劣质命名：半年后连作者自己都看不懂\nfunction doIt(d, t) { return d.filter(x => x.y === t); }\n\n// [正例] 语义化正名：文科生一眼也能读懂代码在干什么\nfunction filterPoemsByDynasty(poems, targetDynasty) {\n  return poems.filter(poem => poem.dynasty === targetDynasty);\n}`
-    },
-    aiAction:
-      '你可以发挥汉语言对词汇准确度的敏感，要求 AI：“所有变量、函数与数据字段命名必须语义清晰、见名知义，严禁使用 `data1`、`temp`、`handleThing` 等敷衍命名。”'
+      '当你让 AI 修完一个功能、准备开发下一个完全不同的功能时，最聪明的做法是**新开一个对话窗口（清空旧语境干扰）**，只把当前要改的那一两个文件发给它。'
   },
 
-  // ==================== 二、文章与叙事学 ====================
+  // ==================== 二、文学理论·结构篇 ====================
+  {
+    id: 'content-vs-form',
+    category: 'composition',
+    categoryLabel: '文学理论·结构篇',
+    literaryTerm: '内容（故事素材）与形式（体裁排版）',
+    classicQuote: '童庆炳《文学理论教程》：“文学作品是内容与形式的统一体，同一题材可表现为不同体裁形式。”',
+    engTerm: '数据层 (Data) 与 视图层 (UI View) 分离',
+    engKeywords: ['Separation of Concerns', 'Data vs View', 'JSON'],
+    epiphany: '永远要求 AI 把“文字资料（内容）”和“网页排版（形式）”分成两个独立文件放——改错别字不用碰排版，换皮肤不会弄丢文章！',
+    litPerspective:
+      '同一篇《祝福》的纯文本内容，既可以排成横排简体课本，也可以排成竖排繁体线装书，还可以改成话剧剧本。故事内容本身（文字数据）和它穿什么衣服（排版形式）是两码事。',
+    engPerspective:
+      '新手用 AI 写网页最容易踩的坑，就是让 AI 把几十段文章内容直接和 HTML 排版标签混写在一起（硬编码 Hardcode）。一旦你想改个字，就得在几百行代码符号里大海捞针。工程上的铁律是：**数据归 `src/data/`，界面归 `src/components/`**。',
+    visualCompare: {
+      litTitle: '内容与形式混杂 vs 分离',
+      litCode: `[混杂难改]：边写故事边调字号颜色，想把主角名字改掉得翻遍全文排版框。\n[分离清爽]：一份纯文字《人物资料表.json》 + 一套独立的《排版样式模板》。`,
+      engTitle: '数据文件与界面组件分离',
+      engCode: `// 1. src/data/books.js (只放纯粹的文字内容，文科生随时可直接改字)\nexport const BOOKS = [{ title: "活着", author: "余华" }];\n\n// 2. src/App.js (只管怎么排版渲染)\nimport { BOOKS } from './data/books.js';`
+    },
+    aiAction:
+      '在任何项目开工前，给 AI 下达死命令：“请实行数据与视图分离，所有文章、词条、配置文案一律单独存放在 `src/data/` 文件夹下，不要把大段文字直接写死在界面代码里。”'
+  },
   {
     id: 'outline-prd',
     category: 'composition',
-    categoryLabel: '文章与叙事学',
-    literaryTerm: '立意与谋篇大纲（起承转合）',
-    classicQuote: '刘勰《文心雕龙·附会》：“必以情志为神明，事义为骨髓，辞采为肌肤，宫商为声气。”',
-    engTerm: '产品需求文档 (PRD) 与 架构设计 (Architecture)',
-    engKeywords: ['PRD', 'Spec-Driven Development', 'System Design'],
-    epiphany: '没有作家不列大纲就动笔写百万字长篇；同理，让 AI 写代码前先共创一份“谋篇大纲（PRD）”，成功率提升十倍。',
+    categoryLabel: '文学理论·结构篇',
+    literaryTerm: '动笔前列“写作提纲”（总-分-总）',
+    classicQuote: '老舍《谈叙述与描写》：“在动笔以前，必须有通盘的计划，先立好主脑与间架。”',
+    engTerm: '产品需求文档 (PRD) 与 架构设计',
+    engKeywords: ['PRD', 'Spec-Driven', 'System Architecture'],
+    epiphany: '写万字论文不列提纲必跑题；让 AI 写代码前，先让它给你列一份“功能与页面提纲（PRD）”，成功率直接翻十倍。',
     litPerspective:
-      '无论是科举策论的“破题、承题、起讲”，还是长篇小说的“立主脑、脱线索”，高明的写作者动笔前必先立好全篇间架：写给谁看？核心立意是什么？分几卷几回？每回承载什么功能？',
+      '无论是写毕业论文还是长篇小说，没人会不列大纲就埋头狂写。好的提纲会写清：中心论点是什么？分几个章节？每一章讲哪几个要点？哪些内容这次不写？',
     engPerspective:
-      '很多初学者用 AI 编程翻车，是因为一上来就喊“帮我做个古诗词网站”。在软件工程中，动工前必先产出 PRD（需求说明书）与技术方案：目标用户是谁？有哪些核心页面？数据结构长什么样？这叫“文档驱动开发（Spec-Driven Development）”。',
+      '很多人抱怨“AI 写出来的东西根本不是我想要的”，因为他们一上来只发了一句“帮我做个读书网站”。在软件工程里，动工前必须先写 **PRD（产品需求说明书）**：包含几个页面？每张卡片展示哪几个字段？点按钮后发生什么？',
     visualCompare: {
-      litTitle: '《长篇叙事谋篇提纲》',
-      litCode: `一、【立主脑】展现盛唐诗人群像与唱和关系\n二、【定卷目】首卷：长安舆图；次卷：诗人小传；末卷：唱和诗笺\n三、【明边界】暂不收录五代以后词作，保持体例纯粹`,
-      engTitle: '工程需求规格书 (PRD / Spec)',
-      engCode: `# 项目规格书 (Specification)\n- **核心目标**：盛唐诗人唱和关系交互可视化单页应用\n- **功能模块**：1. 地理分布图 2. 诗人详情抽屉 3. 唱和时间轴\n- **非目标 (Non-Goals)**：V1 版本暂不开发用户注册与评论系统`
+      litTitle: '《学年论文写作三级提纲》',
+      litCode: `一、核心论题：鲁迅杂文的修辞特征\n二、章节划分：1.反语讽刺 2.白描肖像 3.曲笔隐喻\n三、边界说明：本文仅讨论《呐喊》《彷徨》与杂文集，暂不涉及古籍校勘。`,
+      engTitle: '发给 AI 的工程提纲 (PRD Spec)',
+      engCode: `# 项目需求提纲 (PRD)\n1. 核心目标：现代作家读书笔记卡片站（优先适配手机端）\n2. 页面模块：顶栏搜索框 + 分类标签条 + 笔记卡片列表 + 底部详情弹窗\n3. 本次不做：暂不需要做复杂的账号注册登录功能`
     },
     aiAction:
-      '永远把 AI 编程拆成两步走：第一步对 AI 说“我有一个想法……请先不要写代码，帮我整理一份结构化的 PRD 大纲与技术实现方案”；等你审阅改定大纲后，第二步再让它按图索骥写代码。'
+      '永远把 AI 编程分成两步走：第一步先对 AI 说“我打算做个……请【先不要写代码】，帮我梳理一份简明的功能模块提纲、数据结构和目录规划”；等你看完点头了，第二步再让它写代码。'
   },
   {
     id: 'paragraph-modularity',
     category: 'composition',
-    categoryLabel: '文章与叙事学',
-    literaryTerm: '义脉分明与“一段一意”',
-    classicQuote: '刘熙载《艺概·文概》：“文之段落，森然有序，似断实续，似续实断。”',
-    engTerm: '模块化、高内聚低耦合与单一职责 (SRP)',
-    engKeywords: ['Modularity', 'High Cohesion', 'Low Coupling', 'Single Responsibility'],
-    epiphany: '一段话只讲透一层意思叫“高内聚”；改第三章的景物描写不会导致第一章的人物暴毙，就叫“低耦合”。',
+    categoryLabel: '文学理论·结构篇',
+    literaryTerm: '分段原则：“一段只讲一层意思”',
+    classicQuote: '叶圣陶《作文论》：“分段之要，在于一意一断，脉络分明，不相杂糅。”',
+    engTerm: '模块化 · 高内聚低耦合 · 单一职责 (SRP)',
+    engKeywords: ['Modularity', 'High Cohesion', 'Low Coupling', 'SRP'],
+    epiphany: '一个文件只干好一件事叫“高内聚”；修改第三章的配图绝不会把第一章的文字搞乱，就叫“低耦合”。',
     litPerspective:
-      '写文章最忌“一锅粥”：在同一段里既谈杜甫生平，又夹杂唐代科举制度考证，还顺带批评明代复古派。好文章必然分段明晰——传记归传记，考证归考证，删改其中一节而全篇骨力不伤。',
+      '批改作文时，最怕看到学生写三千字不分段，把“作者生平、作品销量、个人读后感”全搅和在同一段里，删一句话整段都接不上。好文章必然分段独立，各司其职。',
     engPerspective:
-      '软件工程的最高审美正是“高内聚、低耦合（High Cohesion, Low Coupling）”与“单一职责原则（SRP）”：一个文件、一个函数只干好一件事。把数据存放在 `data/`，把界面组件放在 `components/`，互不纠缠。',
+      '软件工程最核心的词叫 **“高内聚、低耦合（High Cohesion, Low Coupling）”**：把搜索框单独做成一个小零件文件（`SearchBar.js`），把卡片做成另一个小零件文件（`NoteCard.js`）。这样以后你想改搜索框样式，只改那一个小文件就行，绝对不会把页面其他地方改坏！',
     visualCompare: {
-      litTitle: '芜杂合钞 vs 分卷专论',
-      litCode: `[芜杂合钞]：五千字长文不分段，史料、诗评、年表混作一团，牵一发而动全身。\n[分卷专论]：《本纪》《年表》《艺文志》各司其职，修订《年表》绝不惊动《艺文志》。`,
-      engTitle: '面条式代码 vs 模块化架构',
-      engCode: `// [反例] 耦合巨石：一个 3000 行的 index.js 塞满数据、样式和逻辑\n\n// [正例] 模块化分治（高内聚低耦合）：\nsrc/\n  ├── data/poems.js        // 专司史料数据（艺文志）\n  ├── utils/search.js      // 专司检索算法（检字法）\n  └── components/Card.js   // 专司版面呈现（书页装帧）`
+      litTitle: '一锅粥长文 vs 独立章节',
+      litCode: `[一锅粥]：所有内容全塞在一个万字文档里，牵一发而动全身。\n[模块化]：第一章、第二章、附录各自独立成篇，修改附录绝不影响正文。`,
+      engTitle: '模块化文件拆分',
+      engCode: `src/\n  ├── data/notes.js          // 只负责存放笔记文字\n  ├── components/Header.js   // 只负责顶部导航栏\n  ├── components/Card.js     // 只负责单张卡片排版\n  └── utils/search.js        // 只负责关键词搜索逻辑`
     },
     aiAction:
-      '当发现 AI 把所有代码全塞进同一个文件（超过 400 行）时，立即发挥主编威严：“这个文件篇幅过于臃肿，请按单一职责原则将其拆分为独立的数据模块与视图组件。”'
-  },
-  {
-    id: 'allusion-libraries',
-    category: 'composition',
-    categoryLabel: '文章与叙事学',
-    literaryTerm: '用典与互文（据事以类义）',
-    classicQuote: '刘勰《文心雕龙·事类》：“事类者，盖文章之外，据事以类义，援古以证今者也。”',
-    engTerm: '开源库调用 (Libraries / Packages) 与 API 复用',
-    engKeywords: ['import', 'npm package', 'Open Source', 'Don’t Reinvent the Wheel'],
-    epiphany: '辛弃疾写“凭谁问：廉颇老矣”是用四个字调用整部《史记》；程序员写 `import dayjs` 是用一行代码调用前人千锤百炼的历法轮子。',
-    litPerspective:
-      '古典诗词讲究“用典”：诗人不必在七言八句里从头叙述廉颇如何战功赫赫、如何被秦人离间，只需拈出“廉颇老矣”四字，读者脑海中的《史记·廉颇蔺相如列传》便瞬间被唤醒调用，言简而意无穷。',
-    engPerspective:
-      '新手常以为程序员写软件是每个功能都自己从零敲代码。其实工程界有一条铁律：“不要重复造轮子（Don’t Reinvent the Wheel）”。无论是图表绘制（ECharts）、日期换算、全文检索，全球开发者早已写好了无数“典故库（Open Source Libraries）”，只需一行 `import` 即可征引。',
-    visualCompare: {
-      litTitle: '白描铺叙 vs 凝练用典',
-      litCode: `【不善用典】自己花三百字重述战国赵将暮年思报国而遭谗言的来龙去脉……\n【高明用典】“凭谁问：廉颇老矣，尚能饭否？”（直接调用《史记》典故接口）`,
-      engTitle: '手搓轮子 vs 征引开源库 (import)',
-      engCode: `// [反例] 手搓轮子：自己写 500 行代码计算农历干支与节气，还容易算错闰月\n\n// [正例] 征引典故：一行 import 调用成熟开源历法库\nimport { Solar } from 'lunar-javascript';\nconst lunarDate = Solar.fromYmd(2026, 10, 25).getLunar();`
-    },
-    aiAction:
-      '遇到复杂需求（如画人物关系网络图、解析 PDF、做简繁转换）时，先问 AI：“这个需求在业内有哪些成熟轻量的开源库可以引用（用典）？请优先使用成熟方案，不要自己从头手搓底层算法。”'
+      '如果你发现 AI 把所有代码全塞进了一个文件里（比如单个文件超过 400 行），立刻提醒它：“这个文件太臃肿了，请按照‘高内聚低耦合’原则，把数据和不同组件拆分成独立的小文件。”'
   },
   {
     id: 'cipai-components',
     category: 'composition',
-    categoryLabel: '文章与叙事学',
-    literaryTerm: '词牌定格与活字版模',
-    classicQuote: '沈括《梦溪笔谈》：“毕昇为活板……每韵为一贴，木格贮之。”',
-    engTerm: 'UI 组件化开发 (Components) 与 属性传参 (Props)',
-    engKeywords: ['Component', 'Props', 'Reusable UI', 'Template'],
-    epiphany: '《浣溪沙》是固定的格律组件（Component），苏轼填一套词、纳兰填一套词就是传入不同的参数（Props），格律复用而气象万千。',
+    categoryLabel: '文学理论·结构篇',
+    literaryTerm: '填空模板与词牌格律（《浣溪沙》定格）',
+    classicQuote: '王力《诗词格律》：“词有定格，字有定数，韵有定声；词人依谱填词，体式一而意境百出。”',
+    engTerm: '可复用 UI 组件 (Component) 与 属性传参 (Props)',
+    engKeywords: ['Component', 'Props', 'Template', 'Reusable UI'],
+    epiphany: '页面上有 50 张作家卡片，绝不是复制粘贴 50 遍代码，而是先做一个“填空模板（组件）”，再把 50 个人的资料像填词一样传进去（Props）。',
     litPerspective:
-      '词有“词牌”，如《西江月》规定双调五十字、平仄定格；宋代印书也有“雕版栏格”。词牌的格律框架只需制定一次，历代词人往里填入不同的意象字句，便能衍生出成千上万首新作。',
+      '词牌《西江月》规定好了上下片几句、每句几个字、哪里押韵。这套“格律模板”只需要发明一次，苏轼填进赤壁江月，辛弃疾填进稻花丰年，模板复用千次而内容各异。',
     engPerspective:
-      '现代前端框架（React / Vue）的核心就是“组件化（Component）”：页面上有 100 张诗人卡片，绝不是复制粘贴 100 遍 HTML 代码，而是先雕好一个 `<PoetCard />` 模板（词牌定格），再把每位诗人的姓名、生卒年作为参数 `Props`（填词内容）传进去。',
+      '现代网页开发的核心就是 **组件化（Component）**：比如做一个 `<WriterCard />`（作家卡片组件），规定好左上角放名字、右上角放年代、中间放代表作。之后不管你有 10 位还是 1000 位作家，只需要往这个组件里传入不同的参数（`Props`）即可。',
     visualCompare: {
-      litTitle: '词牌定格（组件）与填词（传参）',
-      litCode: `【词牌组件：浣溪沙】平仄定格：七言×3（上片） + 七言×3（下片）\n  ├── 传入参数 A（晏殊） ──► “一曲新词酒一杯，去年天气旧亭台……”\n  └── 传入参数 B（苏轼） ──► “簌簌衣巾落枣花，村南村北响缲车……”`,
-      engTitle: 'UI 组件定义与 Props 复用',
-      engCode: `// 1. 定义一次“词牌定格”组件\nfunction PoetCard({ name, dynasty, quote }) {\n  return <div class="card"><h3>{name} ({dynasty})</h3><p>{quote}</p></div>;\n}\n// 2. 填入不同参数 (Props) 复用百次\n<PoetCard name="晏殊" dynasty="北宋" quote="无可奈何花落去" />\n<PoetCard name="苏轼" dynasty="北宋" quote="一蓑烟雨任平生" />`
+      litTitle: '填空模板与填入不同内容',
+      litCode: `【卡片模板】：姓名：{name} ｜ 年代：{era} ｜ 名言：“{quote}”\n  ├── 填入第 1 组数据 ──► 姓名：鲁迅 ｜ 年代：现代 ｜ 名言：“其实地上本没有路”\n  └── 填入第 2 组数据 ──► 姓名：汪曾祺 ｜ 年代：当代 ｜ 名言：“四方食事，不过一碗人间烟火”`,
+      engTitle: '定义一个组件，传参复用百次',
+      engCode: `// 1. 定义一次卡片模板组件\nfunction WriterCard({ name, era, quote }) {\n  return <div className="card"><h3>{name} ({era})</h3><p>{quote}</p></div>;\n}\n// 2. 传入不同参数 (Props) 生成卡片\n<WriterCard name="鲁迅" era="现代" quote="其实地上本没有路" />\n<WriterCard name="汪曾祺" era="当代" quote="四方食事，不过一碗人间烟火" />`
     },
     aiAction:
-      '当页面中出现重复的卡片、列表项或弹窗时，告诉 AI：“请将这部分抽象为可复用的独立组件（如 `BookCard`），通过传参（Props）渲染不同数据，方便日后统一调整版式。”'
+      '想统一调整页面上所有卡片的样子时，你只需要对 AI 说：“请修改 `WriterCard` 这个公共组件的样式，把标题字号调大一号”，全站所有卡片就会同时自动更新！'
   },
 
-  // ==================== 三、版本目录与校勘学 ====================
+  // ==================== 三、论文写作·改稿篇 ====================
   {
     id: 'cataloging-tree',
     category: 'bibliography',
-    categoryLabel: '版本目录与校勘',
-    literaryTerm: '目录学（辨章学术，考镜源流）',
-    classicQuote: '王鸣盛《十七史商榷》：“目录之学，学中第一紧要事，必从此问涂，方能得其门而入。”',
+    categoryLabel: '论文写作·改稿篇',
+    literaryTerm: '电脑里的“毕业论文文件夹分类整理”',
+    classicQuote: '张之洞《輶轩语》：“治学之要，先明门径；门径既清，检阅自易。”',
     engTerm: '项目文件目录树 (Folder Structure) 与 路由 (Routing)',
-    engKeywords: ['Directory Tree', 'File Architecture', 'URL Routing'],
-    epiphany: '治学先懂《四库》经史子集四部分类，接手软件项目先看文件夹目录树（`src/data`、`src/components`），此即“辨章学术”。',
+    engKeywords: ['Directory Tree', 'package.json', 'index.html', 'src/'],
+    epiphany: '拿到一个代码项目别慌，它就跟你整理好的“毕业论文文件夹”一样：`index.html` 是封面，`src/data` 是参考文献资料夹，`src/styles` 是排版样式夹。',
     litPerspective:
-      '从刘向《别录》到纪昀《四库全书总目》，汉语言学者面对浩如烟海的典籍从不盲目乱读，而是先看总目提要，明晰何书入经部、何书入集部。目录清楚，则百代学术源流了然于胸。',
+      '写毕业论文时，条理清楚的同学会在电脑里建一个总文件夹，里面分设：`01_开题报告与大纲`、`02_参考文献史料`、`03_正文各章节`、`04_答辩PPT与配图`。需要改哪块，一秒就能找到对应文件夹。',
     engPerspective:
-      '文科生打开一个代码仓库最怕看到几十个英文文件夹不知从何下手。其实工程目录树就是“四库分类法”：`package.json` 是《总目提要》，`src/data` 是《史料库》，`src/components` 是《版式活字库》，`src/styles` 是《装帧设色谱》。',
+      '很多文科生第一次打开代码项目，看到十几个英文文件名就头大。其实全世界的软件项目都长一个样，只要记住这 4 个核心位置，你就再也不会迷路：',
     visualCompare: {
-      litTitle: '《四库全书》四部分类架阁',
-      litCode: `四库总目 (Root)\n ├── 经部（常道纲领） ──► 核心配置与全局凡例\n ├── 史部（实录史料） ──► 静态词条与业务数据\n ├── 子部（百工技艺） ──► 工具函数与算法逻辑\n └── 集部（辞章华采） ──► 页面组件与视觉样式`,
-      engTitle: '现代软件工程标准目录树',
-      engCode: `project-root/\n ├── package.json       // 《总目提要》：书名、依赖典故库、启动口令\n ├── index.html         // 《书衣封面》：网页总入口\n └── src/\n      ├── data/         // 【史部】纯粹的数据与文案词条\n      ├── utils/        // 【子部】检索、排序等工具函数\n      ├── components/   // 【集部】页面视图与交互组件\n      └── styles/       // 【集部】色彩与排版样式表`
+      litTitle: '毕业论文文件夹结构',
+      litCode: `我的毕业论文/\n ├── 论文总说明与目录.docx\n ├── 01_原始文献与摘录数据/\n ├── 02_正文各章节模块/\n └── 03_排版字体与配色模板/`,
+      engTitle: '标准代码项目目录树（全天下通用）',
+      engCode: `my-project/\n ├── package.json        // 项目的“身份证”（写着项目名字和启动口令）\n ├── index.html          // 网页的“总入口封面”\n └── src/                // 核心源码文件夹\n      ├── data/          // 放纯文字资料（你最常亲手改字的地方！）\n      ├── components/    // 放页面各个零件（导航栏、卡片、弹窗）\n      └── styles/        // 放颜色、字体、间距样式 (main.css)`
     },
     aiAction:
-      '接手任何项目或让 AI 创建项目时，第一句话先问：“请用目录树的形式向我介绍本项目的文件夹结构，并解释每个目录对应承载什么职责。”'
+      '每当你打开一个新项目，第一句话可以直接问 AI：“请帮我画出当前项目的文件夹目录树，并用大白话告诉我：如果我只想改页面上的文字内容，应该去改哪个文件？”'
   },
   {
     id: 'textual-criticism-git',
     category: 'bibliography',
-    categoryLabel: '版本目录与校勘',
-    literaryTerm: '善本源流、底本与异文汇校',
-    classicQuote: '顾广圻《思适斋文集》：“校书如扫落叶，旋扫旋生。”',
-    engTerm: 'Git 版本控制（Commit · Branch · Diff · Merge）',
-    engKeywords: ['Git Commit', 'Branch', 'Git Diff', 'Revert'],
-    epiphany: '`main` 主分支是“内府定本”，新建 `branch` 是“另抄副本试改”，`git diff` 是“红绿异文比勘”，改砸了一秒恢复善本。',
+    categoryLabel: '论文写作·改稿篇',
+    literaryTerm: '论文初稿、导师批注稿与“撤回上一步”',
+    classicQuote: '胡适《治学方法》：“步步留痕，随时比勘，方知何处增删得宜。”',
+    engTerm: 'Git 版本控制（Commit 存档 · Diff 对比 · Branch 分支）',
+    engKeywords: ['git commit', 'git diff', 'git branch', 'Rollback'],
+    epiphany: '不用再把文件夹复制成“第1版、第2版、最终不改版”了！Git 就像 Word 的“历史版本记录 + 审阅修订模式”，随时对比改动、随时后悔退回。',
     litPerspective:
-      '版本学家研究一部古籍，最重“底本”与“校本”：以最可靠的宋刻本为底本（主线），参校明抄本、清活字本（各分支），用朱笔注出何处增一字、何处删一句（异文比对），最终汇合成博采众长的“定本”。',
+      '改论文最怕两件事：一是改着改着把昨天写得很好的一段话误删了找不回来；二是合作者改完发回来，你不知道他到底偷偷动了哪几句话，只能打开 Word 的“比较文档（红字删除线、绿字新增）”逐行核对。',
     engPerspective:
-      'Git 正是程序员的数字版本学工具：你永远不需要把文件夹复制成 `项目_v1`、`项目_v2_最终版`。每次阶段性完工就 `git commit`（盖藏书印留存底本快照）；想让 AI 尝试激进改版就开个 `branch`（别本），满意则 `merge`（汇校合流），不满意则直接废除别本。',
+      '在 AI 编程里，AI 每次改代码都可能改出新问题。有了 Git，每完成一个小功能你就存档一次（`git commit`）；AI 改完后你可以用 `git diff` 看清它删了哪行（红色减号 `-`）、加了哪行（绿色加号 `+`）；一旦不满意，一键撤回！',
     visualCompare: {
-      litTitle: '古籍版本源流与朱墨对校',
-      litCode: `【底本原文】“落霞与孤鹜齐飞，秋水共长天一色。”\n【异文比勘】\n  - 某妄改本：落霞与孤雁齐飞（朱笔批：误，据宋本删）\n  + 善本定稿：落霞与孤鹜齐飞（墨笔存真）`,
-      engTitle: 'Git Diff 异文比对视图',
-      engCode: `@@ -12,3 +12,3 @@ src/data/poems.js\n- const line = "落霞与孤雁齐飞"; // 红色减号：被删去的旧文\n+ const line = "落霞与孤鹜齐飞"; // 绿色加号：新订正的善本`
+      litTitle: 'Word 审阅修订对比模式',
+      litCode: `【修改前原句】鲁迅于 1918 年发表了《狂人日记》。\n【修订对比】\n  - 删去旧句：鲁迅于 1918 年发表了《阿Q正传》。\n  + 订正新句：鲁迅于 1918 年发表了《狂人日记》。`,
+      engTitle: 'Git Diff 代码改动对比视图',
+      engCode: `@@ src/data/writers.js @@\n- const firstWork = "阿Q正传";   // 红色减号：被删掉的旧内容\n+ const firstWork = "狂人日记";  // 绿色加号：新改上的正确内容`
     },
     aiAction:
-      '养成“每成一功，必落一印”的习惯：每当 AI 帮你调通了一个满意的小功能，立刻让它执行 `git commit` 保存善本；这样就算下一步 AI 把代码改崩了，你也能谈笑间退回完好状态。'
+      '让 AI 做大改动之前，养成习惯先跟它说一句：“在改这个新功能之前，请先帮我把当前正常运行的进度做一次 git commit 存档，以防万一改坏了能随时退回来。”'
   },
   {
-    id: 'four-collations-debug',
+    id: 'allusion-libraries',
     category: 'bibliography',
-    categoryLabel: '版本目录与校勘',
-    literaryTerm: '陈垣“校勘四法”（对校·本校·他校·理校）',
-    classicQuote: '陈垣《校勘学释例》：“校法四例：一曰对校法，二曰本校法，三曰他校法，四曰理校法。”',
-    engTerm: 'Debug 调试与排错四步法',
-    engKeywords: ['Debugging', 'Console Log', 'Diff Check', 'Stack Trace'],
-    epiphany: '千年前校书先生捉拿“鲁鱼亥豕”的四套绝学，竟与今日顶尖工程师排查软件 Bug 的思维路径分毫不差！',
+    categoryLabel: '论文写作·改稿篇',
+    literaryTerm: '引用现成文献与工具书（站在前人肩膀上）',
+    classicQuote: '《荀子·劝学》：“君子生非异也，善假于物也。”',
+    engTerm: '调用开源库 (import Libraries) 与 现成轮子',
+    engKeywords: ['import', 'npm package', 'Open Source', 'SDK'],
+    epiphany: '写论文查公历农历换算直接翻《两千年中西历对照表》，不用自己从头推算天体运行；写代码也一样，直接一行 `import` 调用别人写好的开源工具包！',
     litPerspective:
-      '陈垣先生总结校勘古籍四大名法：1.**对校法**（拿祖本与今本逐字对照）；2.**本校法**（以本书前后文互证，看是否自相矛盾）；3.**他校法**（引证其他典籍或类书）；4.**理校法**（无古本可据时，依文字音韵与义理逻辑推演勘误）。',
+      '做学术研究讲究“善用工具书与前人成果”：如果论文里需要绘制一张唐代地图或查某个字的中古音韵，你直接引用谭其骧《中国历史地图集》或《广韵》即可，绝不需要自己去重新测绘全国地形。',
     engPerspective:
-      '程序出 Bug 时，工程师也是用这四招：1.**对校法**（用 `git diff` 对比报错前后的代码差异，看刚改坏了哪行）；2.**本校法**（打印 `console.log` 检查数据在上下文传递中是否前后不一致）；3.**他校法**（查阅官方文档或标准报错码说明）；4.**理校法**（顺着执行逻辑推演边界条件）。',
+      '很多文科生以为做个“生成二维码”、“导出 PDF”、“画人物关系网图”需要写几万行底层代码。其实全球程序员早就把这些功能做成免费的“开源工具包（Libraries）”了，AI 只需要写一行 `import` 把工具包引进来就能直接用！',
     visualCompare: {
-      litTitle: '《元典章》校勘四法实战',
-      litCode: `1. 对校：比对元刻本与明抄本，抓出抄漏之行\n2. 本校：前卷作“至元十年”，后卷作“至元廿年”，前后互证知其必有一误\n3. 他校：参稽《元史·百官志》核定官名\n4. 理校：据历法推算该年闰月，断定干支讹误`,
-      engTitle: '软件工程 Debug 四步法',
-      engCode: `1. 对校 (Git Diff)：查看刚刚那次修改动了哪几行代码\n2. 本校 (Console.log)：在函数入口与出口打印变量，看数据在哪一步变形\n3. 他校 (Docs/StackTrace)：把红色报错信息原样查验文档或发给 AI\n4. 理校 (Rubber Duck)：让 AI 逐行复述代码执行逻辑，揪出条件漏判`
+      litTitle: '自己闭门造车 vs 善用现成工具书',
+      litCode: `[闭门造车]：自己花三个月手算两千年的闰月与干支纪年，还容易算错。\n[善假于物]：直接查阅现成的《中西历日对照表》工具书，一秒得出准确干支。`,
+      engTitle: '一行 import 调用现成开源库',
+      engCode: `// 不用自己写几百行复杂的图表算法，直接引入成熟的 ECharts 图表库\nimport * as echarts from 'echarts';\n\n// 直接传入人物关系数据，自动画出可拖拽的关系网络图\nchart.setOption({ series: [{ type: 'graph', data: characters }] });`
     },
     aiAction:
-      '遇到 Bug 千万别只对 AI 喊一句“坏了，没用！”。用校勘法给 AI 提供线索：“【本校】我点击了 A 按钮，期望出现 B，实际却出现了 C；【他校】浏览器控制台报错信息如下……请先用理校法分析原因，再动手修改。”'
+      '遇到任何看起来很复杂的功能（比如：把网页保存成图片海报、读取 Excel 表格、画词云图），直接问 AI：“实现这个功能有哪些成熟好用的现成开源库？请直接调用成熟库，不要自己从头手写底层算法。”'
   },
   {
     id: 'polishing-refactoring',
     category: 'bibliography',
-    categoryLabel: '版本目录与校勘',
-    literaryTerm: '文章润色与“删繁就简”',
-    classicQuote: '刘知几《史通·叙事》：“夫国史之美者，以叙事为工；而叙事之工者，以简要为主。”',
-    engTerm: '代码重构 (Refactoring) 与 技术债清理',
-    engKeywords: ['Refactoring', 'DRY Principle', 'Clean Code', 'Technical Debt'],
-    epiphany: '“删繁就简三秋树”——不改变文章原本要表达的史实与立意，只把啰嗦重复的词句修剪得干净利落，这就叫“代码重构”。',
+    categoryLabel: '论文写作·改稿篇',
+    literaryTerm: '改稿润色：“删繁就简，意思不变”',
+    classicQuote: '欧阳修修改《醉翁亭记》，删去初稿数十字啰嗦铺垫，只留“环滁皆山也”五字。',
+    engTerm: '代码重构 (Refactoring)',
+    engKeywords: ['Refactoring', 'Clean Code', 'DRY Principle'],
+    epiphany: '不改变文章原本要表达的意思，只把啰嗦重复的车轱辘话删改得干净利落，在软件工程里就叫“代码重构（Refactoring）”。',
     litPerspective:
-      '初稿往往泥沙俱下、枝蔓横生。欧阳修撰《新五代史》、作《醉翁亭记》，初稿写滁州四面有山用了几十个字，最后尽数删去，只留“环滁皆山也”五字——事实分毫未变，而文气顿时清健百倍。',
+      '我们写完初稿后，常会做一次“润色统稿”：把散落在三个段落里重复讲的同一句话提炼合并到开头，把拗口的长句拆短。改完之后，文章表达的观点和事实一丁点没变，但结构清爽了十倍。',
     engPerspective:
-      '在 AI 辅助编程中，经过几轮修修补补，代码里常会攒下很多重复逻辑、废弃变量（这叫“技术债 Technical Debt”）。每隔一个阶段做一次“重构（Refactoring）”：规定**外在功能表现分毫不变**，仅提炼公共函数、合并重复代码、理顺目录，让系统重归轻盈。',
+      '带着 AI 连续改了十几个回合后，代码里往往会留下很多不再使用的废变量，或者同一个筛选逻辑在三个地方复制粘贴了三遍。这时候做一次 **重构（Refactoring）**——要求外在页面效果和功能完全不变，只把内部代码清理干净，后续再加新功能就不容易出错。',
     visualCompare: {
-      litTitle: '欧阳修润色《醉翁亭记》',
-      litCode: `【初稿枝蔓】“滁州之西南，泉水之涯，欧阳公作州之二年，构亭曰丰乐，东山南山北山皆环绕之……”（表意虽通，文气冗沓）\n【重构定稿】“环滁皆山也。”（功能语义不变，结构极尽凝练）`,
-      engTitle: '代码重构 (Refactoring)',
-      engCode: `// [初稿] 三处重复写同样的朝代筛选逻辑（冗沓枝蔓）\n\n// [重构后] 提炼为五字箴言般的通用函数，外在行为完全不变\nconst byDynasty = (list, d) => list.filter(item => item.dynasty === d);`
+      litTitle: '初稿啰嗦重复 vs 润色提炼',
+      litCode: `[初稿车轱辘话]：在第一页写了一遍“怎么按年份排序”，第二页又抄了一遍，第三页又抄了一遍。\n[统稿润色后]：把“按年份排序”提炼成一条通用规则，三页直接共用。`,
+      engTitle: '代码重构 (Refactoring) 提炼公共函数',
+      engCode: `// 重构前：3 个组件里各自写了一遍重复的排序代码\n\n// 重构后：提炼成一个干净的通用小函数，全站共用，外在表现完全不变\nexport function sortByYearDesc(list) {\n  return [...list].sort((a, b) => b.year - a.year);\n}`
     },
     aiAction:
-      '当你的小工具已经能正常运行，但想继续加新功能前，可以先对 AI 下达一道“润色令”：“请在不改变任何现有页面功能与视觉效果的前提下，对当前代码进行重构（Refactoring），消除重复代码并理顺结构。”'
+      '当你的作品功能已经调通，但感觉 AI 改起来越来越慢时，对它发一条指令：“请在不改变任何现有页面外观与功能的前提下，对代码进行一次重构（Refactoring），清理废弃代码并提炼重复逻辑。”'
   },
 
-  // ==================== 四、修辞与文体学 ====================
-  {
-    id: 'prosody-json',
-    category: 'rhetoric',
-    categoryLabel: '修辞与文体学',
-    literaryTerm: '律诗格律与公文程式（六部题本）',
-    classicQuote: '元稹《唐故工部员外郎杜君墓系铭》：“铺陈终始，排比声韵……属对律切，而脱弃凡近。”',
-    engTerm: '结构化数据协议 (JSON Schema / 接口契约)',
-    engKeywords: ['JSON', 'Schema', 'Structured Output', 'Type Contract'],
-    epiphany: '散文可以散漫无拘，但格律诗与奏折必须字字入格、对仗工整；让 AI 或程序之间交换数据，必须用“JSON 格律”。',
-    litPerspective:
-      '文体有散体与骈律之分：写私人随笔大可信马由缰；但若是朝廷户部报销钱粮的“黄册”，或是近体七律，则何处填数字、何处对平仄、何处盖骑缝章，差半个字便算违制，无法汇入总册。',
-    engPerspective:
-      '自然语言（散文）虽然生动，但程序代码无法直接用散文做筛选和画图。因此软件工程发明了 `JSON`（一种由花括号 `{}` 与方括号 `[]` 组成的严谨格律）：规定每条记录必须包含相同的字段名（Key）和数据类型（Value），从而让程序能批量检索与渲染。',
-    visualCompare: {
-      litTitle: '散漫随笔 vs 严整黄册格眼',
-      litCode: `【散体随笔（难做程序筛选）】“子瞻在密州时写过一首江城子，那是乙卯年正月二十日夜里记梦之作……”\n【黄册格眼（结构化表格）】撰人：苏轼 | 词牌：江城子 | 纪年：1075 | 主题：记梦悼亡`,
-      engTitle: '自然语言 vs JSON 结构化协议',
-      engCode: `{\n  "author": "苏轼",\n  "cipai": "江城子",\n  "year": 1075,\n  "tags": ["密州", "记梦", "悼亡"],\n  "isClassic": true\n}`
-    },
-    aiAction:
-      '如果你想用 AI 批量整理古籍文献或生成网站词条，千万别让它直接输出一篇散文，而是命令它：“请严格按照以下 JSON Schema（格眼体例）输出数据，包含 `title`、`author`、`tags` 三个字段，以便程序直接渲染。”'
-  },
+  // ==================== 四、AI 沟通·审稿篇 ====================
   {
     id: 'fanli-system-prompt',
     category: 'rhetoric',
-    categoryLabel: '修辞与文体学',
-    literaryTerm: '书前《凡例》与编纂体例',
-    classicQuote: '章学诚《文史通义·书教》：“古人著书，必有凡例，所以明一书之体要也。”',
-    engTerm: '全局系统规则 (`CLAUDE.md` / `.cursorrules` / System Prompt)',
-    engKeywords: ['System Prompt', 'CLAUDE.md', '.cursorrules', 'Coding Standards'],
-    epiphany: '一部大书开卷必立《凡例》十条，规定全书称谓、避讳与引书体式；项目根目录下的 `CLAUDE.md` 就是给 AI 幕僚立的《修书凡例》。',
+    categoryLabel: 'AI 沟通·审稿篇',
+    literaryTerm: '期刊征稿启事里的《投稿体例要求》',
+    classicQuote: '《中国社会科学》引文注释规范：“凡向本刊投稿，须严格遵守以下版式与引文体例。”',
+    engTerm: '全局系统规则文件 (CLAUDE.md / .cursorrules)',
+    engKeywords: ['System Prompt', 'CLAUDE.md', '.cursorrules', 'Project Rules'],
+    epiphany: '把你的审美要求和规矩写进项目根目录的 `CLAUDE.md` 文件里，就像在编辑部墙上贴了一张《写稿总规矩》，AI 每次动笔前都会自动先看一眼！',
     litPerspective:
-      '翻开《四库全书》或任何一部严谨的古籍整理著作，正文之前必有一篇《凡例》：说明本书以何本为底本、异体字如何处理、纪年采用何种体式、何种史料不予收录。有了《凡例》，数十位纂修官才能如出一人之手。',
+      '如果你是杂志主编，肯定不想每次来一个新实习生，都得把“标题用宋体、正文首行缩进两格、禁用网络流行语”重复唠叨一百遍。最省事的办法是印一份《写稿体例手册》放在桌上，谁写稿都得照着来。',
     engPerspective:
-      '为什么有时候 AI 写着写着风格就变了，或者总是犯同一个错误？因为你没有在项目根目录立一份《凡例》（如 `CLAUDE.md` 或 `.cursorrules`）。只要把项目的技术栈、目录规矩、视觉配色、禁止事项写进这份文件，AI 每次动笔前都会自动先读一遍《凡例》。',
+      '为什么有时候跟 AI 聊着聊着，它又开始乱用刺眼的紫色渐变背景，或者又把所有代码塞进一个文件？因为对话变长后它忘了！只要在项目根目录建一个叫 `CLAUDE.md`（或 `.cursorrules`）的文件写好规矩，AI 每次写代码前都会自动读取这份“置顶家规”。',
     visualCompare: {
-      litTitle: '《点校本二十四史·修书凡例》',
-      litCode: `一、凡底本明显讹字，径改并出校记。\n二、凡人名用专名号（下加横线），书名用波浪线。\n三、凡纪年一律夹注公元纪年，不得前后歧出。`,
-      engTitle: '项目根目录 CLAUDE.md / .cursorrules',
-      engCode: `# 《文心雕码》项目修书凡例\n1. 视觉风格：坚持新中式宣纸暖白 (#FAF7F2) 与朱砂红 (#B83B2B)，禁用刺眼荧光色。\n2. 架构纪律：所有词条数据必须存入 src/data/，严禁在组件内硬编码大段文案。\n3. 校勘规矩：每次修改前先说明改动范围，保持高内聚低耦合。`
+      litTitle: '《编辑部常驻写稿规范》',
+      litCode: `1. 全刊统一采用温和的纸张米白底色，禁用刺眼荧光色。\n2. 每次改稿前先向主编汇报打算改哪一节，不可擅自删改其他章节。\n3. 遇到专业术语需附上简明中文脚注。`,
+      engTitle: '项目根目录下的 CLAUDE.md 规则文件',
+      engCode: `# 项目常驻开发规范 (Project Rules)\n1. 视觉风格：保持 Claude Editorial 暖米白 (#F5F4ED) 与赤陶色 (#C96442)。\n2. 架构铁律：数据文件统一放在 src/data/，严禁把文案硬编码在组件里。\n3. 协作纪律：每次修改前先说明改动范围，关键函数需附中文注释。`
     },
     aiAction:
-      '开启任何一个稍微正式的项目时，第一件事就是让 AI 帮你在根目录生成一份 `CLAUDE.md`（或 `.cursorrules`）《修书凡例》，把你的审美偏好与架构铁律固化下来。'
+      '开始做任何一个正式项目时，第一件事就是对 AI 说：“请先在项目根目录下帮我创建一个 `CLAUDE.md` 规范文件，把我们的配色方案、目录结构规矩和中文注释要求写进去。”'
+  },
+  {
+    id: 'prosody-json',
+    category: 'rhetoric',
+    categoryLabel: 'AI 沟通·审稿篇',
+    literaryTerm: '填标准报名表 vs 写自由散文',
+    classicQuote: '表格化信息整理：“将散乱的自然语言段落，提炼为字段统一的条目卡片。”',
+    engTerm: '结构化数据格式 (JSON Schema)',
+    engKeywords: ['JSON', 'Key-Value', 'Schema', 'Array of Objects'],
+    epiphany: '程序没法直接把一篇散文拿来按年代筛选，但只要让 AI 把散文整理成“JSON 填空表（带固定栏目名）”，就能瞬间变成可搜索、可筛选的互动网站！',
+    litPerspective:
+      '假设你要统计班里 50 个同学的籍贯和出生年月。如果让大家交一篇《我的自传》散文，你得读断腿；但如果发一张固定栏目的《登记表》（姓名、出生年份、籍贯、爱好），你一秒钟就能按籍贯分类汇总。',
+    engPerspective:
+      '在软件工程里，这种“标准登记表”就叫 **JSON**。它只用两种符号：花括号 `{}` 代表一张登记卡（里面是一对对的 `"栏目名": "内容"`），方括号 `[]` 代表把几十张登记卡装成一沓列表。看懂下面这五行，你就彻底懂了 JSON：',
+    visualCompare: {
+      litTitle: '散文描述 vs 标准资料卡',
+      litCode: `[散文描述]：余华是当代著名作家，1992年写出了震撼人心的《活着》，归属先锋文学与现实主义。\n[标准资料卡]：书名：活着 ｜ 作者：余华 ｜ 年份：1992 ｜ 标签：[先锋文学, 现实主义]`,
+      engTitle: '完全对应的 JSON 数据格式',
+      engCode: `{\n  "title": "活着",\n  "author": "余华",\n  "year": 1992,\n  "tags": ["先锋文学", "现实主义"]\n}`
+    },
+    aiAction:
+      '当你手头有一大堆Word读书笔记或文献段落，想做成网站时，先把文字发给 AI 说：“请帮我把这些文字整理成标准的 JSON 数组格式，每条必须包含 `title`、`author`、`year`、`summary` 四个字段。”'
   },
   {
     id: 'commentary-comments',
     category: 'rhetoric',
-    categoryLabel: '修辞与文体学',
-    literaryTerm: '传注、眉批与双行夹注',
-    classicQuote: '孔颖达《毛诗正义》：“注者，著也，言为之解说，使其义著明也。”',
-    engTerm: '代码注释 (Comments) 与 文档字符串 (JSDoc)',
-    engKeywords: ['Code Comments', 'JSDoc', 'README.md', 'Why not What'],
-    epiphany: '好的夹注不啰嗦字面意思，而是点破“作者为何在此处用典”；好的代码注释也不复述语法，而是写清“当时的业务考量”。',
+    categoryLabel: 'AI 沟通·审稿篇',
+    literaryTerm: '文章里的“括号夹注”与“剧本舞台提示”',
+    classicQuote: '剧本格式：“凡括号内之舞台说明，仅供导演与演员明晓调度意图，演出时切勿朗读。”',
+    engTerm: '代码注释 (Comments //) 与 说明文档 (README)',
+    engKeywords: ['Comments', 'JSDoc', 'README.md'],
+    epiphany: '代码里以 `//` 开头的中文句子叫“注释”，电脑运行程序时会自动忽略它，但它能帮你像读带译注的书一样，一眼看懂每段代码是干什么的！',
     litPerspective:
-      '古籍中有毛传、郑笺、孔颖达疏，还有金圣叹、脂砚斋的“眉批”与“双行夹注”。高明的批注绝不会在“吃饭”二字下注解“用嘴咀嚼米饭”，而是点明：“此处看似闲笔叙家常，实为后文风波埋下伏笔”——注其“所以然”。',
+      '看话剧剧本时，台词旁边常有括号小字：“（走到窗前，压低声音）”。演员在台上绝不会把这八个字念出来，它是写给演员和导演看“这段话为什么要这么演”的提示说明。',
     engPerspective:
-      '代码中的 `// 注释` 与 `/** JSDoc */` 就像古籍夹注，程序运行时会自动忽略它们，但它们是写给“未来的你”和“下一轮接手的 AI”看的。让 AI 在关键函数旁用中文写明业务意图，你就永远不会对代码感到陌生。',
+      '很多文科生不敢打开代码文件，是因为里面全是英文。其实你完全可以让 AI 在每一段核心代码上方，用 `// 中文注释` 写清楚“这一段负责搜索过滤”、“这一段负责打开底部弹窗”——电脑跑程序时完全忽略注释，但你打开文件就像看中文说明书一样清楚！',
     visualCompare: {
-      litTitle: '脂砚斋《红楼梦》双行夹注',
-      litCode: `正文：忽见那厢来了一僧一道，生得骨格不凡。\n【甲戌侧批：此系全书总纲人物，专司点化迷津，非寻常游方僧道可比。】`,
-      engTitle: '高质量中文代码夹注 (JSDoc)',
-      engCode: `/**\n * 【总纲检索函数】按朝代与关键词双重过滤词条\n * 注：此处采用大小写不敏感匹配，以兼容英文术语检索\n */\nexport function filterEntries(entries, category, keyword) { ... }`
+      litTitle: '剧本里的括号提示（不念出来，仅供理解）',
+      litCode: `（注意：以下段落专门用于处理读者未输入关键词时的提示，勿删）\n台词正文：“请问您想查找哪位作家的作品？”`,
+      engTitle: '带中文注释的代码（文科生也能轻松看懂）',
+      engCode: `// 【搜索过滤函数】根据用户输入的关键词，筛选出匹配的图书卡片\n// 注：已做大小写兼容处理，如果关键词为空则返回全部图书\nfunction filterBooks(books, keyword) {\n  if (!keyword) return books;\n  return books.filter(b => b.title.includes(keyword));\n}`
     },
     aiAction:
-      '你可以理直气壮地向 AI 提出要求：“我是一名汉语言文学背景的创作者，请在生成关键逻辑函数时，为我附上简明扼要的【中文夹注（JSDoc）】，说明该函数的作用与参数含义。”'
+      '大胆向 AI 提出要求：“我是汉语言文学背景的创作者，请在你编写的每个关键函数和模块上方，用清晰的中文加上注释，说明这段代码的作用，方便我阅读和维护。”'
   },
   {
     id: 'chief-editor-review',
     category: 'rhetoric',
-    categoryLabel: '修辞与文体学',
-    literaryTerm: '总纂官审稿与覆校签发',
-    classicQuote: '欧阳修《归田录》：“文章不厌百回改，反复涂乙，终至善境。”',
-    engTerm: '代码审阅 (Code Review) 与 验收测试 (Acceptance Test)',
-    engKeywords: ['Code Review', 'Acceptance Criteria', 'Edge Cases'],
-    epiphany: '不用亲手砌砖也能验收亭台楼阁是否漏雨；文科生不背语法，照样能用“边界拷问法”做最严苛的总纂审稿官。',
+    categoryLabel: 'AI 沟通·审稿篇',
+    literaryTerm: '主编审稿三问（挑刺与极端情况测试）',
+    classicQuote: '叶圣陶论编辑审稿：“必设身处地，代读者试读，察其有无缺漏、枝梧与不便之处。”',
+    engTerm: '验收测试 (Acceptance Test) 与 边界条件 (Edge Cases)',
+    engKeywords: ['Code Review', 'Edge Cases', 'Empty State', 'Mobile Responsive'],
+    epiphany: '不会写代码，怎么验收 AI 干得好不好？用“主编挑刺三问”：搜不到东西怎么办？字太多撑破框怎么办？在手机小屏幕上点得到吗？',
     litPerspective:
-      '清代修书局里，纂修官交上初稿后，总纂官如何审稿？一看《体例》是否合乎凡例；二看《引文》有无孤证妄断；三看《极端情形》（如遇到生僻字、缺页残卷时如何处理）。',
+      '一个好主编审阅版面样刊时，绝不会只看正常段落，一定会专门检查极端情况：如果某篇文章标题长达 40 个字，目录页会换行错位吗？如果某一栏刚好没有配图，版面会留出一块难看的空洞吗？',
     engPerspective:
-      '很多文科同学问：“我不懂代码细节，怎么检查 AI 写得好不好？”答案是做**验收测试（Acceptance Test）与边界审阅（Edge Case Review）**：当用户什么都没输入就点搜索会怎样（空状态）？当文字长达一万字会撑破卡片吗（溢出状态）？手机小屏幕上字会挤在一起吗（响应式状态）？',
+      '程序员写代码最容易只顾“理想情况（Happy Path）”，而忽略“边界情况（Edge Cases）”。你作为产品主编，每次 AI 交稿后，只需要用下面这三招去点按测试，就能做出超越 90% 业余开发者的精品应用：',
     visualCompare: {
-      litTitle: '《总纂官覆校三问》',
-      litCode: `一问（常例）：寻常词条展现是否端庄清朗？\n二问（阙文）：若某诗人“生卒年不详”或“查无此诗”，版面是否留有得体阙文提示？\n三问（长卷）：若遇《长恨歌》千字长篇，卷轴能否从容舒展而不溢出版框？`,
-      engTitle: '软件工程验收测试清单 (Edge Cases)',
-      engCode: `- [x] Happy Path：正常输入“苏轼”，准确展示词条卡片\n- [x] Empty State：搜索“外星人”无结果时，展示典雅的“未寻得此卷”空状态提示\n- [x] Overflow：超长文本自动折行或滚动，不破坏卡片网格布局`
+      litTitle: '主编审阅样刊三问',
+      litCode: `一问【空白情况】：如果读者搜了一个不存在的词，页面是尴尬地一片空白，还是有礼貌的提示？\n二问【超长情况】：如果填入一段五百字的长笔记，卡片会被撑变形吗？\n三问【手机情况】：拿到手机窄屏幕上，按钮会不会太小、太挤？`,
+      engTitle: '对应的工程边界验收清单 (Edge Cases)',
+      engCode: `- [x] 空状态 (Empty State)：搜索无结果时，显示“未找到匹配词条”及【重置筛选】按钮\n- [x] 溢出处理 (Overflow)：长文本自动折行或局部滚动，严禁撑破卡片外框\n- [x] 移动端适配 (Mobile UX)：所有按钮高度 >= 44px，手机单手大拇指轻松点按`
     },
     aiAction:
-      '每次 AI 交稿后，用“总纂三问”拷问它：“如果用户搜索不到结果（空状态）、或者输入超长文字（极端情况）、或者在窄屏幕上浏览，当前页面有做妥善处理吗？请帮我补齐这些边界体验。”'
+      '每次 AI 做完一个页面，把这句万能审稿令发给它：“请帮我自查并补齐三个边界体验：1.搜索无结果时的空状态提示与重置按钮；2.超长文字防撑破处理；3.手机小屏幕下的单列排版与大按钮适配。”'
   }
 ];

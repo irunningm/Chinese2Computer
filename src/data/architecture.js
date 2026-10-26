@@ -1,362 +1,356 @@
-// 卷一 · 营造法式：软件工程全景沙盘数据（以“皇家书院与丛书刊刻局”映射现代全栈软件工程）
+// 01 · 全局全景：用“排一篇互动公众号推文 / 运营现代杂志社”看懂软件工程 6 大核心模块
 
 export const ARCHITECTURE_NODES = [
   {
     id: 'frontend',
-    order: '壹',
-    literaryTitle: '书籍装帧与版式',
-    literarySub: '天头地脚 · 字号行距 · 插画翻页',
-    engTitle: '前端 (Frontend / UI)',
+    order: '01',
+    literaryTitle: '公众号排版与杂志版面',
+    literarySub: '文字草稿 · 秀米样式 · 点击互动',
+    engTitle: '前端界面 (Frontend / UI)',
     engTech: 'HTML · CSS · JavaScript / React',
     badge: '读者可见层',
-    color: 'cinnabar',
-    summary: '读者捧起书卷时直接看到、摸到、翻阅的一切视觉与交互体验。',
+    summary: '你在手机或电脑屏幕上直接看到、能用手指点按的一切画面与排版。',
     metaphorDetail:
-      '古籍刊印讲究版框高低、行款疏密、鱼尾牌记与插图绣像；现代软件的“前端”正是这层直接面向读者的书页。它不负责深奥的史料考据，只负责把内容优雅、清晰、可互动地呈现在屏幕上。',
+      '把做网站或 App 想象成排版一篇互动公众号推文：前端不管后台复杂的账号权限或数据统计，它只负责把内容漂漂亮亮地摆在读者眼前，并且当你点击按钮时给出丝滑的反馈。',
     threePillars: [
       {
-        lit: '章节骨架與正文排布',
-        eng: 'HTML (超文本标记语言)',
-        desc: '决定哪里是卷首标题 (`<h1>`)、哪里是正文段落 (`<p>`)、哪里是目录列表 (`<ul>`)。'
+        lit: '纯文字初稿（分清标题、段落、配图）',
+        eng: 'HTML (页面骨架)',
+        desc: '就像没加任何样式的 Word 初稿，只负责标记“哪句是一级标题 (`<h1>`)、哪段是正文 (`<p>`)、哪里放按钮 (`<button>`)”。'
       },
       {
-        lit: '装帧设色与版面气韵',
-        eng: 'CSS (层叠样式表)',
-        desc: '决定宣纸底色 (`#FAF7F2`)、宋体字号、天头留白与双栏布局。'
+        lit: '套用秀米/杂志排版模板（配色、字号、留白）',
+        eng: 'CSS (视觉样式表)',
+        desc: '负责给光秃秃的文字穿衣服：定背景底色、选衬线字体、调卡片圆角与左右边距，让版面高级好看。'
       },
       {
-        lit: '翻页机关与批注展开',
-        eng: 'JavaScript (交互脚本)',
-        desc: '当读者点击“查看夹注”时弹窗展开，或输入关键词时实时筛选词条。'
+        lit: '公众号里的互动机关（点击展开答案、切换标签）',
+        eng: 'JavaScript (交互逻辑)',
+        desc: '让静态页面“活”起来：比如读者点击“查看解析”弹出抽屉，或者在搜索框打字时实时筛选卡片。'
       }
     ],
     codeComparison: {
-      litLabel: '《刊刻版式凡例》',
-      litContent: `【卷首大题】宋体二号字，居中，朱砂色\n【正文段落】每行廿八字，行距一倍半\n【交互机关】若读者轻触“展开评点”，则浮出眉批小窗`,
-      engLabel: 'Frontend Component (React / CSS)',
-      engContent: `<article className="bg-xuan-paper leading-relaxed">\n  <h1 className="font-serif text-2xl text-cinnabar text-center">{title}</h1>\n  <button onClick={() => setShowComment(true)}>展开评点</button>\n</article>`
+      litLabel: '日常写作/排版要求',
+      litContent: `1. 放一个大标题《现代文学名篇》\n2. 配色用护眼暖白底色，标题文字居中\n3. 底下放一个按钮，读者点击后弹出作者简介`,
+      engLabel: '对应的前端代码 (React / HTML)',
+      engContent: `<div className="bg-warm-paper text-center p-6">\n  <h1>现代文学名篇</h1>\n  <button onClick={() => showBio()}>查看作者简介</button>\n</div>`
     },
     aiPromptTip:
-      '跟 AI 聊前端时，用你最擅长的“版面视觉语言”：告诉它“留白要疏朗（padding）、主次分明（字号层级）、配色取宋刻本宣纸暖白”，AI 瞬间就能写出高级的 CSS。'
+      '跟 AI 聊前端界面时，直接用你平时改海报、排公众号的语言：“字号层级要拉开、留白要宽松（增加 padding）、按钮要大一点方便手机手指点击”，AI 一秒就能听懂。'
   },
   {
     id: 'api',
-    order: '贰',
-    literaryTitle: '驿站传书与通关文牒',
-    literarySub: '前堂点书 · 驿使奉牌 · 依格交割',
-    engTitle: '接口协议 (API & JSON)',
-    engTech: 'RESTful API · HTTP Request / Response · JSON',
-    badge: '通信枢纽层',
-    color: 'amber',
-    summary: '前堂接待处（前端）与后堂内阁（后端）之间按严格公文程式传递消息的信使机制。',
+    order: '02',
+    literaryTitle: '前后台之间的“标准传菜小票”',
+    literarySub: '前台点单 · 按格式传话 · 后台出餐',
+    engTitle: 'API 接口与 JSON 协议',
+    engTech: 'HTTP Request / Response · JSON',
+    badge: '传话通道层',
+    summary: '前端画面与后端大脑之间按固定表格格式传递消息的“传话筒”与“快递单”。',
     metaphorDetail:
-      '读者在前堂（网页）想调阅《苏轼词全集》，不能自己闯进后堂藏书阁乱翻，必须填一张格式严整的“调书腰牌”（HTTP Request）。驿使持牌跑向后堂，后堂查验无误后，将书卷装入标准函套（JSON Response）送回前堂。',
+      '就像餐厅里服务员（前端）站在大厅招待客人，厨师（后端）待在后厨炒菜。客人点了一道菜，服务员不能冲进后厨乱喊，而是打印一张格式固定的“点菜单”（API 请求）递进传菜口；后厨做好菜后，再从传菜口端出来（API 响应）。',
     threePillars: [
       {
-        lit: '公文动词（调阅 / 呈递 / 勘误 / 销毁）',
-        eng: 'HTTP Methods (GET / POST / PUT / DELETE)',
-        desc: '`GET` 是调阅索书，`POST` 是呈交新稿入库，`PUT` 是修订旧稿，`DELETE` 是销毁底本。'
+        lit: '四种标准动作（查资料 / 交新稿 / 改旧稿 / 删稿）',
+        eng: 'HTTP 请求方法 (GET / POST / PUT / DELETE)',
+        desc: '`GET` 是向后台查数据，`POST` 是提交新内容（如发评论），`PUT` 是修改内容，`DELETE` 是删除。'
       },
       {
-        lit: '标准公文函套（贴黄与目次）',
+        lit: '全国统一的“填空表格”格式',
         eng: 'JSON 数据格式',
-        desc: '无论前堂用什么装帧，驿使包裹里一律采用 `{ "author": "苏轼", "poems": [...] }` 的键值对结构。'
+        desc: '电脑不喜欢读散文，最喜欢读带固定栏目的表格。`{ "title": "活着", "author": "余华" }` 这种花括号键值对就叫 JSON。'
       },
       {
-        lit: '内阁回执印信（准奏 / 查无此卷 / 越权）',
-        eng: 'HTTP 状态码 (200 / 404 / 403 / 500)',
-        desc: '`200` 奉旨准行；`404` 藏书阁查无此卷；`403` 无腰牌不得入内；`500` 后堂走水（服务器报错）。'
+        lit: '后厨回执单状态（成功 / 查无此物 / 后厨故障）',
+        eng: '状态码 (200 / 404 / 500)',
+        desc: '`200` 代表一切顺利；`404` 代表你要找的页面或资料不存在；`500` 代表后台程序出故障崩了。'
       }
     ],
     codeComparison: {
-      litLabel: '《驿站调书文牒》',
-      litContent: `【牒文动作】调阅 (GET)\n【索书路径】/藏书阁/宋词/苏轼\n【回执印信】贰佰 (200 准奏)\n【奉回书函】{ "作者": "苏轼", "代表作": ["念奴娇", "定风波"] }`,
-      engLabel: 'HTTP API Request & JSON Response',
-      engContent: `// 请求：GET /api/poets/sushi\n// 响应 Status: 200 OK\n{\n  "author": "苏轼",\n  "dynasty": "宋",\n  "works": ["念奴娇·赤壁怀古", "定风波"]\n}`
+      litLabel: '前台向后台发的“索书单”',
+      litContent: `【动作】查询 (GET)\n【查找条件】作者 = 余华\n【后台传回的标准卡片】\n作者：余华 ｜ 代表作：《活着》《许三观卖血记》`,
+      engLabel: 'API 请求与返回的 JSON 数据',
+      engContent: `// 请求：GET /api/books?author=余华\n// 返回状态：200 OK\n{\n  "author": "余华",\n  "books": ["活着", "许三观卖血记"]\n}`
     },
     aiPromptTip:
-      '当你想让网页接入大模型或外部数据时，告诉 AI：“请帮我拟定前后端交割的 JSON 契约（公文体例），并做好 404/500 驿站断联时的体面兜底提示。”'
+      '当你的网站需要接大模型 API 或查后台数据时，告诉 AI：“请帮我定义清晰的前后端 JSON 数据字段格式，如果接口请求失败或网络断开，请在页面上给出友好的中文提示。”'
   },
   {
     id: 'backend',
-    order: '叁',
-    literaryTitle: '内阁批红与编辑部',
-    literarySub: '核验腰牌 · 考据加工 · 统筹裁断',
+    order: '03',
+    literaryTitle: '幕后编辑部与审稿大脑',
+    literarySub: '核验身份 · 核心计算 · 保管密码锁',
     engTitle: '后端服务 (Backend / Server)',
-    engTech: 'Node.js · Python · Business Logic · Auth',
-    badge: '核心逻辑层',
-    color: 'bamboo',
-    summary: '隐藏在幕后的总编室与内阁：负责定规矩、查身份、算账目、调配各方资源。',
+    engTech: 'Node.js · Python · Business Logic · .env',
+    badge: '幕后大脑层',
+    summary: '读者看不见的幕后总控室：负责定规则、算数据、查会员权限、锁好机密钥匙。',
     metaphorDetail:
-      '前堂书铺只管貌美，真正的规矩全在后堂编辑部。比如：这位读者有没有借阅孤本的权限（鉴权 Auth）？他提交的诗稿合不合平仄格律（业务校验 Validation）？如何把三本史书的记载汇总成一份年表（数据处理 Logic）？全由后端裁断。',
+      '为什么不能什么事都在前端网页里干？因为前端网页的代码是完全公开给所有读者看的。凡是涉及“核对账号密码”、“扣费充值”、“调用付费 AI 接口”或者“在十万条文献里做复杂运算”的事，都必须藏在幕后的编辑部（后端服务器）里完成。',
     threePillars: [
       {
-        lit: '门禁核验腰牌',
-        eng: '身份认证与鉴权 (Authentication & Authz)',
-        desc: '辨认来者是“普通读者”还是“总纂官”，决定其能否修改底本。'
+        lit: '门卫查验读者证（《文学理论》全知 vs 限知视角）',
+        eng: '登录认证与权限 (Auth)',
+        desc: '普通读者（限知视角）只能看公开文章；主编管理员（全知视角）登录后才能进后台删改文章。'
       },
       {
-        lit: '修书律例与审稿规程',
+        lit: '编辑部的审稿与统计规程',
         eng: '业务逻辑 (Business Logic)',
-        desc: '如“按朝代先后排序”、“统计某词牌出现频次”、“调用 AI 进行今译”。'
+        desc: '比如“统计某位作家今年被阅读了多少次”、“把用户上传的文档发给大模型生成摘要”。'
       },
       {
-        lit: '机密印信保管',
-        eng: '环境变量与密钥 (.env / Secret Keys)',
-        desc: '像大内玉玺（如 OpenAI API Key、数据库密码）绝不能摆在前堂桌面上，必须锁在后堂密匣（`.env`）中。'
+        lit: '锁在编辑部保险柜里的充值卡密码',
+        eng: '环境变量与密钥 (.env)',
+        desc: '像 DeepSeek / OpenAI 的 API Key（相当于你的银行卡副卡），必须锁在后端的 `.env` 隐藏文件里，绝不能写进前端网页代码。'
       }
     ],
     codeComparison: {
-      litLabel: '《内阁审阅条例》',
-      litContent: `一、凡索阅善本者，先验其“翰林院腰牌”；无牌者驳回（403）。\n二、自藏书阁取出原卷后，自动隐去批注人私印，方准发往前堂。`,
-      engLabel: 'Backend Route Handler (Node.js)',
-      engContent: `app.get('/api/rare-book', (req, res) => {\n  if (!req.user.isScholar) return res.status(403).send('无翰林腰牌');\n  const book = db.findBook(req.query.id);\n  return res.json(sanitize(book));\n});`
+      litLabel: '编辑部后台处理流程',
+      litContent: `1. 先检查来访者是不是已登录的主编，不是则礼貌拦下。\n2. 从保密柜取出 AI 密钥，调用大模型生成文章摘要。\n3. 把生成好的摘要传回前台页面展示。`,
+      engLabel: '后端处理逻辑 (Node.js)',
+      engContent: `app.post('/api/summarize', async (req, res) => {\n  if (!req.user.isEditor) return res.status(403).send('无权限');\n  const summary = await callAI(process.env.AI_KEY, req.body.text);\n  res.json({ summary });\n});`
     },
     aiPromptTip:
-      '涉及 API 密钥、用户登录或复杂文本统计时，提醒 AI：“这部分逻辑请放在后端（或本地安全环境），密钥存入 `.env` 密匣，切勿暴露在前端页面。”'
+      '只要你的项目用到了付费的大模型 API Key，一定叮嘱 AI：“请把 API Key 放在 `.env` 环境变量里，通过后端接口调用，千万不要直接暴露在前端代码里！”'
   },
   {
     id: 'database',
-    order: '肆',
-    literaryTitle: '藏书阁与四库目录',
-    literarySub: '经史子集 · 书架编号 · 检字索书',
+    order: '04',
+    literaryTitle: '电子档案室与多维 Excel 总表',
+    literarySub: '分门别类 · 永久存档 · 秒级检索',
     engTitle: '数据库 (Database & Schema)',
-    engTech: 'SQL / SQLite · PostgreSQL · JSON Store',
-    badge: '持久存储层',
-    color: 'indigo',
-    summary: '按严密目录学体例分门别类、永久保存海量典籍与读者札记的藏书楼。',
+    engTech: 'SQLite · PostgreSQL · Supabase · localStorage',
+    badge: '永久存储层',
+    summary: '关掉网页或重启电脑后，让你的文章、笔记和用户数据依然永久保存的“资料库”。',
     metaphorDetail:
-      '如果把数据只放在网页内存里，关掉网页就像茶馆说书散场，话音落地即散；唯有收入“藏书阁”（数据库），方能传之久远。数据库不仅存书，更讲究《四库全书总目》式的架阁分类（表结构 Schema）与四角号码检字法（索引 Index）。',
+      '如果只把数据存在网页普通变量里，就像用粉笔写在教室黑板上，刷新一下网页黑板就被擦干净了。要想让写下的笔记永久留存，就必须存进“数据库”——你可以直接把数据库理解为一个功能极其强大的、多张表格互相联动的超级 Excel！',
     threePillars: [
       {
-        lit: '书目体例与架阁立类',
-        eng: '数据表结构 (Table Schema / Model)',
-        desc: '规定每部书入库必须登记：编号 (`id`)、书名 (`title`)、撰人 (`author`)、成书年代 (`year`)。'
+        lit: '设计表格的表头栏目（写小说先立“人物设定卡”）',
+        eng: '数据表结构 (Schema / Model)',
+        desc: '建库前先规定好每条记录填哪几项：唯一编号 (`id`)、标题 (`title`)、作者 (`author`)、标签 (`tags`)。'
       },
       {
-        lit: '互著与别裁（人物与诗作关联）',
-        eng: '关系型外键 (Foreign Key / Relations)',
-        desc: '《诗人表》里的“杜甫（编号01）”与《诗作表》里三百首诗通过编号相连，改一处而全书联动。'
+        lit: '用“唯一学号”避免同名张冠李戴',
+        eng: '主键与关联 (Primary Key & Foreign Key)',
+        desc: '中国有两个作家都叫“王小波”怎么办？给每个人发一个唯一身份证号 `id`，作品表只绑定 `id`，改名字也绝不错乱。'
       },
       {
-        lit: '检字法与韵部索引',
+        lit: '像查字典拼音检字表一样快',
         eng: '数据库索引 (Index)',
-        desc: '不必翻遍十万卷书，靠韵部索引一秒定位所有含“明月”二字的诗句。'
+        desc: '给常用搜索词（如“作者”、“年份”）加上索引，哪怕库里有十万篇论文，也能在 0.01 秒内搜出来。'
       }
     ],
     codeComparison: {
-      litLabel: '《藏书阁入库清册（表结构）》',
-      litContent: `【诗人册 Poets】编号(主键) | 姓名 | 字号 | 朝代\n【诗作册 Poems】编号(主键) | 题目 | 正文 | 撰人编号(关联诗人册)`,
-      engLabel: 'Database Schema (SQL)',
-      engContent: `CREATE TABLE poets (\n  id INT PRIMARY KEY,\n  name TEXT NOT NULL,\n  dynasty TEXT\n);\nCREATE TABLE poems (\n  id INT PRIMARY KEY,\n  title TEXT,\n  poet_id INT REFERENCES poets(id)\n);`
+      litLabel: '文献资料登记表（表头设计）',
+      litContent: `【读书笔记表 Notes】\n| 唯一编号 (id) | 篇名 (title) | 原文摘录 (quote) | 分类标签 (tags) |\n| 001          | 呐喊自序     | 铁屋子里的呐喊   | 鲁迅, 现代文学  |`,
+      engLabel: '数据库建表结构 (SQL)',
+      engContent: `CREATE TABLE notes (\n  id SERIAL PRIMARY KEY,\n  title TEXT NOT NULL,\n  quote TEXT,\n  tags TEXT[]\n);`
     },
     aiPromptTip:
-      '动工前先发挥汉语言“目录学”专长，跟 AI 说：“我们先不写界面，请先帮我设计好数据的表结构（体例字段），确认每条文献包含哪些字段。”'
+      '做个人小工具时，如果不想配复杂的云数据库，可以直接跟 AI 说：“请先用浏览器自带的 `localStorage`（或本地 JSON 文件）帮我把数据存起来，保证刷新网页后数据不丢失。”'
   },
   {
     id: 'git',
-    order: '伍',
-    literaryTitle: '善本源流与版本校勘',
-    literarySub: '初稿清样 · 甲戌庚辰 · 汇校异文',
-    engTitle: '版本控制 (Git & GitHub)',
+    order: '05',
+    literaryTitle: '告别“论文终稿_打死不改版”的时光机',
+    literarySub: '随时存档 · 对比改动 · 一键后悔',
+    engTitle: 'Git 版本控制 (Git & GitHub)',
     engTech: 'Commit · Branch · Diff · Rollback',
-    badge: '时光回溯层',
-    color: 'ink',
-    summary: '记录手稿每一次增删改易的“版本源流谱”，随时可比对异文、随时可退回善本。',
+    badge: '安全后悔药',
+    summary: '不用再复制十几个“修改版1、修改版2”文件夹，随时一键退回任意历史版本的存档神器。',
     metaphorDetail:
-      '写论文最怕“终稿_打死不改版_真正最终版.docx”；曹雪芹披阅十载、增删五次，从而留下甲戌本、己卯本、庚辰本。Git 就是代码界的版本目录学：每次落印（Commit）都留存快照，另起钞本（Branch）大胆试改，改坏了一键奉还善本（Revert/Reset）。',
+      '每个写过毕业论文的人都经历过这种崩溃：改到第 8 版时，导师突然说“还是第 3 版的开头最好”，结果第 3 版早被你删改覆盖了！程序员用 Git 彻底解决了这个问题：你在同一个文件夹里尽管改，每完成一个小功能就按一次“存档快照 (`commit`)”，任何时候改崩了，一秒钟就能退回昨天完好无损的状态。',
     threePillars: [
       {
-        lit: '落印存底与跋语',
-        eng: '提交记录 (git commit -m "跋语")',
-        desc: '每完成一小段功能，盖章封存并写一句批注（如“增补苏轼密州出猎词条”）。'
+        lit: '写完一节，盖章存档并写句备注',
+        eng: '提交快照 (git commit)',
+        desc: '比如刚调好搜索框，就存档一次并备注“完成关键词搜索功能”，这就是一个永远不会丢的安全存档点。'
       },
       {
-        lit: '另起别本试改',
-        eng: '分支管理 (git branch / checkout)',
-        desc: '不动“内府刊本”（`main` 主分支），单独抄一份“试改钞本”（`feature` 分支）让 AI 大刀阔斧实验。'
+        lit: 'Word 里的“审阅修订模式”（红字删、绿字增）',
+        eng: '差异对比 (git diff)',
+        desc: 'AI 帮你改完代码后，用 Diff 一眼就能看清它到底删了哪两行、加了哪三行，不怕它偷偷删掉你的好内容。'
       },
       {
-        lit: '对校异文与恢复善本',
-        eng: '差异比对与回滚 (git diff / checkout)',
-        desc: '一眼看出 AI 到底偷偷改了哪几行字（红删绿增），若改坏文脉则立即废钞恢复。'
+        lit: '复制一份草稿去大胆实验，不行就扔',
+        eng: '分支实验 (git branch)',
+        desc: '不动已经跑通的正式版（`main` 主分支），单独开一条平行时间线（分支）让 AI 尝试大改版，改好了再合并回来。'
       }
     ],
     codeComparison: {
-      litLabel: '《版本流传牌记》',
-      litContent: `【善本主脉 main】甲戌初刊定本 ──► 庚辰增订本\n                     └──► 【试改别本 branch】程高续书实验本（若不妥可随时废弃）`,
-      engLabel: 'Git Workflow Commands',
-      engContent: `git checkout -b exp-ui    # 另起别本试改装帧\ngit diff                  # 对校异文（查验AI改了何处）\ngit commit -m "定稿：新增金陵十二钗判词卡片"`
+      litLabel: '传统改论文 vs Git 时光机',
+      litContent: `[传统痛点]：论文初稿.docx → 改1.docx → 终稿_真不改了.docx（乱成一团）\n[Git 做法]：始终只有一个文件夹，靠时间轴快照随时穿梭回任意一版`,
+      engLabel: 'Git 常用三句口令',
+      engContent: `git add . && git commit -m "完成首页卡片排版"  # 拍下当前完好存档\ngit diff                                      # 检查 AI 刚刚改了哪几行\ngit checkout .                                # 改坏了！一键撤回刚才的改动`
     },
     aiPromptTip:
-      '让 AI 动手大改代码前，养成铁律：“请先帮我做一次 Git Commit 落印存底（或新建分支），写清本次校改跋语，以防改坏前文。”'
+      '用 AI 编程最重要的保命习惯：每当 AI 帮你把一个页面调好看了，立刻对它说“请帮我做一次 git commit 存档，然后再开始改下一个功能”。这样永远不怕 AI 越改越乱！'
   },
   {
     id: 'agent',
-    order: '陆',
-    literaryTitle: '总纂官与修书局幕僚',
-    literarySub: '发凡起例 · 授意幕僚 · 覆校签发',
+    order: '06',
+    literaryTitle: '你是定大纲的“主编”，AI 是“撰稿实习生”',
+    literarySub: '你定立意与提纲 · AI 负责敲代码 · 你负责审稿验收',
     engTitle: 'AI 结对编程 (AI Agent / Vibe Coding)',
-    engTech: 'System Prompt · Context · Tool Use',
-    badge: '智能协同层',
-    color: 'cinnabar',
-    summary: '你不再是躬身刻字的雕版匠，而是执掌《凡例》、审夺文脉的修书局总纂官。',
+    engTech: 'Prompt · Context · Rules · Review',
+    badge: '人机协作层',
+    summary: '你不需要自己背诵代码语法，而是用清晰的中文提纲、规则和审稿眼光指挥 AI 干活。',
     metaphorDetail:
-      '清代修《四库全书》或宋代司马光修《资治通鉴》，总纂官并不亲自誊抄每一页纸，而是制定《修书凡例》（System Rules），将长编分派给刘攽、范祖禹等博学助修（AI Agents），最后由司马光笔削审定（Code Review）。这正是文科生做 AI 编程的最佳身位！',
+      '为什么汉语言文学和人文社科背景的人非常适合 AI 编程？因为 AI 就像一个背熟了全天下所有编程字典、打字快如闪电，但“没有主见、容易跑题”的理科实习生。它最需要一个逻辑清晰、懂结构拆解、懂读者体验的“主编”来给它列提纲、划边界、挑语病！',
     threePillars: [
       {
-        lit: '书前《凡例》与修书规条',
-        eng: '全局规则文件 (CLAUDE.md / .cursorrules)',
-        desc: '放在项目根目录的“镇局之宝”，规定全书文风、目录规矩与禁忌，AI 每次动笔前必先捧读。'
+        lit: '编辑部的《常驻写稿规范》',
+        eng: '全局系统规则 (CLAUDE.md / .cursorrules)',
+        desc: '放在项目里的规矩文档（比如“全站用暖白配色、数据单独放一个文件夹”），AI 每次动笔前都会自动先读一遍。'
       },
       {
-        lit: '案头参考资料辑佚',
-        eng: '上下文投喂 (Context Engineering)',
-        desc: '幕僚虽博学但不知你心意，把相关文件、样例数据 `@` 到案头，它才不会凭空杜撰（幻觉）。'
+        lit: '给实习生布置任务时附上“参考资料”',
+        eng: '上下文投喂 (Context)',
+        desc: '别让 AI 凭空瞎猜，把要修改的那个文件或两三条真实的样本数据发给它看，它写得就会无比精准。'
       },
       {
-        lit: '总纂笔削与覆校',
-        eng: '审阅与验收 (Diff Review & Testing)',
-        desc: '幕僚交稿后，先看它改了哪几个文件，再在浏览器里亲手点验，合乎文心方准入库。'
+        lit: '主编亲自试用验收、挑毛病打回修改',
+        eng: '代码审阅与测试 (Review & Debug)',
+        desc: 'AI 写完后，你不用去逐行看英文代码，而是直接在网页/手机上点一点，把不顺眼的地方一条条列出来让它改。'
       }
     ],
     codeComparison: {
-      litLabel: '《资治通鉴·修书分职》',
-      litContent: `【总纂官（你）】定立意、颁《凡例》、拆卷目、审清样\n【助修幕僚（AI）】依凡例搜集代码、排比组件、联调驿站、捉拿鲁鱼亥豕`,
-      engLabel: 'CLAUDE.md / Agent Rules',
-      engContent: `# 修书凡例 (Project Rules)\n1. 每次修改前先说明拟改哪些文件，勿擅动无关章节。\n2. 界面文案一律采用典雅中文，关键函数需附中文夹注。\n3. 数据与界面分离，词条统一存于 src/data/。`
+      litLabel: '主编与实习生的分工',
+      litContent: `【你（主编/产品经理）】：定主题、列功能提纲、给参考样例、在手机上点按验收\n【AI（全栈工程师）】：选技术框架、写 HTML/CSS/JS 代码、查报错修 Bug`,
+      engLabel: '项目规矩文件示例 (CLAUDE.md)',
+      engContent: `# 项目写稿规范\n1. 动工前先给我列计划大纲，我同意后再写代码。\n2. 每次只改一个功能，严禁乱改其他已经调好的页面。\n3. 关键逻辑请加上简明的中文注释。`
     },
     aiPromptTip:
-      '记住你的核心竞争力：AI 最擅长“写字（生成语法）”，但最缺乏“文心（立意、结构、审美与边界感）”。用你的汉语言功底给它立规矩！'
+      '永远记住一句口诀：“先让 AI 列提纲，看对眼了再写码；一次只改一处小地方，改好立刻存档！”'
   }
 ];
 
-// 全链路交互推演：当读者点击“检索苏轼赤壁词”时，书院前后堂发生了什么？
+// 全链路五步推演：当读者在网页上点击【搜索：余华】时，前后台发生了什么？
 export const REQUEST_FLOW_STEPS = [
   {
     step: 1,
-    stage: '前端 (装帧书页)',
+    stage: '前端界面',
     nodeId: 'frontend',
-    litAction: '读者在前堂书案轻触【检索：苏轼 · 赤壁】按钮',
-    engAction: '触发点击事件 `onClick`，收集输入框关键词 `"苏轼"`',
-    codeSnippet: `button.addEventListener('click', () => fetchPoems('苏轼'));`,
-    tip: '此时页面可先显示“书童正赴藏书阁调卷……”（Loading 状态），安抚读者。'
+    litAction: '读者在网页搜索框输入“余华”，手指点下【搜索】按钮',
+    engAction: '前端监听到按钮点击事件 (`onClick`)，读取输入框里的文字 `"余华"`',
+    codeSnippet: `searchBtn.addEventListener('click', () => fetchBooks('余华'));`,
+    tip: '这时候好界面会先显示一句“正在查找中……”（Loading 提示），让读者知道按钮点上了。'
   },
   {
     step: 2,
-    stage: 'API (驿站传书)',
+    stage: 'API 传话口',
     nodeId: 'api',
-    litAction: '书童填妥《调书文牒》，快马奔向后堂内阁',
-    engAction: '发起 HTTP GET 请求：`GET /api/poems?author=苏轼`',
-    codeSnippet: `GET /api/poems?author=%E8%8B%8F%E8%BD%BC HTTP/1.1\nAccept: application/json`,
-    tip: '如果网络断开或地址写错，书童迷路，就会报 `404 Not Found`。'
+    litAction: '前台服务员填好一张写着“查：余华”的标准小票，递进后厨传菜口',
+    engAction: '浏览器通过网络向后台发送一条 HTTP GET 请求',
+    codeSnippet: `GET /api/books?author=余华`,
+    tip: '如果这时候电脑断网了，或者后台地址写错了，就会报错 404（找不到传菜口）。'
   },
   {
     step: 3,
-    stage: '后端 (内阁批红)',
+    stage: '后端大脑',
     nodeId: 'backend',
-    litAction: '内阁接牒，核验无误，按《检索律例》传谕藏书阁提书',
-    engAction: '后端路由解析参数 `author="苏轼"`，执行查询逻辑',
-    codeSnippet: `const author = req.query.author;\nconst results = await db.queryPoemsByAuthor(author);`,
-    tip: '后端在这里还可以顺便做“用典注解加工”或“权限过滤”。'
+    litAction: '幕后编辑部收到小票，确认请求合法，安排去档案室调取余华的书目',
+    engAction: '后端程序接收参数 `author = "余华"`，准备执行数据库查询命令',
+    codeSnippet: `const author = req.query.author;\nconst list = await db.findBooksByAuthor(author);`,
+    tip: '如果需要权限（比如“仅限VIP查看”），后端就会在这一步检查读者的登录状态。'
   },
   {
     step: 4,
-    stage: '数据库 (藏书阁)',
+    stage: '数据库档案室',
     nodeId: 'database',
-    litAction: '守阁吏按《宋词撰人索引》瞬间抽取出苏轼词卷',
-    engAction: '执行 SQL 索引检索，返回匹配的数据行',
-    codeSnippet: `SELECT title, content FROM poems WHERE author = '苏轼';`,
-    tip: '因为事先建好了“撰人索引”，哪怕阁中有十万首词，也只需数毫秒。'
+    litAction: '在电子总表里按“作者”一栏瞬间筛出《活着》《兄弟》等记录',
+    engAction: '数据库执行检索语句，找出所有作者等于“余华”的数据行',
+    codeSnippet: `SELECT title, year FROM books WHERE author = '余华';`,
+    tip: '因为存在数据库里，哪怕网站重启一百次，这些书目资料都稳稳当当不会丢。'
   },
   {
     step: 5,
-    stage: '回传与渲染 (奉书归案)',
+    stage: '传回前端排版',
     nodeId: 'frontend',
-    litAction: '驿使捧回标准书函（JSON），前堂画师依版式铺陈于宣纸之上',
-    engAction: '返回 `200 OK` JSON 数据，前端循环渲染为诗词卡片组件',
-    codeSnippet: `poems.map(p => <PoemCard title={p.title} text={p.content} />)`,
-    tip: '至此，一次完整的“前后端全链路交互”圆满礼成！'
+    litAction: '后台把查到的书目装进 JSON 表格传回前台，网页自动套用卡片模板排列出来',
+    engAction: '后端返回 `200 OK` 与 JSON 数组，前端循环生成漂亮的图书卡片',
+    codeSnippet: `books.map(book => <BookCard title={book.title} year={book.year} />)`,
+    tip: '从你手指点下按钮到卡片跳出来，整个前后端跑完这一圈通常只要 0.1 秒！'
   }
 ];
 
-// 望闻问切：故障定责小演练（帮助文科生在 AI 写的代码出问题时，一眼判断是哪一层坏了）
+// 审稿官断案：3 个最常遇到的真实问题，一秒判断是哪个模块出了毛病
 export const DIAGNOSTIC_QUIZZES = [
   {
     id: 'q1',
-    symptom: '【症候一】你让 AI 做了一个《唐诗三百首》卡片页，文字全显示出来了，但两张卡片叠在了一起，标题颜色也刺眼得像红绿灯。',
-    question: '请问这属于书院哪一部门的差错？你该如何向 AI 下达校勘指令？',
+    symptom: '【场景一】你让 AI 做了一个读书卡片网页，里面的文字全是对的，但两张卡片挤在一起重叠了，而且背景颜色刺眼得看不清字。',
+    question: '请问这是上面 6 个模块里的哪一个出了问题？你该怎么指挥 AI 修改？',
     options: [
       {
         id: 'a',
-        label: '藏书阁（数据库）塌了，需要重修数据表结构',
+        label: '数据库坏了，需要重新录入文字资料',
         isCorrect: false,
-        feedback: '非也！文字内容能正常显示，说明藏书阁（数据）与驿站（API）均完好无损。'
+        feedback: '文字内容都能正常显示出来，说明数据库和资料完全没问题，不用动数据！'
       },
       {
         id: 'b',
-        label: '书籍装帧（前端 CSS 样式与排版布局）失调',
+        label: '前端排版样式（CSS）没调好，只需让 AI 调整间距和配色',
         isCorrect: true,
         feedback:
-          '断案如神！内容无误而版面重叠、设色不雅，纯属前端 CSS 装帧问题。你只需对 AI 说：“请勿改动数据逻辑，仅调整卡片组件的 CSS 布局（增加间距 gap 与内边距 padding），并将标题色调改为温和的朱砂色。”'
+          '完全正确！文字对、但样子丑或位置挤，100% 是前端 CSS 排版问题。你直接对 AI 说：“请不要动数据和功能，只修改 CSS 样式：把卡片之间的间距（gap）拉大，背景换成温和的浅米色。”'
       },
       {
         id: 'c',
-        label: '版本源流（Git）冲突，需要删库重来',
+        label: '电脑中毒了，需要删掉整个项目重头再写',
         isCorrect: false,
-        feedback: '不必惊慌！这只是表面装帧瑕疵，完全不需要动用删库大刑。'
+        feedback: '千万别重来！调排版就像在 Word 里调行距一样简单，AI 改两行 CSS 就能修好。'
       }
     ]
   },
   {
     id: 'q2',
-    symptom: '【症候二】你在页面上精心录入了十条《世说新语》读书笔记，当时页面上能看到；结果按了一下浏览器“刷新”按钮，十条笔记瞬间灰飞烟灭，全部消失了！',
-    question: '为何刷新页面后笔记会凭空消失？少了哪一环工程设计？',
+    symptom: '【场景二】你在网页输入框里辛辛苦苦敲了 10 条读书笔记，当时页面上能看到；结果手滑按了一下浏览器的“刷新”按钮，10 条笔记瞬间全没了！',
+    question: '为什么一刷新网页，刚写进去的内容就蒸发了？少了哪一步？',
     options: [
       {
         id: 'a',
-        label: '只写在了前端临时内存（茶馆说书），没有存入数据库或本地持久化存储（藏书阁入库）',
+        label: '只写在了前端临时黑板上，没有存进“数据库”或浏览器的本地存储（localStorage）',
         isCorrect: true,
         feedback:
-          '一针见血！前端普通变量（State）就像写在黑板上的粉笔字，刷新网页即擦除。对 AI 下令：“请为读书笔记增加持久化存储（简单项目可用浏览器 `localStorage` 本地书匣，正式项目存入 SQLite/数据库），确保刷新页面后数据不丢失。”'
+          '一针见血！普通前端变量就像教室黑板上的粉笔字，刷新网页就等于擦黑板。你只需告诉 AI：“请帮我把新增的笔记同步保存到浏览器的 `localStorage`（或者后端数据库）里，确保刷新页面后数据依然保留。”'
       },
       {
         id: 'b',
-        label: '字体文件没有加载出来',
+        label: '显示器屏幕太小，把字挤出去了',
         isCorrect: false,
-        feedback: '如果是字体问题，文字依然存在只是样式变化，不会在刷新后彻底清空数据。'
+        feedback: '屏幕大小只会影响换行，不会在刷新后把数据清空。'
       },
       {
         id: 'c',
-        label: '显示器分辨率太低',
+        label: '字体的字号设得太小了',
         isCorrect: false,
-        feedback: '分辨率只影响排版宽窄，不会吞噬你录入的文本数据。'
+        feedback: '这是数据没有持久化保存的问题，和字体大小无关。'
       }
     ]
   },
   {
     id: 'q3',
-    symptom: '【症候三】原本你的网站运行得好好的，你让 AI “顺便加个夜间模式”，结果 AI 狂改了 8 个文件，夜间模式没做成，连原本正常的首页目录都打不开了！',
-    question: '面对这种“庸医妄改底本”的翻车现场，最符合版本校勘学的做法是？',
+    symptom: '【场景三】原本你的网页已经做好了 80%，运行得很顺畅。你让 AI “顺便加个夜间模式按钮”，结果 AI 一口气乱改了七八个文件，夜间模式没做成，连原本好好的首页都白屏打不开了！',
+    question: '遇到这种“AI 越帮越忙、把原本好的页面也改崩了”的情况，最聪明的做法是？',
     options: [
       {
         id: 'a',
-        label: '让 AI 继续猜、继续改，连发十个感叹号骂它',
+        label: '继续接着发十条消息骂 AI，让它自己猜哪里改错了',
         isCorrect: false,
-        feedback: '大忌！当 AI 已经把上下文改乱时，继续盲目让它修补往往会造成“妄改累增”，越改越乱。'
+        feedback: '千万别！当 AI 已经把好几个文件改乱时，继续让它在错上加错，只会越改越乱。'
       },
       {
         id: 'b',
-        label: '运用 Git 版本回滚（恢复上一个善本 Commit），并要求 AI 遵循“单一职责”每次只改一处',
+        label: '用 Git 时光机（或编辑器撤回）一键退回刚才完好的版本，并规定它每次只准改一个地方',
         isCorrect: true,
         feedback:
-          '深得校勘三昧！先用 `git checkout` 或编辑器 Undo 一键退回方才完好的善本快照；然后对 AI 约法三章：“本次只许修改样式文件 `main.css` 中的配色变量以实现夜间模式，严禁触碰目录结构与数据文件！”'
+          '太内行了！先用 Git 一秒撤回到刚才好用的存档点；然后对 AI 立规矩：“只准修改样式文件 `main.css` 里的颜色变量来实现夜间模式，严禁触碰首页结构和别的文件！”'
       },
       {
         id: 'c',
-        label: '把整个电脑重装系统',
+        label: '放弃这个项目，重新开一个新项目从零写起',
         isCorrect: false,
-        feedback: '杀鸡焉用牛刀，善用 Git 版本控制即可一秒回春。'
+        feedback: '不用从零开始！只要平时每调好一步就存个档（Git Commit），随时都能退回五分钟前完好无损的状态。'
       }
     ]
   }

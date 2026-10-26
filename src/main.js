@@ -158,26 +158,26 @@ function renderActiveView() {
   }
 }
 
-// ==================== TAB 01 · 营造法式 ====================
+// ==================== TAB 01 · 全局全景 ====================
 function renderArchView(mount) {
   mount.innerHTML = `
     <div class="view-header-card">
-      <div class="view-kicker">01 · System Architecture · 破除代码黑盒</div>
-      <h1 class="view-title">把软件工程看作一座“皇家书院与刊刻局”</h1>
+      <div class="view-kicker">01 · System Overview · 5 分钟看懂一个软件是怎么跑起来的</div>
+      <h1 class="view-title">把开发软件，看作“运营一家现代杂志社 / 排一篇互动公众号推文”</h1>
       <p class="view-desc">
-        在 AI 时代，你不需要亲手刻字（写底层语法），但要懂书院六个部门各自的职责，才能以“总纂官”身份向 AI 精准发令。
+        无论是学汉语言文学还是理工科，其实每天都在接触这六个环节：前台排版、传话接口、后台大脑、资料表格、修改留痕和 AI 助理。点开下方任意卡片，用最熟悉的生活直觉秒懂软件工程。
       </p>
     </div>
 
     <div class="submode-bar" role="tablist">
       <button type="button" class="submode-btn ${state.archSubMode === 'nodes' ? 'active' : ''}" data-sub="nodes">
-        1. 六大书院部门 (点卡看详卷)
+        1. 软件六大核心分工 (点击卡片看详解)
       </button>
       <button type="button" class="submode-btn ${state.archSubMode === 'flow' ? 'active' : ''}" data-sub="flow">
-        2. 五步点书推演 (全链路流转)
+        2. 一次搜索背后的五步流转
       </button>
       <button type="button" class="submode-btn ${state.archSubMode === 'clinic' ? 'active' : ''}" data-sub="clinic">
-        3. 审稿官断案 (3道测试)
+        3. 3 道实战小测试 (排查问题找谁？)
       </button>
     </div>
 
@@ -214,7 +214,7 @@ function renderArchNodesFeed(container) {
           >
             <div>
               <div class="card-top-meta">
-                <span class="card-index-pill">第 ${node.order} 席 · ${num}</span>
+                <span class="card-index-pill">模块 ${num}</span>
                 <span class="card-badge-text">${escapeHtml(node.badge)}</span>
               </div>
               <h2 class="card-lit-heading" style="margin-top: 0.65rem;">
@@ -233,7 +233,7 @@ function renderArchNodesFeed(container) {
               <span style="color: var(--text-tertiary); font-size: 0.76rem;">
                 ${escapeHtml(node.literarySub)}
               </span>
-              <span class="tap-cue">点按展开详卷 →</span>
+              <span class="tap-cue">点击查看详解 →</span>
             </div>
           </button>
         `;
@@ -242,7 +242,7 @@ function renderArchNodesFeed(container) {
 
     <div style="margin-top: 1.25rem; text-align: center;">
       <button type="button" id="go-flow-btn" class="btn-secondary-pill">
-        看懂了六个部门？试试「五步点书推演」 →
+        看懂了六个分工？看看「一次搜索背后的五步流转」 →
       </button>
     </div>
   `;
@@ -280,7 +280,7 @@ function openArchNodeSheet(nodeIdx) {
     </div>
 
     <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.92rem;">
-      <strong>一句话破壁：</strong>${escapeHtml(node.summary)}
+      <strong>一句话秒懂：</strong>${escapeHtml(node.summary)}
     </div>
 
     <p style="font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75;">
@@ -289,7 +289,7 @@ function openArchNodeSheet(nodeIdx) {
 
     <div>
       <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 0.5rem;">
-        Three Structural Parallels · 三大核心映射
+        Three Core Parallels · 三个子概念对应
       </div>
       <div style="display: flex; flex-direction: column; gap: 0.6rem;">
         ${node.threePillars
@@ -311,7 +311,7 @@ function openArchNodeSheet(nodeIdx) {
     <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--accent);">
-          怎么跟 AI 聊这个部门？
+          怎么跟 AI 描述这部分需求？
         </strong>
         <button type="button" id="sheet-copy-tip-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
           复制话术
@@ -324,7 +324,7 @@ function openArchNodeSheet(nodeIdx) {
 
     <details class="code-disclosure">
       <summary>
-        <span>对代码好奇？展开「人文体例 vs 工程代码」对照</span>
+        <span>对代码好奇？展开「日常表达 vs 真实代码」对照</span>
         <span class="toggle-hint">点击展开 +</span>
       </summary>
       <div class="code-disclosure-body">
@@ -347,7 +347,7 @@ function openArchNodeSheet(nodeIdx) {
       class="btn-secondary-pill"
       ${nodeIdx === 0 ? 'disabled' : ''}
     >
-      ← 上一席
+      ← 上一个
     </button>
     <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-tertiary);">
       ${nodeIdx + 1} / ${ARCHITECTURE_NODES.length}
@@ -358,12 +358,12 @@ function openArchNodeSheet(nodeIdx) {
       class="btn-primary-pill"
       ${nodeIdx === ARCHITECTURE_NODES.length - 1 ? 'disabled' : ''}
     >
-      下一席 →
+      下一个 →
     </button>
   `;
 
   openSheet({
-    kicker: `第 ${node.order} 席 · ${node.badge}`,
+    kicker: `模块 0${node.order} · ${node.badge}`,
     bodyHtml,
     footerHtml,
     onMount: (bodyEl, footerEl) => {
@@ -395,7 +395,7 @@ function renderArchFlowStepper(container) {
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
         <span class="card-index-pill">第 ${stepObj.step} 步 / 共 5 步</span>
         <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-tertiary);">
-          当前所在部门：${escapeHtml(stepObj.stage)}
+          当前环节：${escapeHtml(stepObj.stage)}
         </span>
       </div>
 
@@ -413,20 +413,20 @@ function renderArchFlowStepper(container) {
       </div>
 
       <h2 style="font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; margin: 1rem 0 0.5rem;">
-        书院情景：${escapeHtml(stepObj.litAction)}
+        日常场景类比：${escapeHtml(stepObj.litAction)}
       </h2>
 
       <p style="font-size: 0.94rem; color: var(--accent); font-weight: 500; margin-bottom: 0.85rem;">
-        软件工程里发生了什么：${escapeHtml(stepObj.engAction)}
+        软件里实际发生了什么：${escapeHtml(stepObj.engAction)}
       </p>
 
       <div class="card-epiphany-text" style="margin-bottom: 1rem;">
-        <strong>眉批提示：</strong>${escapeHtml(stepObj.tip)}
+        <strong>一句话点拨：</strong>${escapeHtml(stepObj.tip)}
       </div>
 
       <details class="code-disclosure" style="margin-bottom: 1.25rem;">
         <summary>
-          <span>查看这一步触发的一行代码</span>
+          <span>查看这一步背后对应的一行代码</span>
           <span class="toggle-hint">点击展开 +</span>
         </summary>
         <div class="code-disclosure-body">
@@ -452,7 +452,7 @@ function renderArchFlowStepper(container) {
           class="btn-terracotta-pill"
           style="flex: 1.4;"
         >
-          ${stepObj.step < 5 ? `推演下一步 (${stepObj.step + 1}/5) →` : '进入「审稿官断案」小测试 →'}
+          ${stepObj.step < 5 ? `看下一步 (${stepObj.step + 1}/5) →` : '进入「3道实战小测试」 →'}
         </button>
       </div>
     </div>
@@ -496,9 +496,9 @@ function renderArchClinicStepper(container) {
   container.innerHTML = `
     <div class="view-header-card">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
-        <span class="card-index-pill">断案练习 ${state.activeQuizIndex + 1} / ${DIAGNOSTIC_QUIZZES.length}</span>
+        <span class="card-index-pill">实战小测试 ${state.activeQuizIndex + 1} / ${DIAGNOSTIC_QUIZZES.length}</span>
         <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">
-          点选下方选项即可查看朱批解析
+          点击下方选项即可查看解析
         </span>
       </div>
 
@@ -518,7 +518,7 @@ function renderArchClinicStepper(container) {
         ${escapeHtml(quiz.symptom)}
       </h2>
       <p style="font-size: 0.9rem; color: var(--accent); font-weight: 500; margin-bottom: 1rem;">
-        设问：${escapeHtml(quiz.question)}
+        问题：${escapeHtml(quiz.question)}
       </p>
 
       <div style="display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.15rem;">
@@ -556,7 +556,7 @@ function renderArchClinicStepper(container) {
           <strong style="display: block; margin-bottom: 0.25rem; color: ${
             selectedOption.isCorrect ? 'var(--sage)' : 'var(--crimson)'
           };">
-            ${selectedOption.isCorrect ? '断案如神！' : '且慢，再审文脉：'}
+            ${selectedOption.isCorrect ? '回答正确！' : '再想一想：'}
           </strong>
           ${escapeHtml(selectedOption.feedback)}
         </div>
@@ -580,7 +580,7 @@ function renderArchClinicStepper(container) {
           class="btn-primary-pill"
           style="flex: 1.4;"
         >
-          ${state.activeQuizIndex < DIAGNOSTIC_QUIZZES.length - 1 ? '下一道断案 →' : '前往「02 格物词典」 →'}
+          ${state.activeQuizIndex < DIAGNOSTIC_QUIZZES.length - 1 ? '下一题 →' : '前往「02 概念词典」 →'}
         </button>
       </div>
     </div>
@@ -620,7 +620,7 @@ function renderArchClinicStepper(container) {
   }
 }
 
-// ==================== TAB 02 · 格物词典 ====================
+// ==================== TAB 02 · 概念词典 ====================
 function getFilteredDictEntries() {
   const kw = state.dictSearch.trim().toLowerCase();
   return DICTIONARY_ENTRIES.filter((entry) => {
@@ -648,10 +648,10 @@ function renderDictView(mount) {
 
   mount.innerHTML = `
     <div class="view-header-card">
-      <div class="view-kicker">02 · Bilingual Lexicon · 十六则核心映射</div>
-      <h1 class="view-title">汉语言 ↔ 软件工程双语读书卡</h1>
+      <div class="view-kicker">02 · Concept Dictionary · 16 个最常遇到的编程概念</div>
+      <h1 class="view-title">用《现代汉语》语法、列提纲与写论文的经验，秒懂编程黑话</h1>
       <p class="view-desc">
-        每张卡片只讲透一个概念对应。点按任意卡片，立即从底部滑出详卷与 AI 沟通话术。
+        其实你早就学过软件工程的底层逻辑：主谓宾就是变量与函数，关联词就是条件循环，写论文列提纲就是软件架构。点击任意卡片查看大白话拆解。
       </p>
     </div>
 
@@ -659,7 +659,7 @@ function renderDictView(mount) {
       type="search"
       id="dict-search-input"
       class="search-input-bar"
-      placeholder="输入关键词检索（如：用典、校勘、Git、组件、JSON）"
+      placeholder="输入关键词搜索（如：主谓宾、提纲、病句、Git、组件、JSON）"
       value="${escapeHtml(state.dictSearch)}"
     />
 
@@ -686,10 +686,10 @@ function renderDictView(mount) {
         ? `
       <div class="view-header-card" style="text-align: center; padding: 2.5rem 1.5rem;">
         <p style="font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 0.5rem;">
-          未检出与「${escapeHtml(state.dictSearch)}」相合之词条
+          没有找到与「${escapeHtml(state.dictSearch)}」相关的词条
         </p>
         <button type="button" id="reset-dict-btn" class="btn-primary-pill" style="margin-top: 0.75rem;">
-          重置筛选条件
+          清空搜索条件
         </button>
       </div>
     `
@@ -723,9 +723,9 @@ function renderDictView(mount) {
 
               <div class="card-action-footer">
                 <span style="font-size: 0.75rem; color: var(--text-tertiary);">
-                  含文码对照与 AI 指令话术
+                  含生活例子与 AI 提问话术
                 </span>
-                <span class="tap-cue">点按精读 →</span>
+                <span class="tap-cue">点击查看详解 →</span>
               </div>
             </button>
           `;
@@ -801,13 +801,13 @@ function openDictEntrySheet(entryId) {
     </div>
 
     <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.92rem;">
-      <strong>眉批顿悟：</strong>${escapeHtml(entry.epiphany)}
+      <strong>一句话点透：</strong>${escapeHtml(entry.epiphany)}
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          一、汉语言文学本源
+          一、我们熟悉的汉语/写作常识
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.litPerspective)}
@@ -816,7 +816,7 @@ function openDictEntrySheet(entryId) {
 
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          二、软件工程实相
+          二、对应的软件工程原理
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.engPerspective)}
@@ -827,7 +827,7 @@ function openDictEntrySheet(entryId) {
     <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--accent);">
-          怎么用这个概念指导 AI？
+          怎么用这个概念指导 AI 写代码？
         </strong>
         <button type="button" id="dict-copy-action-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
           复制话术
@@ -840,7 +840,7 @@ function openDictEntrySheet(entryId) {
 
     <details class="code-disclosure">
       <summary>
-        <span>展开「汉语句法体例 vs 代码实例」对照</span>
+        <span>展开「汉语写作例子 vs 代码例子」直观对照</span>
         <span class="toggle-hint">点击展开 +</span>
       </summary>
       <div class="code-disclosure-body">
@@ -905,26 +905,26 @@ function openDictEntrySheet(entryId) {
   });
 }
 
-// ==================== TAB 03 · 器用选型 (Tech Stack Analogy, AI Pros/Cons & Best Practice Roadmap) ====================
+// ==================== TAB 03 · 技术选型 ====================
 function renderStacksView(mount) {
   mount.innerHTML = `
     <div class="view-header-card">
-      <div class="view-kicker">03 · Tech Stacks &amp; Best Practices · 器用与技术栈</div>
-      <h1 class="view-title">做网页、手机 App、桌面软件，背后的技术栈有何不同？</h1>
+      <div class="view-kicker">03 · Tech Stacks &amp; Best Practices · 产品形态与技术栈</div>
+      <h1 class="view-title">做网页、手机 App、电脑桌面软件，背后的技术栈有何不同？</h1>
       <p class="view-desc">
-        古人刊书有通行本、袖珍巾箱本、书斋紫檀重器之分。在 AI 编程时代，选对“AI 语料最丰、反馈最快”的技术栈，能让你少走 90% 的弯路。
+        就像发表作品有公众号长文、精装书、口袋本、内部资料汇编之分。在 AI 编程时代，选对“AI 最擅长、不用折腾环境”的技术栈，能让你少走 90% 的弯路。
       </p>
     </div>
 
     <div class="submode-bar" role="tablist">
       <button type="button" class="submode-btn ${state.stacksSubMode === 'carriers' ? 'active' : ''}" data-ssub="carriers">
-        1. 六大载体技术栈图鉴 (含AI优劣势)
+        1. 六大产品形态对比 (含AI优劣势)
       </button>
       <button type="button" class="submode-btn ${state.stacksSubMode === 'compass' ? 'active' : ''}" data-ssub="compass">
-        2. 互动选型罗盘 (我该用哪个？)
+        2. 互动选型顾问 (我该选哪个？)
       </button>
       <button type="button" class="submode-btn ${state.stacksSubMode === 'roadmap' ? 'active' : ''}" data-ssub="roadmap">
-        3. 从零上手四阶正道 (最佳实践)
+        3. 从零上手四步路线图 (最佳实践)
       </button>
     </div>
 
@@ -964,17 +964,17 @@ function renderStackCarriersFeed(container) {
           >
             <div>
               <div class="card-top-meta">
-                <span class="card-index-pill" style="${badgeStyle}">AI 契合度：${escapeHtml(c.aiFriendliness.split('·')[0])}</span>
+                <span class="card-index-pill" style="${badgeStyle}">AI 友好度：${escapeHtml(c.aiFriendliness.split('·')[0])}</span>
                 <span class="card-badge-text">${escapeHtml(c.metaphorTag)}</span>
               </div>
               <h2 class="card-lit-heading" style="margin-top: 0.6rem;">
                 ${escapeHtml(c.carrierName)}
               </h2>
               <div class="card-eng-mapping">
-                文学类比：${escapeHtml(c.literaryMetaphor)}
+                日常类比：${escapeHtml(c.literaryMetaphor)}
               </div>
               <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary); margin-top: 0.3rem;">
-                代表技术栈：${escapeHtml(c.typicalStack)}
+                常用技术栈：${escapeHtml(c.typicalStack)}
               </div>
             </div>
 
@@ -986,7 +986,7 @@ function renderStackCarriersFeed(container) {
               <span style="font-size: 0.76rem; color: var(--text-secondary);">
                 ${escapeHtml(c.aiFriendliness.split('·')[1] || '')}
               </span>
-              <span class="tap-cue">审阅 AI 优劣势 →</span>
+              <span class="tap-cue">查看 AI 优劣势 →</span>
             </div>
           </button>
         `;
@@ -995,10 +995,10 @@ function renderStackCarriersFeed(container) {
 
     <div style="margin-top: 1.25rem; display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
       <button type="button" id="go-compass-btn" class="btn-secondary-pill">
-        拿不准选哪个？试试「互动选型罗盘」 →
+        拿不准选哪个？试试「互动选型顾问」 →
       </button>
       <button type="button" id="go-roadmap-btn" class="btn-primary-pill">
-        查看「文科生从 0 到 1 上手四阶路线图」 →
+        查看「新手从 0 到 1 上手四步路线图」 →
       </button>
     </div>
   `;
@@ -1032,13 +1032,13 @@ function openCarrierSheet(cidx) {
   const bodyHtml = `
     <div>
       <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); margin-bottom: 0.25rem;">
-        AI 编程契合度：${escapeHtml(c.aiFriendliness)}
+        AI 编程友好度：${escapeHtml(c.aiFriendliness)}
       </div>
       <h2 style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 600; line-height: 1.28; margin-bottom: 0.25rem;">
         ${escapeHtml(c.carrierName)}
       </h2>
       <div style="font-family: var(--font-serif); font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0.45rem;">
-        典籍形制类比：<strong>${escapeHtml(c.literaryMetaphor)}</strong>（${escapeHtml(c.metaphorTag)}）
+        直观类比：<strong>${escapeHtml(c.literaryMetaphor)}</strong>（${escapeHtml(c.metaphorTag)}）
       </div>
       <div style="font-family: var(--font-mono); font-size: 0.78rem; background: var(--bg-recessed); padding: 0.45rem 0.7rem; border-radius: 6px;">
         主流技术栈：${escapeHtml(c.typicalStack)}
@@ -1052,7 +1052,7 @@ function openCarrierSheet(cidx) {
     <!-- AI Pros -->
     <div style="background: var(--sage-soft); border-left: 3px solid var(--sage); padding: 0.9rem 1rem; border-radius: 0 8px 8px 0;">
       <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--sage); display: block; margin-bottom: 0.45rem;">
-        ✓ 在 AI 编程背景下的核心优势（为何 AI 擅长/推荐）：
+        ✓ 在 AI 编程背景下的核心优势（为什么推荐/好做）：
       </strong>
       <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.86rem; color: var(--text-primary);">
         ${c.aiPros.map((p) => `<div>• ${escapeHtml(p)}</div>`).join('')}
@@ -1062,7 +1062,7 @@ function openCarrierSheet(cidx) {
     <!-- AI Cons -->
     <div style="background: var(--crimson-soft); border-left: 3px solid var(--crimson); padding: 0.9rem 1rem; border-radius: 0 8px 8px 0;">
       <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--crimson); display: block; margin-bottom: 0.45rem;">
-        ✕ 在 AI 编程背景下的潜在痛点与避坑指南：
+        ✕ 在 AI 编程背景下的痛点与避坑提醒：
       </strong>
       <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.86rem; color: var(--text-primary);">
         ${c.aiCons.map((con) => `<div>• ${escapeHtml(con)}</div>`).join('')}
@@ -1072,7 +1072,7 @@ function openCarrierSheet(cidx) {
     <!-- Best Use Cases -->
     <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
       <strong style="font-family: var(--font-serif); font-size: 0.9rem; display: block; margin-bottom: 0.4rem;">
-        最适合用它来做什么文科项目？
+        最适合用它来做什么项目？
       </strong>
       <div style="display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.85rem; color: var(--text-secondary);">
         ${c.bestUseCases.map((u) => `<div>▪ ${escapeHtml(u)}</div>`).join('')}
@@ -1083,10 +1083,10 @@ function openCarrierSheet(cidx) {
     <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.9rem; color: var(--accent);">
-          该技术栈的 AI 开卷起手令：
+          该技术栈的 AI 开局提示词模板：
         </strong>
         <button type="button" id="copy-carrier-prompt-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
-          复制起手令
+          复制提示词
         </button>
       </div>
       <p style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.65;">
@@ -1102,7 +1102,7 @@ function openCarrierSheet(cidx) {
       class="btn-secondary-pill"
       ${cidx <= 0 ? 'disabled' : ''}
     >
-      ← 上一器用
+      ← 上一种形态
     </button>
     <span style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-tertiary);">
       ${cidx + 1} / ${TECH_STACK_CARRIERS.length}
@@ -1113,12 +1113,12 @@ function openCarrierSheet(cidx) {
       class="btn-primary-pill"
       ${cidx >= TECH_STACK_CARRIERS.length - 1 ? 'disabled' : ''}
     >
-      下一器用 →
+      下一种形态 →
     </button>
   `;
 
   openSheet({
-    kicker: `器用 0${cidx + 1} · ${c.literaryMetaphor}`,
+    kicker: `形态 0${cidx + 1} · ${c.literaryMetaphor}`,
     bodyHtml,
     footerHtml,
     onMount: (bodyEl, footerEl) => {
@@ -1151,7 +1151,7 @@ function renderStackCompassView(container) {
   container.innerHTML = `
     <div class="view-header-card">
       <div style="font-family: var(--font-serif); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.65rem;">
-        点选最接近你手头想法的一句话，查看最佳技术栈处方：
+        点选最接近你真实需求的一句话，查看最省力的技术栈方案：
       </div>
 
       <div style="display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.25rem;">
@@ -1177,16 +1177,16 @@ function renderStackCompassView(container) {
 
       <div style="background: var(--bg-subtle); border-top: 2px solid var(--accent); border-radius: var(--radius-sm); padding: 1.25rem;">
         <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent); margin-bottom: 0.3rem;">
-          RECOMMENDED TECH STACK · 选型处方
+          RECOMMENDED TECH STACK · 推荐选型方案
         </div>
         <h3 style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; margin-bottom: 0.5rem;">
           ${escapeHtml(activeSc.verdict)}
         </h3>
         <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.75rem;">
-          <strong>为什么这样选最聪明：</strong>${escapeHtml(activeSc.reason)}
+          <strong>为什么这样选最省心：</strong>${escapeHtml(activeSc.reason)}
         </p>
         <div style="font-family: var(--font-mono); font-size: 0.8rem; background: var(--bg-surface); padding: 0.65rem 0.9rem; border-radius: 6px; border: 1px solid var(--border-hairline); margin-bottom: 1rem;">
-          黄金配方：${escapeHtml(activeSc.stackRecipe)}
+          推荐技术组合：${escapeHtml(activeSc.stackRecipe)}
         </div>
 
         <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
@@ -1195,14 +1195,14 @@ function renderStackCompassView(container) {
             id="compass-open-carrier-btn"
             class="btn-secondary-pill"
           >
-            查看该载体完整 AI 优劣势详卷
+            查看该形态完整 AI 优劣势详解
           </button>
           <button
             type="button"
             id="compass-go-composer-btn"
             class="btn-terracotta-pill"
           >
-            用此技术栈生成开卷诏令 →
+            用此技术栈生成新项目提示词 →
           </button>
         </div>
       </div>
@@ -1242,7 +1242,7 @@ function renderStackRoadmapStepper(container) {
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
         <span class="card-index-pill">${escapeHtml(stageObj.stage)}</span>
         <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-tertiary);">
-          进阶阶梯 0${state.activeRoadmapIndex + 1} / 0${BEST_PRACTICE_ROADMAP.length}
+          上手阶段 0${state.activeRoadmapIndex + 1} / 0${BEST_PRACTICE_ROADMAP.length}
         </span>
       </div>
 
@@ -1263,7 +1263,7 @@ function renderStackRoadmapStepper(container) {
       </h2>
 
       <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 0.85rem;">
-        本阶推荐技术栈：${escapeHtml(stageObj.goldenStack)}
+        本阶段推荐工具：${escapeHtml(stageObj.goldenStack)}
       </div>
 
       <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 0.8rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; margin-bottom: 0.9rem;">
@@ -1276,7 +1276,7 @@ function renderStackRoadmapStepper(container) {
 
       <div style="background: var(--bg-subtle); padding: 1rem; border-radius: var(--radius-xs); margin-bottom: 1.25rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.92rem; display: block; margin-bottom: 0.5rem;">
-          实操三步走（Best Practices）：
+          具体实操三步走：
         </strong>
         <div style="display: flex; flex-direction: column; gap: 0.45rem; font-size: 0.86rem; color: var(--text-primary);">
           ${stageObj.actionSteps.map((step) => `<div>${escapeHtml(step)}</div>`).join('')}
@@ -1291,7 +1291,7 @@ function renderStackRoadmapStepper(container) {
           style="flex: 1;"
           ${state.activeRoadmapIndex === 0 ? 'disabled' : ''}
         >
-          ← 上一阶
+          ← 上一步
         </button>
         <button
           type="button"
@@ -1301,8 +1301,8 @@ function renderStackRoadmapStepper(container) {
         >
           ${
             state.activeRoadmapIndex < BEST_PRACTICE_ROADMAP.length - 1
-              ? `下一阶 (${state.activeRoadmapIndex + 2}/${BEST_PRACTICE_ROADMAP.length}) →`
-              : '去看「04 纪事本末」三大实战案例 →'
+              ? `下一步 (${state.activeRoadmapIndex + 2}/${BEST_PRACTICE_ROADMAP.length}) →`
+              : '去看「04 实战案例」三大作品复盘 →'
           }
         </button>
       </div>
@@ -1336,7 +1336,7 @@ function renderStackRoadmapStepper(container) {
   }
 }
 
-// ==================== TAB 04 · 纪事本末 (3 Cross-Stack Case Studies + Live Demos) ====================
+// ==================== TAB 04 · 实战案例 ====================
 function renderCasesView(mount) {
   const currentCase =
     CASE_STUDIES.find((c) => c.id === state.activeCaseId) || CASE_STUDIES[0];
@@ -1344,9 +1344,9 @@ function renderCasesView(mount) {
   const isLiveSlide = state.activeSlideIndex >= currentCase.chapters.length;
 
   const shortNames = {
-    'honglou-gallery': '01 Web展馆·红楼判词',
-    'song-notes-workbench': '02 本地存储·宋代笔记',
-    'desktop-corpus-reader': '03 桌面软件+Python脚本'
+    'honglou-gallery': '案例1 · 红楼梦互动网页',
+    'song-notes-workbench': '案例2 · 宋代笔记检索台',
+    'desktop-corpus-reader': '案例3 · Python词频+桌面软件'
   };
 
   mount.innerHTML = `
@@ -1367,7 +1367,7 @@ function renderCasesView(mount) {
     <div class="view-header-card">
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.65rem;">
         <span class="card-index-pill">
-          ${isLiveSlide ? `第 ${totalSlides} 折 · 成品交互实演` : `第 ${state.activeSlideIndex + 1} 折 / 共 ${totalSlides} 折`}
+          ${isLiveSlide ? `第 ${totalSlides} 步 · 成品在线试玩` : `第 ${state.activeSlideIndex + 1} 步 / 共 ${totalSlides} 步`}
         </span>
         <button
           type="button"
@@ -1375,7 +1375,7 @@ function renderCasesView(mount) {
           class="chip-btn ${isLiveSlide ? 'active' : ''}"
           style="min-height: 32px; padding: 0.2rem 0.75rem; font-size: 0.76rem;"
         >
-          ${isLiveSlide ? '返回第 1 折故事复盘' : '直接试玩最终成品 →'}
+          ${isLiveSlide ? '返回第 1 步复盘过程' : '直接试玩做好的成品 →'}
         </button>
       </div>
 
@@ -1387,7 +1387,7 @@ function renderCasesView(mount) {
             type="button"
             class="step-dot slide-dot-btn ${idx === state.activeSlideIndex ? 'active' : idx < state.activeSlideIndex ? 'completed' : ''}"
             data-sidx="${idx}"
-            aria-label="第 ${idx + 1} 折"
+            aria-label="第 ${idx + 1} 步"
           ></button>
         `
           )
@@ -1404,7 +1404,7 @@ function renderCasesView(mount) {
           style="flex: 1;"
           ${state.activeSlideIndex === 0 ? 'disabled' : ''}
         >
-          ← 上一折
+          ← 上一步
         </button>
         <button
           type="button"
@@ -1414,10 +1414,10 @@ function renderCasesView(mount) {
         >
           ${
             state.activeSlideIndex < currentCase.chapters.length - 1
-              ? `下一折 (${state.activeSlideIndex + 2}/${totalSlides}) →`
+              ? `下一步 (${state.activeSlideIndex + 2}/${totalSlides}) →`
               : state.activeSlideIndex === currentCase.chapters.length - 1
-                ? '下一折：亲自试玩作品成品 →'
-                : '前往「05 案头手札」生成你的指令 →'
+                ? '下一步：亲自试玩作品成品 →'
+                : '前往「05 提示词库」复制模板 →'
           }
         </button>
       </div>
@@ -1506,14 +1506,14 @@ function renderCaseChapterSlide(container, currentCase, chapter) {
         class="prompt-switch-btn is-master ${isMaster ? 'active' : ''}"
         data-pmode="master"
       >
-        ✓ 文心雕码·正确总纂指令
+        ✓ 结构化提问（推荐示范）
       </button>
       <button
         type="button"
         class="prompt-switch-btn is-naive ${!isMaster ? 'active' : ''}"
         data-pmode="naive"
       >
-        ✕ 普通人·易翻车提问
+        ✕ 新手笼统提问（踩坑对比）
       </button>
     </div>
 
@@ -1523,7 +1523,7 @@ function renderCaseChapterSlide(container, currentCase, chapter) {
       <div style="background: var(--bg-subtle); border-left: 3px solid var(--sage); border-radius: 0 8px 8px 0; padding: 1rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
           <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--sage); font-weight: 600;">
-            STRUCTURED PROMPT · 结构化指令
+            STRUCTURED PROMPT · 结构化指令示范
           </span>
           <button type="button" id="copy-chapter-prompt-btn" class="chip-btn" style="min-height: 28px; padding: 0.15rem 0.6rem; font-size: 0.74rem;">
             复制此指令
@@ -1531,18 +1531,18 @@ function renderCaseChapterSlide(container, currentCase, chapter) {
         </div>
         <pre style="font-family: var(--font-sans); font-size: 0.86rem; line-height: 1.68; white-space: pre-wrap; background: var(--bg-surface); padding: 0.85rem; border-radius: 6px; margin-bottom: 0.65rem;">${escapeHtml(chapter.masterPrompt)}</pre>
         <div style="font-size: 0.85rem; color: var(--text-secondary);">
-          <strong style="color: var(--sage);">一次成功收效：</strong>${escapeHtml(chapter.masterOutcome)}
+          <strong style="color: var(--sage);">一次成功效果：</strong>${escapeHtml(chapter.masterOutcome)}
         </div>
       </div>
     `
         : `
       <div style="background: var(--crimson-soft); border-left: 3px solid var(--crimson); border-radius: 0 8px 8px 0; padding: 1rem;">
         <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--crimson); font-weight: 600; margin-bottom: 0.5rem;">
-          NAIVE PROMPT · 模糊直觉提问（反面教材）
+          NAIVE PROMPT · 笼统直觉提问（反面教材）
         </div>
         <pre style="font-family: var(--font-sans); font-size: 0.86rem; line-height: 1.68; white-space: pre-wrap; background: var(--bg-surface); padding: 0.85rem; border-radius: 6px; margin-bottom: 0.65rem;">“${escapeHtml(chapter.naivePrompt)}”</pre>
         <div style="font-size: 0.85rem; color: var(--text-secondary);">
-          <strong style="color: var(--crimson);">为何翻车：</strong>${escapeHtml(chapter.naiveOutcome)}
+          <strong style="color: var(--crimson);">为什么会翻车：</strong>${escapeHtml(chapter.naiveOutcome)}
         </div>
       </div>
     `
@@ -1577,10 +1577,10 @@ function renderHonglouInteractiveSlide(container, currentCase) {
 
   container.innerHTML = `
     <h2 style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; margin: 0.5rem 0 0.35rem;">
-      作品实演：《红楼梦》群芳花签与判词册页
+      成品试玩：《红楼梦》金陵十二钗花签与判词卡片
     </h2>
     <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0.85rem;">
-      点按下方人物卡片上的「点击翻转判词 ↻」按钮，亲自体验林知微同学用 AI 做出的组件成果：
+      点击下方人物卡片上的「点击翻转看判词 ↻」按钮，亲自体验林知微同学用 AI 做出的网页组件：
     </p>
 
     <div class="chips-scroll-row">
@@ -1613,7 +1613,7 @@ function renderHonglouInteractiveSlide(container, currentCase) {
                 <span class="card-index-pill">${escapeHtml(ch.group)}</span>
               </div>
               <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); margin-bottom: 0.65rem;">
-                别号：${escapeHtml(ch.title)} · 主键 id: "${ch.id}"
+                别号：${escapeHtml(ch.title)} · 唯一标识 id: "${ch.id}"
               </div>
 
               ${
@@ -1621,7 +1621,7 @@ function renderHonglouInteractiveSlide(container, currentCase) {
                   ? `
                 <div style="background: var(--bg-subtle); padding: 0.85rem; border-radius: var(--radius-xs);">
                   <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); margin-bottom: 0.25rem;">
-                    正面 · 群芳夜宴花签
+                    卡片正面 · 群芳夜宴花签
                   </div>
                   <div style="font-family: var(--font-serif); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem;">
                     ${escapeHtml(ch.flower)}
@@ -1634,7 +1634,7 @@ function renderHonglouInteractiveSlide(container, currentCase) {
                   : `
                 <div style="background: var(--accent-soft); padding: 0.85rem; border-radius: var(--radius-xs);">
                   <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); margin-bottom: 0.25rem;">
-                    背面 · 太虚幻境正册判词与脂批
+                    卡片背面 · 太虚幻境判词与批注
                   </div>
                   <div style="font-family: var(--font-serif); font-size: 0.92rem; margin-bottom: 0.45rem;">
                     ${escapeHtml(ch.verdict)}
@@ -1653,7 +1653,7 @@ function renderHonglouInteractiveSlide(container, currentCase) {
               style="width: 100%;"
               data-char-id="${ch.id}"
             >
-              ${isFlipped ? '↺ 翻回正面花签' : '点击翻转判词与脂批 ↻'}
+              ${isFlipped ? '↺ 翻回正面花签' : '点击翻转看判词与批注 ↻'}
             </button>
           </div>
         `;
@@ -1694,17 +1694,17 @@ function renderSongNotesInteractiveSlide(container, currentCase) {
 
   container.innerHTML = `
     <h2 style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; margin: 0.5rem 0 0.35rem;">
-      作品实演：《宋代笔记》多维标签与朱笔圈点台
+      成品试玩：《宋代笔记》多标签筛选与荧光笔高亮检索台
     </h2>
     <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0.85rem;">
-      在下方输入框尝试搜索“夜市”、“活板”或“史记”，体验实时朱笔圈点高亮：
+      在下方搜索框尝试输入“夜市”、“活板”或“史记”，体验实时关键词荧光高亮：
     </p>
 
     <input
       type="search"
       id="song-live-input"
       class="search-input-bar"
-      placeholder="输入字词朱笔高亮（如：夜市、活板）"
+      placeholder="输入字词实时高亮搜索（如：夜市、活板）"
       value="${escapeHtml(state.songSearchQuery)}"
     />
 
@@ -1717,7 +1717,7 @@ function renderSongNotesInteractiveSlide(container, currentCase) {
           class="chip-btn song-book-chip ${state.songBookFilter === b ? 'active' : ''}"
           data-book="${b}"
         >
-          ${b === 'all' ? '全部典籍 (4)' : b}
+          ${b === 'all' ? '全部书目 (4)' : b}
         </button>
       `
         )
@@ -1784,10 +1784,10 @@ function renderCorpusDesktopInteractiveSlide(container, currentCase) {
 
   container.innerHTML = `
     <h2 style="font-family: var(--font-serif); font-size: 1.3rem; font-weight: 600; margin: 0.5rem 0 0.35rem;">
-      作品实演：Python 意象统计 + Electron 桌面双栏批注器
+      成品试玩：Python 词频统计 + Electron 桌面双栏批注器
     </h2>
     <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0.85rem;">
-      点选下方诗人切片，体验陈景行同学将 Python 词频结果接入 Electron 桌面阅读器并实时保存批注的成果：
+      切换下方诗人卡片，体验陈景行同学把 Python 词频结果接入桌面双栏阅读器、并直接保存批注到本地硬盘的效果：
     </p>
 
     <div class="chips-scroll-row">
@@ -1808,14 +1808,14 @@ function renderCorpusDesktopInteractiveSlide(container, currentCase) {
 
     <div style="background: var(--bg-subtle); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden;">
       <div style="padding: 0.55rem 0.9rem; background: var(--bg-recessed); border-bottom: 1px solid var(--border-hairline); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary);">
-        <span>Electron Desktop Window · 唐宋贬谪语料校读器.app</span>
-        <span id="ipc-save-status" style="color: var(--sage);">● 已连接本地硬盘 ./data/scholar_notes.json</span>
+        <span>Electron Desktop Window · 唐宋贬谪诗文双栏阅读器.app</span>
+        <span id="ipc-save-status" style="color: var(--sage);">● 已连接电脑硬盘 ./data/scholar_notes.json</span>
       </div>
 
       <div class="cards-feed-grid" style="padding: 1rem;">
         <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-xs);">
           <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 0.3rem;">
-            LEFT PANE · Python 自动提取语料与词频
+            左栏 · Python 脚本自动统计的词频与原句
           </div>
           <h3 style="font-family: var(--font-serif); font-size: 1.12rem; font-weight: 600; margin-bottom: 0.25rem;">
             ${escapeHtml(activeItem.poet)}（${escapeHtml(activeItem.exilePlace)}）
@@ -1834,7 +1834,7 @@ function renderCorpusDesktopInteractiveSlide(container, currentCase) {
         <div style="background: var(--bg-surface); padding: 1rem; border-radius: var(--radius-xs); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); margin-bottom: 0.3rem;">
-              RIGHT PANE · 案头考据批注（试着修改下方文字）
+              右栏 · 我的论文批注（可直接在下方修改文字）
             </div>
             <textarea
               id="corpus-note-textarea"
@@ -1843,7 +1843,7 @@ function renderCorpusDesktopInteractiveSlide(container, currentCase) {
             >${escapeHtml(currentNote)}</textarea>
           </div>
           <button type="button" id="save-ipc-note-btn" class="btn-primary-pill" style="width: 100%;">
-            调用 Electron IPC 落印保存至本地硬盘
+            保存批注到本地电脑硬盘文件
           </button>
         </div>
       </div>
@@ -1864,53 +1864,53 @@ function renderCorpusDesktopInteractiveSlide(container, currentCase) {
     saveBtn.addEventListener('click', () => {
       state.corpusCustomNotes[activeItem.id] = textarea.value;
       if (statusEl) {
-        statusEl.textContent = '✓ IPC 已写入本地 ./data/scholar_notes.json';
+        statusEl.textContent = '✓ 已实时写入电脑硬盘 ./data/scholar_notes.json';
       }
-      saveBtn.textContent = '已落印存盘 ✓';
+      saveBtn.textContent = '已保存至本地硬盘 ✓';
       setTimeout(() => {
-        saveBtn.textContent = '调用 Electron IPC 落印保存至本地硬盘';
+        saveBtn.textContent = '保存批注到本地电脑硬盘文件';
       }, 1500);
     });
   }
 }
 
-// ==================== TAB 05 · 案头手札 ====================
+// ==================== TAB 05 · 提示词库 ====================
 function buildComposedDecree() {
   const { carrierId, projectName, projectType, coreFeatures, visualStyle } =
     state.composer;
   const carrier =
     TECH_STACK_CARRIERS.find((c) => c.id === carrierId) || TECH_STACK_CARRIERS[0];
 
-  return `# 修书局开卷总纂诏令 (Project Specification)
+  return `# 新项目开发需求提纲与工程守则 (Project PRD Prompt)
 
-我正在筹划构建：${projectName}。
-我是汉语言文学背景的产品主理人（总纂官），请你担任我的资深全栈架构师（副总纂）。
+我正在计划开发：${projectName}。
+我是本项目的主编（产品负责人），请你担任我的资深全栈工程师助理。
 
-## 一、目标载体与推荐技术栈
-- 载体形态：${carrier.carrierName}（${carrier.literaryMetaphor}）
-- 技术栈要求：${carrier.typicalStack}
-- 载体专项叮嘱：${carrier.aiStarterPrompt}
+## 一、目标产品形态与技术栈
+- 产品形态：${carrier.carrierName}（${carrier.literaryMetaphor}）
+- 推荐技术栈：${carrier.typicalStack}
+- 技术栈专项要求：${carrier.aiStarterPrompt}
 
-## 二、体裁与核心功能
-- 应用定位：${projectType}
-- 核心模块拆解：${coreFeatures}
+## 二、项目定位与核心功能
+- 项目定位：${projectType}
+- 核心功能板块：${coreFeatures}
 
-## 三、装帧气韵与视觉规范
-- 审美设定：${visualStyle}
+## 三、排版风格与视觉规范
+- 视觉要求：${visualStyle}
 
-## 四、修书凡例（工程架构纪律）
-1. 先谋篇后动笔：请先不要直接生成长篇代码，先输出《功能模块大纲》、《文件目录树（Directory Tree）》以及《核心数据 JSON Schema 样例》供我审阅。
-2. 史料与装帧分离：所有词条与文献数据必须独立存放在数据目录下，切勿将大段文案硬编码在视图组件中。
-3. 语义正名与夹注：变量与函数命名需见名知义，并在关键函数上方附上简明【中文注释】，说明其业务意图。`;
+## 四、协作开发守则（请严格遵守）
+1. 先列提纲后写代码：请先不要直接生成长篇代码，先用通俗中文输出《功能板块划分》、《文件夹目录结构》以及《核心数据 JSON 字段示例》供我审阅。
+2. 文字资料与排版代码分离：所有展示用的文字、卡片数据必须单独存放在数据文件中，不要把大段文字直接写死在界面代码里，方便我后续自己增删修改文字。
+3. 中文导读注释：变量与函数命名请见名知义，并在核心函数上方加上简明的【中文注释】，说明这段代码负责什么功能。`;
 }
 
 function renderPromptsView(mount) {
   mount.innerHTML = `
     <div class="view-header-card">
-      <div class="view-kicker">05 · Prompt Atelier · 拿来即用的指令锦囊</div>
-      <h1 class="view-title">文科生 AI 编程六式锦囊与跨端诏令生成器</h1>
+      <div class="view-kicker">05 · Prompt Library · 拿来即用的 AI 提问模板</div>
+      <h1 class="view-title">6 个高频场景 AI 提问模板 &amp; 新项目需求生成器</h1>
       <p class="view-desc">
-        不知道怎么对 AI 开口？直接点选下方对应场景的锦囊一键复制，或选择你的目标技术栈（网页/手机App/桌面软件/Python脚本）定制开卷诏令。
+        不知道怎么对 AI 开口？直接选择下方对应场景的模板一键复制，或者填好你的想法，自动生成一份带技术栈护栏的《新项目开局提示词》。
       </p>
     </div>
 
@@ -1920,14 +1920,14 @@ function renderPromptsView(mount) {
         class="submode-btn ${state.promptsSubMode === 'templates' ? 'active' : ''}"
         data-psub="templates"
       >
-        1. 六式常备锦囊 (点击即抄)
+        1. 6 个高频提问模板 (一键复制)
       </button>
       <button
         type="button"
         class="submode-btn ${state.promptsSubMode === 'composer' ? 'active' : ''}"
         data-psub="composer"
       >
-        2. 定制我的跨端开卷诏令
+        2. 定制我的新项目开局提示词
       </button>
     </div>
 
@@ -1964,7 +1964,7 @@ function renderPromptTemplatesFeed(container) {
               ${escapeHtml(tpl.title)}
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.35rem;">
-              <strong>适用时机：</strong>${escapeHtml(tpl.whenToUse)}
+              <strong>什么时候用：</strong>${escapeHtml(tpl.whenToUse)}
             </p>
           </div>
 
@@ -1975,7 +1975,7 @@ function renderPromptTemplatesFeed(container) {
               style="flex: 1;"
               data-tpl-idx="${idx}"
             >
-              审阅全文
+              查看完整内容
             </button>
             <button
               type="button"
@@ -1983,7 +1983,7 @@ function renderPromptTemplatesFeed(container) {
               style="flex: 1.2;"
               data-tpl-idx="${idx}"
             >
-              一键复制锦囊
+              一键复制模板
             </button>
           </div>
         </div>
@@ -2024,14 +2024,14 @@ function openPromptTemplateSheet(tplIdx) {
     </div>
 
     <div class="code-sheet-light" style="background: var(--bg-subtle);">
-      <span class="code-sheet-label">PROMPT TEMPLATE · 可复制后修改方括号内文字</span>
+      <span class="code-sheet-label">PROMPT TEMPLATE · 复制后把【方括号】里的文字换成你的内容即可</span>
       <pre class="code-pre-block" style="font-family: var(--font-sans); font-size: 0.86rem; line-height: 1.7;">${escapeHtml(tpl.template)}</pre>
     </div>
   `;
 
   const footerHtml = `
     <button type="button" id="sheet-copy-full-tpl" class="btn-terracotta-pill" style="width: 100%;">
-      复制此道指令锦囊
+      复制此提示词模板
     </button>
   `;
 
@@ -2054,7 +2054,7 @@ function renderPromptComposerForm(container) {
   container.innerHTML = `
     <div class="view-header-card">
       <div style="font-family: var(--font-serif); font-weight: 600; font-size: 1.02rem; margin-bottom: 0.45rem;">
-        第一步：选择你要开发的产品载体（自动匹配最佳技术栈护栏）
+        第一步：选择你想做的产品形态（自动匹配最省心的技术栈要求）
       </div>
       <div class="chips-scroll-row">
         ${TECH_STACK_CARRIERS.map(
@@ -2071,7 +2071,7 @@ function renderPromptComposerForm(container) {
       </div>
 
       <div style="font-family: var(--font-serif); font-weight: 600; font-size: 1.02rem; margin: 0.5rem 0 0.45rem;">
-        第二步：点选一个文科灵感预设（或直接修改下方四格）
+        第二步：点击下方任一预设示范（或直接修改下面四个输入框）
       </div>
       <div class="chips-scroll-row">
         ${COMPOSER_PRESETS.map(
@@ -2086,32 +2086,32 @@ function renderPromptComposerForm(container) {
       <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.25rem;">
         <div>
           <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem;">
-            1. 著作名目（你想做什么项目？）
+            1. 项目名称（你想做一个什么作品/工具？）
           </label>
           <input type="text" id="comp-name" class="search-input-bar" style="margin-bottom: 0;" value="${escapeHtml(state.composer.projectName)}" />
         </div>
         <div>
           <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem;">
-            2. 体裁形制（这是什么类型的网页/App/脚本？）
+            2. 项目类型（这是什么类型的网页、工具或脚本？）
           </label>
           <input type="text" id="comp-type" class="search-input-bar" style="margin-bottom: 0;" value="${escapeHtml(state.composer.projectType)}" />
         </div>
         <div>
           <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem;">
-            3. 卷目划分（包含哪几个核心功能？）
+            3. 核心功能板块（包含哪几个主要功能？）
           </label>
           <textarea id="comp-features" class="search-input-bar" rows="3" style="margin-bottom: 0; height: auto;">${escapeHtml(state.composer.coreFeatures)}</textarea>
         </div>
         <div>
           <label style="display: block; font-size: 0.82rem; font-weight: 600; margin-bottom: 0.3rem;">
-            4. 装帧气韵（你喜欢什么样的视觉风格？）
+            4. 视觉与排版风格（你喜欢什么样的色彩和版面感觉？）
           </label>
           <input type="text" id="comp-style" class="search-input-bar" style="margin-bottom: 0;" value="${escapeHtml(state.composer.visualStyle)}" />
         </div>
       </div>
 
       <button type="button" id="preview-composed-btn" class="btn-terracotta-pill" style="width: 100%;">
-        生成并审阅我的《跨端开卷总纂诏令》 →
+        生成并查看我的《新项目开局提示词》 →
       </button>
     </div>
   `;
@@ -2154,10 +2154,10 @@ function renderPromptComposerForm(container) {
     previewBtn.addEventListener('click', () => {
       const decree = buildComposedDecree();
       openSheet({
-        kicker: 'GENERATED SPECIFICATION · 专属跨端开卷总纂诏令',
+        kicker: 'GENERATED PRD PROMPT · 专属新项目开局提示词',
         bodyHtml: `
           <p style="font-size: 0.88rem; color: var(--text-secondary);">
-            已自动注入所选载体的最佳技术栈配方与“先谋篇后动笔、数据与视图解耦、中文夹注”工程护栏：
+            已自动为你加上所选产品形态的最佳技术栈要求，以及“先列提纲后写代码、文字与排版代码分离、中文注释”三大保护规则：
           </p>
           <div class="code-sheet-dark">
             <pre class="code-pre-block" style="font-family: var(--font-sans); font-size: 0.85rem; line-height: 1.72;">${escapeHtml(decree)}</pre>
@@ -2165,7 +2165,7 @@ function renderPromptComposerForm(container) {
         `,
         footerHtml: `
           <button type="button" id="copy-generated-decree-btn" class="btn-terracotta-pill" style="width: 100%;">
-            一键复制诏令（直接粘贴给 Claude / Cursor / Antigravity）
+            一键复制提示词（直接粘贴发给 Claude / Cursor / AI 助手）
           </button>
         `,
         onMount: (_, footerEl) => {
@@ -2224,10 +2224,10 @@ function initApp() {
       state.theme = state.theme === 'day' ? 'night' : 'day';
       if (state.theme === 'night') {
         document.documentElement.setAttribute('data-theme', 'night');
-        themeBtn.textContent = '浅色纸本';
+        themeBtn.textContent = '浅色模式';
       } else {
         document.documentElement.removeAttribute('data-theme');
-        themeBtn.textContent = '深色墨本';
+        themeBtn.textContent = '夜间模式';
       }
     });
   }

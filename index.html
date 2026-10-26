@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
-  <title>文心雕码 — 汉语言文学 × 软件工程互动沙龙</title>
+  <title>文心雕码 — 用写文章的直觉读懂软件工程与 AI 编程</title>
   <link rel="stylesheet" href="./src/styles/main.css" />
 </head>
 <body>
@@ -14,25 +14,25 @@
         <button type="button" class="brand-identity" id="brand-home-btn">
           <span class="brand-dot" aria-hidden="true"></span>
           <span class="brand-title">文心雕码</span>
-          <span class="brand-badge">以文驭码</span>
+          <span class="brand-badge">写作直觉 × AI 编程</span>
         </button>
 
         <!-- Desktop Segmented Switcher -->
         <nav class="desktop-tabs" aria-label="主导航">
           <button type="button" class="desktop-tab-btn active" data-tab="arch">
-            <span class="tab-idx">01</span>营造法式
+            <span class="tab-idx">01</span>全局全景
           </button>
           <button type="button" class="desktop-tab-btn" data-tab="dict">
-            <span class="tab-idx">02</span>格物词典
+            <span class="tab-idx">02</span>概念词典
           </button>
           <button type="button" class="desktop-tab-btn" data-tab="stacks">
-            <span class="tab-idx">03</span>器用选型
+            <span class="tab-idx">03</span>技术选型
           </button>
           <button type="button" class="desktop-tab-btn" data-tab="cases">
-            <span class="tab-idx">04</span>纪事本末
+            <span class="tab-idx">04</span>实战案例
           </button>
           <button type="button" class="desktop-tab-btn" data-tab="prompts">
-            <span class="tab-idx">05</span>案头手札
+            <span class="tab-idx">05</span>提示词库
           </button>
         </nav>
 
@@ -50,9 +50,9 @@
             type="button"
             id="theme-toggle-btn"
             class="util-btn"
-            title="切换浅色纸本与深色墨本"
+            title="切换浅色纸本与深色夜间模式"
           >
-            深色墨本
+            夜间模式
           </button>
         </div>
       </div>
@@ -62,21 +62,21 @@
     <main id="active-view-mount" class="view-container"></main>
 
     <!-- Mobile Thumb-Zone Bottom Tab Bar -->
-    <nav class="bottom-tab-bar" aria-label="底部五卷切换">
+    <nav class="bottom-tab-bar" aria-label="底部五模块切换">
       <button type="button" class="bottom-tab-item active" data-tab="arch">
         <span class="b-num">01</span>
-        <span class="b-label">营造</span>
-        <span class="b-sub">书院全景</span>
+        <span class="b-label">全景</span>
+        <span class="b-sub">六大分工</span>
       </button>
       <button type="button" class="bottom-tab-item" data-tab="dict">
         <span class="b-num">02</span>
         <span class="b-label">词典</span>
-        <span class="b-sub">双语16则</span>
+        <span class="b-sub">16个概念</span>
       </button>
       <button type="button" class="bottom-tab-item" data-tab="stacks">
         <span class="b-num">03</span>
-        <span class="b-label">器用</span>
-        <span class="b-sub">技术选型</span>
+        <span class="b-label">选型</span>
+        <span class="b-sub">网页与App</span>
       </button>
       <button type="button" class="bottom-tab-item" data-tab="cases">
         <span class="b-num">04</span>
@@ -85,8 +85,8 @@
       </button>
       <button type="button" class="bottom-tab-item" data-tab="prompts">
         <span class="b-num">05</span>
-        <span class="b-label">手札</span>
-        <span class="b-sub">AI指令集</span>
+        <span class="b-label">模板</span>
+        <span class="b-sub">AI提示词</span>
       </button>
     </nav>
   </div>
@@ -97,7 +97,7 @@
       <div class="sheet-handle-bar">
         <span id="sheet-kicker" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent);"></span>
         <div class="sheet-pill-indicator" aria-hidden="true"></div>
-        <button type="button" id="sheet-close-btn" class="sheet-close-btn">收起 ✕</button>
+        <button type="button" id="sheet-close-btn" class="sheet-close-btn">关闭 ✕</button>
       </div>
       <div id="sheet-scroll-body" class="sheet-scroll-body"></div>
       <div id="sheet-bottom-nav" class="sheet-bottom-nav"></div>

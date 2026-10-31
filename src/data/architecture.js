@@ -1,17 +1,18 @@
-// 01 · 全局全景：用“排一篇互动公众号推文 / 运营现代杂志社”看懂软件工程 6 大核心模块
+// 01 · 全局全景：用“一座闭架借阅的图书馆”看懂软件工程 6 大核心模块
+// 主比喻：阅览大厅=前端 · 索书单=API · 借阅台后的馆员=后端 · 书库与卡片目录=数据库 · 修订档案=Git · 主编与实习生=AI 协作
 
 export const ARCHITECTURE_NODES = [
   {
     id: 'frontend',
     order: '01',
-    literaryTitle: '公众号排版与杂志版面',
-    literarySub: '文字草稿 · 秀米样式 · 点击互动',
+    literaryTitle: '图书馆的阅览大厅与展陈版面',
+    literarySub: '陈列排版 · 视觉样式 · 互动机关',
     engTitle: '前端界面 (Frontend / UI)',
     engTech: 'HTML · CSS · JavaScript / React',
     badge: '读者可见层',
     summary: '你在手机或电脑屏幕上直接看到、能用手指点按的一切画面与排版。',
     metaphorDetail:
-      '把做网站或 App 想象成排版一篇互动公众号推文：前端不管后台复杂的账号权限或数据统计，它只负责把内容漂漂亮亮地摆在读者眼前，并且当你点击按钮时给出丝滑的反馈。',
+      '把一个网站想象成一座图书馆：前端就是读者走进来看到的阅览大厅——书怎么陈列、展板怎么排版、指示牌怎么设计、按下按钮有什么反应。它不管书库里的书怎么保管、读者证怎么审核，只负责把内容漂漂亮亮地摆在读者眼前，并在读者操作时给出及时的反馈。',
     threePillars: [
       {
         lit: '纯文字初稿（分清标题、段落、配图）',
@@ -41,27 +42,27 @@ export const ARCHITECTURE_NODES = [
   {
     id: 'api',
     order: '02',
-    literaryTitle: '前后台之间的“标准传菜小票”',
-    literarySub: '前台点单 · 按格式传话 · 后台出餐',
+    literaryTitle: '读者填写的“索书单”与借阅台回条',
+    literarySub: '填写索书单 · 借阅台传递 · 递出书或回条',
     engTitle: 'API 接口与 JSON 协议',
     engTech: 'HTTP Request / Response · JSON',
     badge: '传话通道层',
-    summary: '前端画面与后端大脑之间按固定表格格式传递消息的“传话筒”与“快递单”。',
+    summary: '前端与后端之间按固定格式传递请求与结果的“索书单”和“回条”。',
     metaphorDetail:
-      '就像餐厅里服务员（前端）站在大厅招待客人，厨师（后端）待在后厨炒菜。客人点了一道菜，服务员不能冲进后厨乱喊，而是打印一张格式固定的“点菜单”（API 请求）递进传菜口；后厨做好菜后，再从传菜口端出来（API 响应）。',
+      '闭架图书馆里，读者不能自己钻进书库翻书，而是在借阅台填一张格式固定的“索书单”（API 请求）：写明要哪位著者的什么书。馆员按单子去书库取书，再从借阅台递出来（API 响应）；如果馆里没有这本书，递回来的是一张“查无此书”的回条（404）。',
     threePillars: [
       {
-        lit: '四种标准动作（查资料 / 交新稿 / 改旧稿 / 删稿）',
+        lit: '四种标准动作（借阅查询 / 新书入藏 / 更正著录 / 注销下架）',
         eng: 'HTTP 请求方法 (GET / POST / PUT / DELETE)',
         desc: '`GET` 是向后台查数据，`POST` 是提交新内容（如发评论），`PUT` 是修改内容，`DELETE` 是删除。'
       },
       {
-        lit: '全国统一的“填空表格”格式',
+        lit: '全馆统一栏目的索书单格式',
         eng: 'JSON 数据格式',
         desc: '电脑不喜欢读散文，最喜欢读带固定栏目的表格。`{ "title": "活着", "author": "余华" }` 这种花括号键值对就叫 JSON。'
       },
       {
-        lit: '后厨回执单状态（成功 / 查无此物 / 后厨故障）',
+        lit: '借阅台回条（已取到 / 查无此书 / 书库故障）',
         eng: '状态码 (200 / 404 / 500)',
         desc: '`200` 代表一切顺利；`404` 代表你要找的页面或资料不存在；`500` 代表后台程序出故障崩了。'
       }
@@ -78,64 +79,64 @@ export const ARCHITECTURE_NODES = [
   {
     id: 'backend',
     order: '03',
-    literaryTitle: '幕后编辑部与审稿大脑',
-    literarySub: '核验身份 · 核心计算 · 保管密码锁',
+    literaryTitle: '借阅台后的馆员与管理处',
+    literarySub: '核验读者证 · 按规程办事 · 保管钥匙',
     engTitle: '后端服务 (Backend / Server)',
     engTech: 'Node.js · Python · Business Logic · .env',
-    badge: '幕后大脑层',
-    summary: '读者看不见的幕后总控室：负责定规则、算数据、查会员权限、锁好机密钥匙。',
+    badge: '馆员工作区',
+    summary: '读者看不见的“馆员工作区”：负责定规则、算数据、核验读者证、锁好机密钥匙。',
     metaphorDetail:
-      '为什么不能什么事都在前端网页里干？因为前端网页的代码是完全公开给所有读者看的。凡是涉及“核对账号密码”、“扣费充值”、“调用付费 AI 接口”或者“在十万条文献里做复杂运算”的事，都必须藏在幕后的编辑部（后端服务器）里完成。',
+      '为什么不能什么事都在前端网页里干？因为前端代码是完全公开给所有读者看的——就像阅览大厅里的一切都摆在明处。凡是涉及“核对账号密码”“扣费充值”“调用付费 AI 接口”或者“在十万条文献里做复杂运算”的事，都必须交给借阅台后面的馆员（后端服务器）完成。',
     threePillars: [
       {
-        lit: '门卫查验读者证（《文学理论》全知 vs 限知视角）',
+        lit: '核验读者证（普通读者证 / 善本室介绍信）',
         eng: '登录认证与权限 (Auth)',
-        desc: '普通读者（限知视角）只能看公开文章；主编管理员（全知视角）登录后才能进后台删改文章。'
+        desc: '持普通读者证只能借阅开架图书，持介绍信的研究者才能进善本室——对应网站里“普通用户只能看公开文章，管理员登录后才能进后台删改文章”。登录是“查验你是谁”，权限是“决定你能做什么”。'
       },
       {
-        lit: '编辑部的审稿与统计规程',
+        lit: '馆员的借阅与统计规程',
         eng: '业务逻辑 (Business Logic)',
         desc: '比如“统计某位作家今年被阅读了多少次”、“把用户上传的文档发给大模型生成摘要”。'
       },
       {
-        lit: '锁在编辑部保险柜里的充值卡密码',
+        lit: '锁在管理处保险柜里的钥匙',
         eng: '环境变量与密钥 (.env)',
-        desc: '像 DeepSeek / OpenAI 的 API Key（相当于你的银行卡副卡），必须锁在后端的 `.env` 隐藏文件里，绝不能写进前端网页代码。'
+        desc: '像 DeepSeek / OpenAI 的 API Key（相当于你的银行卡副卡），必须锁在后端的 `.env` 隐藏文件里，并把 `.env` 写进 `.gitignore`，绝不能写进前端网页代码或上传到 GitHub。纯静态网站（如 GitHub Pages）没有后端，藏不住 Key，需要配合后端或云函数使用。'
       }
     ],
     codeComparison: {
       litLabel: '编辑部后台处理流程',
-      litContent: `1. 先检查来访者是不是已登录的主编，不是则礼貌拦下。\n2. 从保密柜取出 AI 密钥，调用大模型生成文章摘要。\n3. 把生成好的摘要传回前台页面展示。`,
+      litContent: `1. 先检查来访者是否持有管理权限，没有则礼貌拦下。\n2. 从保险柜取出 AI 密钥，调用大模型生成文章摘要。\n3. 把生成好的摘要传回前台页面展示。`,
       engLabel: '后端处理逻辑 (Node.js)',
       engContent: `app.post('/api/summarize', async (req, res) => {\n  if (!req.user.isEditor) return res.status(403).send('无权限');\n  const summary = await callAI(process.env.AI_KEY, req.body.text);\n  res.json({ summary });\n});`
     },
     aiPromptTip:
-      '只要你的项目用到了付费的大模型 API Key，一定叮嘱 AI：“请把 API Key 放在 `.env` 环境变量里，通过后端接口调用，千万不要直接暴露在前端代码里！”'
+      '只要你的项目用到了付费的大模型 API Key，一定叮嘱 AI：“请把 API Key 放在 `.env` 环境变量里并加入 `.gitignore`，通过后端接口调用，千万不要直接暴露在前端代码里！”'
   },
   {
     id: 'database',
     order: '04',
-    literaryTitle: '电子档案室与多维 Excel 总表',
-    literarySub: '分门别类 · 永久存档 · 秒级检索',
+    literaryTitle: '书库与卡片目录',
+    literarySub: '分类入藏 · 永久保存 · 按索书号秒取',
     engTitle: '数据库 (Database & Schema)',
     engTech: 'SQLite · PostgreSQL · Supabase · localStorage',
     badge: '永久存储层',
     summary: '关掉网页或重启电脑后，让你的文章、笔记和用户数据依然永久保存的“资料库”。',
     metaphorDetail:
-      '如果只把数据存在网页普通变量里，就像用粉笔写在教室黑板上，刷新一下网页黑板就被擦干净了。要想让写下的笔记永久留存，就必须存进“数据库”——你可以直接把数据库理解为一个功能极其强大的、多张表格互相联动的超级 Excel！',
+      '如果只把数据存在网页的普通变量里，就像读者在阅览桌上临时写的便条，一离开座位（刷新网页）就被清走了。要想让写下的笔记永久留存，就必须正式入藏“书库”（数据库）——你可以把数据库理解为多张表格互相联动的超级 Excel，再配上一套卡片目录。',
     threePillars: [
       {
-        lit: '设计表格的表头栏目（写小说先立“人物设定卡”）',
+        lit: '设计著录卡的栏目（书名、著者、索书号……）',
         eng: '数据表结构 (Schema / Model)',
         desc: '建库前先规定好每条记录填哪几项：唯一编号 (`id`)、标题 (`title`)、作者 (`author`)、标签 (`tags`)。'
       },
       {
-        lit: '用“唯一学号”避免同名张冠李戴',
+        lit: '用唯一的“索书号”避免同名张冠李戴',
         eng: '主键与关联 (Primary Key & Foreign Key)',
-        desc: '中国有两个作家都叫“王小波”怎么办？给每个人发一个唯一身份证号 `id`，作品表只绑定 `id`，改名字也绝不错乱。'
+        desc: '同名的书、同名同姓的作者都可能不止一个（比如不同出版社的《红楼梦》）。给每条记录发一个唯一编号 `id`（就像索书号），其他表只认这个编号，改了书名也不会错乱。'
       },
       {
-        lit: '像查字典拼音检字表一样快',
+        lit: '像图书馆卡片目录、字典检字表一样快',
         eng: '数据库索引 (Index)',
         desc: '给常用搜索词（如“作者”、“年份”）加上索引，哪怕库里有十万篇论文，也能在 0.01 秒内搜出来。'
       }
@@ -181,7 +182,7 @@ export const ARCHITECTURE_NODES = [
       litLabel: '传统改论文 vs Git 时光机',
       litContent: `[传统痛点]：论文初稿.docx → 改1.docx → 终稿_真不改了.docx（乱成一团）\n[Git 做法]：始终只有一个文件夹，靠时间轴快照随时穿梭回任意一版`,
       engLabel: 'Git 常用三句口令',
-      engContent: `git add . && git commit -m "完成首页卡片排版"  # 拍下当前完好存档\ngit diff                                      # 检查 AI 刚刚改了哪几行\ngit checkout .                                # 改坏了！一键撤回刚才的改动`
+      engContent: `git add . && git commit -m "完成首页卡片排版"  # 拍下当前完好存档\ngit diff                                      # 检查 AI 刚刚改了哪几行\ngit restore .                                 # 改坏了！撤回所有未存档的改动（不可恢复，慎用）`
     },
     aiPromptTip:
       '用 AI 编程最重要的保命习惯：每当 AI 帮你把一个页面调好看了，立刻对它说“请帮我做一次 git commit 存档，然后再开始改下一个功能”。这样永远不怕 AI 越改越乱！'
@@ -196,11 +197,11 @@ export const ARCHITECTURE_NODES = [
     badge: '人机协作层',
     summary: '你不需要自己背诵代码语法，而是用清晰的中文提纲、规则和审稿眼光指挥 AI 干活。',
     metaphorDetail:
-      '为什么汉语言文学和人文社科背景的人非常适合 AI 编程？因为 AI 就像一个背熟了全天下所有编程字典、打字快如闪电，但“没有主见、容易跑题”的理科实习生。它最需要一个逻辑清晰、懂结构拆解、懂读者体验的“主编”来给它列提纲、划边界、挑语病！',
+      '为什么汉语言文学和人文社科背景的人非常适合 AI 编程？因为 AI 就像一个读过海量代码、打字飞快，但“没有主见、容易跑题”的实习生。它最需要一个逻辑清晰、懂结构拆解、懂读者体验的“主编”来给它列提纲、划边界、挑语病！',
     threePillars: [
       {
         lit: '编辑部的《常驻写稿规范》',
-        eng: '全局系统规则 (CLAUDE.md / .cursorrules)',
+        eng: '项目规则文件 (AGENTS.md / CLAUDE.md)',
         desc: '放在项目里的规矩文档（比如“全站用暖白配色、数据单独放一个文件夹”），AI 每次动笔前都会自动先读一遍。'
       },
       {
@@ -217,7 +218,7 @@ export const ARCHITECTURE_NODES = [
     codeComparison: {
       litLabel: '主编与实习生的分工',
       litContent: `【你（主编/产品经理）】：定主题、列功能提纲、给参考样例、在手机上点按验收\n【AI（全栈工程师）】：选技术框架、写 HTML/CSS/JS 代码、查报错修 Bug`,
-      engLabel: '项目规矩文件示例 (CLAUDE.md)',
+      engLabel: '项目规矩文件示例 (AGENTS.md / CLAUDE.md)',
       engContent: `# 项目写稿规范\n1. 动工前先给我列计划大纲，我同意后再写代码。\n2. 每次只改一个功能，严禁乱改其他已经调好的页面。\n3. 关键逻辑请加上简明的中文注释。`
     },
     aiPromptTip:
@@ -238,27 +239,27 @@ export const REQUEST_FLOW_STEPS = [
   },
   {
     step: 2,
-    stage: 'API 传话口',
+    stage: 'API 索书单',
     nodeId: 'api',
-    litAction: '前台服务员填好一张写着“查：余华”的标准小票，递进后厨传菜口',
+    litAction: '读者在借阅台填好一张写着“著者：余华”的索书单，递给馆员',
     engAction: '浏览器通过网络向后台发送一条 HTTP GET 请求',
     codeSnippet: `GET /api/books?author=余华`,
-    tip: '如果这时候电脑断网了，或者后台地址写错了，就会报错 404（找不到传菜口）。'
+    tip: '如果这时候断网了，索书单根本递不出去，页面会出现“网络错误”（没有状态码）；如果请求的地址写错了、馆里根本没有这个窗口，才会收到 404（查无此处）。'
   },
   {
     step: 3,
-    stage: '后端大脑',
+    stage: '后端馆员',
     nodeId: 'backend',
-    litAction: '幕后编辑部收到小票，确认请求合法，安排去档案室调取余华的书目',
+    litAction: '借阅台后的馆员收到索书单，确认请求合法，准备去书库调取余华的书目',
     engAction: '后端程序接收参数 `author = "余华"`，准备执行数据库查询命令',
     codeSnippet: `const author = req.query.author;\nconst list = await db.findBooksByAuthor(author);`,
     tip: '如果需要权限（比如“仅限VIP查看”），后端就会在这一步检查读者的登录状态。'
   },
   {
     step: 4,
-    stage: '数据库档案室',
+    stage: '数据库书库',
     nodeId: 'database',
-    litAction: '在电子总表里按“作者”一栏瞬间筛出《活着》《兄弟》等记录',
+    litAction: '在书库里按卡片目录（索引）的“著者”一栏，迅速找出《活着》《兄弟》等记录',
     engAction: '数据库执行检索语句，找出所有作者等于“余华”的数据行',
     codeSnippet: `SELECT title, year FROM books WHERE author = '余华';`,
     tip: '因为存在数据库里，哪怕网站重启一百次，这些书目资料都稳稳当当不会丢。'
@@ -267,10 +268,10 @@ export const REQUEST_FLOW_STEPS = [
     step: 5,
     stage: '传回前端排版',
     nodeId: 'frontend',
-    litAction: '后台把查到的书目装进 JSON 表格传回前台，网页自动套用卡片模板排列出来',
+    litAction: '馆员把查到的书目按统一格式（JSON）递回借阅台，网页自动套用卡片模板排列出来',
     engAction: '后端返回 `200 OK` 与 JSON 数组，前端循环生成漂亮的图书卡片',
     codeSnippet: `books.map(book => <BookCard title={book.title} year={book.year} />)`,
-    tip: '从你手指点下按钮到卡片跳出来，整个前后端跑完这一圈通常只要 0.1 秒！'
+    tip: '从你手指点下按钮到卡片跳出来，整个前后端跑完这一圈通常不到一秒！'
   }
 ];
 
@@ -292,7 +293,7 @@ export const DIAGNOSTIC_QUIZZES = [
         label: '前端排版样式（CSS）没调好，只需让 AI 调整间距和配色',
         isCorrect: true,
         feedback:
-          '完全正确！文字对、但样子丑或位置挤，100% 是前端 CSS 排版问题。你直接对 AI 说：“请不要动数据和功能，只修改 CSS 样式：把卡片之间的间距（gap）拉大，背景换成温和的浅米色。”'
+          '完全正确！文字对、但样子丑或位置挤，基本可以断定是前端 CSS 排版问题。你直接对 AI 说：“请不要动数据和功能，只修改 CSS 样式：把卡片之间的间距（gap）拉大，背景换成温和的浅米色。”'
       },
       {
         id: 'c',
@@ -309,10 +310,10 @@ export const DIAGNOSTIC_QUIZZES = [
     options: [
       {
         id: 'a',
-        label: '只写在了前端临时黑板上，没有存进“数据库”或浏览器的本地存储（localStorage）',
+        label: '只写在了前端的“临时便条”上，没有存进“数据库”或浏览器的本地存储（localStorage）',
         isCorrect: true,
         feedback:
-          '一针见血！普通前端变量就像教室黑板上的粉笔字，刷新网页就等于擦黑板。你只需告诉 AI：“请帮我把新增的笔记同步保存到浏览器的 `localStorage`（或者后端数据库）里，确保刷新页面后数据依然保留。”'
+          '一针见血！普通前端变量就像阅览桌上的临时便条，刷新网页就等于离座清桌。你只需告诉 AI：“请帮我把新增的笔记同步保存到浏览器的 `localStorage`（或者后端数据库）里，确保刷新页面后数据依然保留。”'
       },
       {
         id: 'b',

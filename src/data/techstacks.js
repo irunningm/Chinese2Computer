@@ -1,4 +1,5 @@
 // 03 · 技术选型与上手路线：做网页、手机 App、桌面软件、小程序、插件、脚本，到底怎么选？
+// 说明：“AI 友好度”星级为编者根据新手上手难度给出的主观评分，并非实测统计。
 
 export const TECH_STACK_CARRIERS = [
   {
@@ -8,14 +9,14 @@ export const TECH_STACK_CARRIERS = [
     literaryMetaphor: '公开在线杂志 · 互动H5网页',
     metaphorTag: '点开链接即看 · 零安装门槛',
     typicalStack: 'HTML / CSS / JavaScript + React / Vue + Tailwind CSS + Vite / Next.js',
-    aiFriendliness: '98% · 极度推荐（文科生破冰第一首选）',
+    aiFriendliness: '★★★★★ · 极度推荐（文科生破冰第一首选）',
     aiScoreLevel: 'high',
     oneLineEssence:
       '就像一篇发在网上的互动文章，任何人无论用手机还是电脑，不用去应用商店下载安装，点开链接就能直接看、直接点。',
     literaryAnalogyDetail:
       '如果你做了一个作品集、人物关系图谱或读书笔记站，希望发到微信群里让大家一秒点开就能体验，Web 网页应用就是绝对首选。它运行在每个人手机和电脑自带的浏览器里，天然同时兼容手机和电脑。',
     aiPros: [
-      '【AI 写得最准、最熟练】全球公开的网页代码最多，AI 对 React、Tailwind CSS 熟得像背九九乘法表，写出来的界面最漂亮、极少报错。',
+      '【AI 写得最准、最熟练】全球公开的网页代码最多，AI 对 React、Tailwind CSS 非常熟悉，写出来的界面好看、报错相对少。',
       '【改完 0.1 秒立刻看到画面】改一行字或调个颜色，浏览器瞬间自动刷新（所见即所得），最容易建立正反馈和成就感。',
       '【免费一键发布上线】配合 GitHub Pages 或 Vercel，不花一分钱、不用买服务器，1 分钟就能生成全球可访问的正式网址（就像我们当前这个网站一样！）。'
     ],
@@ -38,7 +39,7 @@ export const TECH_STACK_CARRIERS = [
     literaryMetaphor: '手机应用商店里的独立 App',
     metaphorTag: '原生功能强 · 但配环境与上架极繁琐',
     typicalStack: '跨平台：React Native (Expo) / Flutter ｜ 苹果原生：SwiftUI',
-    aiFriendliness: '72% · 建议用 Expo 或先做“手机网页 PWA”平替',
+    aiFriendliness: '★★★ · 建议用 Expo 或先做“手机网页 PWA”平替',
     aiScoreLevel: 'medium',
     oneLineEssence:
       '装在手机桌面上的独立 App，能调用相机拍照、震动反馈和锁屏提醒；但前期的软件环境安装和苹果商店上架非常折腾人。',
@@ -64,15 +65,15 @@ export const TECH_STACK_CARRIERS = [
     id: 'desktop-app',
     order: '03',
     carrierName: '电脑桌面软件 (Mac / Windows)',
-    literaryMetaphor: '装在电脑上的专业工具软件（如 Obsidian / 微信电脑版）',
+    literaryMetaphor: '装在电脑上的专业工具软件（如 Obsidian / VS Code）',
     metaphorTag: '可直接读写电脑本地硬盘文件夹',
-    typicalStack: 'Electron (网页套壳) / Tauri / Python GUI (Streamlit)',
-    aiFriendliness: '85% · 先写好网页，最后套一层桌面窗口外壳',
+    typicalStack: 'Electron (网页套壳) / Tauri / Python 桌面 GUI (PySide / Tkinter)',
+    aiFriendliness: '★★★★ · 先写好网页，最后套一层桌面窗口外壳',
     aiScoreLevel: 'high',
     oneLineEssence:
       '双击电脑桌面图标就能打开的独立软件，最大特权是能直接读取、修改、保存你电脑硬盘里的几千个本地文档（PDF / Word / Markdown）。',
     literaryAnalogyDetail:
-      '你平时在电脑上用的 Obsidian 笔记、VS Code 编辑器甚至微信电脑版，其实底层大多是用“网页技术 + Electron 桌面外壳”做出来的！这就好比先做好内页排版（网页），最后给它装订一个硬壳封面（桌面软件窗口），就能直接读写你电脑硬盘里的私人资料库。',
+      '你平时在电脑上用的 Obsidian 笔记、VS Code 编辑器，其实都是用“网页技术 + Electron 桌面外壳”做出来的！这就好比先做好内页排版（网页），最后给它装订一个硬壳封面（桌面软件窗口），就能直接读写你电脑硬盘里的私人资料库。',
     aiPros: [
       '【不用学 C++，直接拿网页变桌面软件】你可以先让 AI 用它最擅长的网页技术把双栏阅读器、卡片管理界面调得漂漂亮亮，最后只加 3 个配置文件（用 `Electron`），10 分钟就能把它变成 Mac 或 Windows 桌面软件！',
       '【数据全存在自己电脑硬盘，安全免费】不需要买云端服务器，所有文献、图片和笔记都直接存成你电脑文件夹里的真实文件，断网也能用。'
@@ -94,7 +95,7 @@ export const TECH_STACK_CARRIERS = [
     literaryMetaphor: '嵌在微信里的轻便小工具',
     metaphorTag: '微信群转发即用 · 但受微信规则限制',
     typicalStack: '微信原生 (WXML / WXSS / JS) 或 Uni-app',
-    aiFriendliness: '80% · AI 很熟，但必须用专门的微信开发者工具',
+    aiFriendliness: '★★★☆ · AI 很熟，但必须用专门的微信开发者工具',
     aiScoreLevel: 'medium',
     oneLineEssence:
       '不用跳出微信，在微信群或朋友圈里点开小程序卡片就能直接互动，最适合国内熟人社群分享。',
@@ -106,7 +107,7 @@ export const TECH_STACK_CARRIERS = [
     ],
     aiCons: [
       '【必须下载“微信开发者工具”】没法直接在普通浏览器里点开看，必须去微信官网下载专门的开发软件并注册小程序账号。',
-      '【个人账号审核限制多】微信对个人开发者的小程序审核很严：比如不允许有任何用户公开评论区、笔记公开分享广场（会被判定为论坛而驳回），且正式发布必须做网站备案。'
+      '【个人账号审核限制多】微信对个人开发者的小程序审核很严：比如不允许有任何用户公开评论区、笔记公开分享广场（会被判定为论坛而驳回），且正式上线前必须完成“小程序备案”。'
     ],
     bestUseCases: [
       '读书会签到打卡、测试问答小游戏、学术会议日程指南、校园导览地图'
@@ -121,7 +122,7 @@ export const TECH_STACK_CARRIERS = [
     literaryMetaphor: '贴在网页侧边的“透明便利贴与荧光笔”',
     metaphorTag: '3个文件搞定 · 划词即查、一键摘录',
     typicalStack: 'Chrome Extension Manifest V3 + HTML / JS',
-    aiFriendliness: '95% · 极小巧简单，AI 半小时就能写完一个',
+    aiFriendliness: '★★★★★ · 极小巧简单，AI 半小时就能写完一个',
     aiScoreLevel: 'high',
     oneLineEssence:
       '不用自己从头建一个网站，而是给你的浏览器装一个“外挂小助手”——在你逛知网、豆瓣、维基百科时，鼠标选中一段话就能直接翻译、写批注或一键存进笔记库。',
@@ -149,14 +150,14 @@ export const TECH_STACK_CARRIERS = [
     literaryMetaphor: '替你干脏活累活的“自动批处理机器人”',
     metaphorTag: '不用画界面 · 10行代码顶三天手工复制粘贴',
     typicalStack: 'Python 3 + Pandas (表格处理) / 正则表达式 / OpenAI SDK',
-    aiFriendliness: '96% · AI 的第一母语，处理文档表格天下无敌',
+    aiFriendliness: '★★★★★ · AI 最熟练的语言之一，处理文档表格非常顺手',
     aiScoreLevel: 'high',
     oneLineEssence:
       '它根本不需要漂亮的画面按钮，专门在后台替你干“把文件夹里 300 个乱糟糟的 Word/TXT 文档自动提取摘要、统计词频并汇总成一张 Excel 表”的苦力活。',
     literaryAnalogyDetail:
       '文科生做研究、写论文或者干行政，最头疼的就是面对几百份散乱文档做机械的复制粘贴、改文件名、数某个词出现了多少次。这种“规则明确、重复枯燥”的活儿，不用做网页也不用做 App，让 AI 写一个 30 行的 Python 小脚本，3 秒钟就能全部跑完！',
     aiPros: [
-      '【Python 是 AI 最擅长的语言】大模型在写 Python 处理文字、Excel 表格、PDF 提取、批量调用 AI 接口上的准确率接近 100%。',
+      '【Python 是 AI 最擅长的语言之一】大模型写 Python 处理文字、Excel 表格、PDF 提取、批量调用 AI 接口，通常一两轮就能跑通（但结果仍需你抽查核对）。',
       '【只有一个文件，跑完直接拿 Excel 结果】不用管字体好不好看、排版对没对齐，在电脑终端运行一下 `python3 run.py`，文件夹里直接多出一份整整齐齐的 Excel 表格或 JSON 文件！'
     ],
     aiCons: [
@@ -252,7 +253,7 @@ export const BEST_PRACTICE_ROADMAP = [
     whyItWorks:
       '以前做后端和数据库非常难，但现在有了 `Supabase`（界面长得跟 Excel 表格几乎一样，点点鼠标就能建好云数据库）和 `Next.js`，AI 可以在同一个项目里帮你把前端画面和后端接口一起写好。',
     actionSteps: [
-      '1. 锁好密钥：调用付费大模型 API 时，一定要求 AI 把 API Key 放进后端的 `.env` 隐藏文件里，绝不暴露在前端网页。',
+      '1. 锁好密钥：调用付费大模型 API 时，一定要求 AI 把 API Key 放进后端的 `.env` 隐藏文件里，并加入 `.gitignore`，绝不暴露在前端网页或上传到 GitHub。',
       '2. 建好表头：先和 AI 商量好数据库表格有哪几列（Schema），再去联调网页的增删改查功能。',
       '3. 步步存档：每调通一个功能，立刻让 AI 用 `git commit` 存档一次，防止后面改乱。'
     ]
@@ -263,7 +264,7 @@ export const BEST_PRACTICE_ROADMAP = [
     goal: '不用重头学一套新语言，直接用“套壳封装”的方式把网页变成桌面端 `.dmg/.exe` 软件或手机端应用。',
     goldenStack: '电脑桌面软件：Electron / Tauri ｜ 手机端：PWA / Expo',
     whyItWorks:
-      '因为 AI 写网页的能力最强，所以最聪明的工程策略永远是**“先把核心界面和功能在网页端打磨好，最后再让 AI 套上桌面或手机外壳”**。这样做的成功率比从零硬写原生代码高五倍以上！',
+      '因为 AI 写网页的能力最强，所以最聪明的工程策略永远是**“先把核心界面和功能在网页端打磨好，最后再让 AI 套上桌面或手机外壳”**。这样做通常比从零硬写原生代码省力得多，也更不容易卡在环境配置上。',
     actionSteps: [
       '1. 变身电脑桌面软件：如果需要直接读写电脑本地硬盘里的几千个文件，让 AI 用 Electron 把你的网页包起来即可。',
       '2. 变身手机桌面图标：让 AI 给你的网页加上 PWA 配置文件（`manifest.json`），手机浏览器点“添加到主屏幕”就能全屏独立运行。'

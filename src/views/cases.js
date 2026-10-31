@@ -246,7 +246,14 @@ export function renderCaseChapterSlide(container, currentCase, chapter) {
 
 export function renderHonglouInteractiveSlide(container, currentCase) {
   // 分组按钮从数据中自动生成，不在界面代码里写死
-  const groups = ['all', ...new Set(currentCase.liveDemoData.map((c) => c.group))];
+  const derivedGroups = [...new Set(currentCase.liveDemoData.map((c) => c.group))];
+  const groups = ['all', ...derivedGroups];
+  if (
+    state.honglouGroupFilter !== 'all' &&
+    !derivedGroups.includes(state.honglouGroupFilter)
+  ) {
+    state.honglouGroupFilter = 'all';
+  }
   const items = currentCase.liveDemoData.filter(
     (item) =>
       state.honglouGroupFilter === 'all' || item.group === state.honglouGroupFilter
@@ -290,7 +297,7 @@ export function renderHonglouInteractiveSlide(container, currentCase) {
                 <span class="card-index-pill">${escapeHtml(ch.group)}</span>
               </div>
               <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-tertiary); margin-bottom: 0.65rem;">
-                别号：${escapeHtml(ch.title)} · 唯一标识 id: "${ch.id}"
+                别号：${escapeHtml(ch.title)}${ch.residence ? ` · 居处：${escapeHtml(ch.residence)}` : ''} · id: "${escapeHtml(ch.id)}"
               </div>
 
               ${

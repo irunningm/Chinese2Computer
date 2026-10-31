@@ -1,16 +1,17 @@
-// 02 · 概念词典：用《现代汉语》、写作学与写论文日常，秒懂 16 个软件工程核心概念
+// 02 · 概念词典：用《现代汉语》、写作学与写论文日常，秒懂软件工程核心概念
+// 词条总数与分类计数由界面从 DICTIONARY_ENTRIES 派生，勿在文案里写死数字。
 // 引文约定：带引号者为可核对的原文；标注“（大意）”“（示意）”或“常识”者为概括转述，并非原文。
 
 export const DICTIONARY_CATEGORIES = [
   {
     id: 'all',
     name: '全部词条',
-    sub: '共 16 个核心概念'
+    sub: '核心概念一览'
   },
   {
     id: 'linguistics',
     name: '现代汉语·语法篇',
-    sub: '主谓宾 · 复句 · 改病句 · 指代'
+    sub: '主谓宾 · 复句 · 改病句 · 指代 · 异步'
   },
   {
     id: 'composition',
@@ -25,7 +26,7 @@ export const DICTIONARY_CATEGORIES = [
   {
     id: 'rhetoric',
     name: 'AI 沟通·审稿篇',
-    sub: '体例规范 · 填表格 · 注释 · 验收'
+    sub: '体例规范 · 填表格 · 注释 · 密钥 · 验收'
   }
 ];
 
@@ -119,6 +120,36 @@ books.sort((a, b) => a.year - b.year);`
     },
     aiAction:
       '像做《现代汉语》“消除歧义”练习一样检查你发给 AI 的话：凡是说到“排序、筛选、删除、好看”，一定补齐定语和状语（比如“按出版年份从新到旧降序排列”），不给 AI 留任何猜谜空间。'
+  },
+  {
+    id: 'async-await',
+    category: 'linguistics',
+    categoryLabel: '现代汉语·语法篇',
+    literaryTerm: '预约调阅善本：先拿号牌，不必干站窗口',
+    classicQuote: '闭架图书馆常见规程（示意）：善本须预约调阅；读者先取号牌离开，馆员从书库调出后再通知领取——不必一直堵在借阅台前。',
+    engTerm: '异步与等待 (async / await · Promise)',
+    engKeywords: ['async', 'await', 'Promise', 'fetch', '非阻塞'],
+    epiphany: '调阅善本不能干站着等：先递索书单拿号牌（发起异步请求），期间可以去别的展柜看书；馆员调出后再来取（`await` 等到结果）。网页接大模型 API 也是同一套节奏——数据还没回来就当已经拿到，页面就会先报错。',
+    litPerspective:
+      '如果善本要去地库调，你却一直站在借阅台窗口堵住后面的人，整座图书馆都会卡住。正确做法是：填好预约单，拿走号牌，先去阅览大厅做别的事；书调上来了再回来取。这就是“非阻塞”：一件事在后台进行时，前台不必原地死等。',
+    engPerspective:
+      '浏览器向服务器要数据（`fetch`）、调用大模型 API，都不会立刻返回结果。用 `async/await` 写明“先发出请求，等到有结果再继续”，程序才不会在数据还是空的时候就去读它。常见翻车是：忘了 `await`，把“还在路上的索书单”当成“已经到手的书”。',
+    visualCompare: {
+      litTitle: '闭架调阅善本的节奏',
+      litCode: `1. 读者递上预约单，拿走号牌（请求已发出）。\n2. 读者去展柜继续看书（界面不卡死）。\n3. 馆员通知“书已调出”，读者再来取（拿到结果后继续）。`,
+      engTitle: '对应的 async / await',
+      engCode: `async function loadSummary(text) {
+  // 先发出请求；await 表示“等回条到了再往下走”
+  const res = await fetch("/api/summarize", {
+    method: "POST",
+    body: JSON.stringify({ text })
+  });
+  const data = await res.json();
+  showOnPage(data.summary);
+}`
+    },
+    aiAction:
+      '凡是“要等服务器/大模型返回结果再显示”的功能，对 AI 明确说：“请用 async/await 处理网络请求；在数据返回前显示加载提示，失败时给出中文错误信息，不要在结果未到时就渲染内容。”'
   },
   {
     id: 'context-scope',
@@ -392,6 +423,36 @@ export function sortByYearDesc(list) {
     },
     aiAction:
       '开始做任何一个正式项目时，第一件事就是对 AI 说：“请先在项目根目录下帮我创建一个 `AGENTS.md`（或你所用工具对应的 `CLAUDE.md`）规范文件，把我们的配色方案、目录结构规矩和中文注释要求写进去。”'
+  },
+  {
+    id: 'env-secrets',
+    category: 'rhetoric',
+    categoryLabel: 'AI 沟通·审稿篇',
+    literaryTerm: '别把保险柜钥匙印在公开出版物封面上',
+    classicQuote: '图书馆管理常识（示意）：书库与保险柜钥匙由馆员保管，绝不印进对读者公开的导览手册；导览只写“如何办证、如何索书”。',
+    engTerm: '环境变量与密钥 (.env vs 明文口令)',
+    engKeywords: ['.env', 'API Key', 'gitignore', 'secrets', '环境变量'],
+    epiphany: '把大模型 API Key 写进前端网页代码，等于把银行卡密码印在公开出版物封面上——谁打开网页都能抄走。正确做法是锁进后端的 `.env`，并写入 `.gitignore`，永远不要提交到 GitHub。',
+    litPerspective:
+      '阅览大厅的导览手册人人可取，只能写开放信息；保险柜钥匙必须锁在管理处。同理：页面上展示的文字可以公开，付费接口的密钥绝不能出现在读者能“查看源代码”看到的地方。',
+    engPerspective:
+      '`.env` 是放在项目本地、不进公开仓库的隐藏配置文件，用来存放 `AI_KEY=...` 这类机密。后端用 `process.env.AI_KEY` 读取；前端只负责展示结果。纯静态站（如 GitHub Pages）没有后端，藏不住 Key，需要配合云函数或自建后端。新手最常见的泄露方式，就是把 `.env` 误提交到 GitHub。',
+    visualCompare: {
+      litTitle: '公开导览 vs 保险柜钥匙',
+      litCode: `[导览手册·可公开]：开馆时间、索书单怎么填、善本室如何预约。\n[保险柜钥匙·绝密]：馆员专用钥匙编号、金库口令——只存在管理处，不进任何公开发行物。`,
+      engTitle: '错误示范 vs 正确做法',
+      engCode: `// ❌ 写在前端页面里（等于印在封面上）
+const AI_KEY = "sk-xxxxxxx";
+
+// ✅ 只存在后端 .env，并加入 .gitignore
+// .env
+AI_KEY=sk-xxxxxxx
+
+// 后端读取
+const summary = await callAI(process.env.AI_KEY, text);`
+    },
+    aiAction:
+      '项目一涉及付费 API，就对 AI 说：“请把所有密钥放进 `.env`，加入 `.gitignore`，只通过后端读取；前端代码里不要出现任何 Key。并提醒我：纯静态托管藏不住密钥。”'
   },
   {
     id: 'prosody-json',

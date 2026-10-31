@@ -38,7 +38,7 @@ export function renderDictView(mount) {
       type="search"
       id="dict-search-input"
       class="search-input-bar"
-      placeholder="输入关键词搜索（如：主谓宾、提纲、病句、Git、组件、JSON）"
+      placeholder="输入关键词搜索（如：主谓宾、异步、密钥、提纲、Git、JSON）"
       value="${escapeHtml(state.dictSearch)}"
     />
 

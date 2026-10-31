@@ -1,8 +1,20 @@
 // 卷四 · 实战案例
 import { switchTab } from '../core/router.js';
 import { state } from '../core/state.js';
-import { copyToClipboard, escapeHtml, highlightText } from '../core/utils.js';
+import {
+  copyToClipboard,
+  escapeHtml,
+  highlightText,
+  renderViewIntro
+} from '../core/utils.js';
 import { CASE_STUDIES } from '../data/cases.js';
+import { VIEW_INTROS } from '../data/copy.js';
+
+/** 从出处字段提取书名号内的书名，用于筛选芯片派生 */
+function bookLabelFromSource(sourceBook) {
+  const match = String(sourceBook).match(/《[^》]+》/);
+  return match ? match[0] : sourceBook;
+}
 
 // ==================== TAB 04 · 实战案例 ====================
 export function renderCasesView(mount) {
@@ -11,13 +23,9 @@ export function renderCasesView(mount) {
   const totalSlides = currentCase.chapters.length + 1;
   const isLiveSlide = state.activeSlideIndex >= currentCase.chapters.length;
 
-  const shortNames = {
-    'honglou-gallery': '案例1 · 红楼梦互动网页',
-    'song-notes-workbench': '案例2 · 宋代笔记检索台',
-    'desktop-corpus-reader': '案例3 · Python词频+桌面软件'
-  };
-
   mount.innerHTML = `
+    ${renderViewIntro(VIEW_INTROS.cases)}
+
     <div class="submode-bar" role="tablist">
       ${CASE_STUDIES.map(
         (c) => `
@@ -26,7 +34,7 @@ export function renderCasesView(mount) {
           class="submode-btn case-switch-btn ${c.id === currentCase.id ? 'active' : ''}"
           data-case-id="${c.id}"
         >
-          ${escapeHtml(shortNames[c.id] || c.title)}
+          ${escapeHtml(c.shortTitle || c.title)}
         </button>
       `
       ).join('')}
@@ -349,7 +357,14 @@ export function renderHonglouInteractiveSlide(container, currentCase) {
 
 export function renderSongNotesInteractiveSlide(container, currentCase) {
   const allNotes = currentCase.liveDemoData;
-  const books = ['all', '《梦溪笔谈》', '《东京梦华录》', '《容斋随笔》', '《东坡志林》'];
+  // 书目芯片从数据派生，避免与 liveDemoData 硬编码脱节
+  const derivedBooks = [
+    ...new Set(allNotes.map((n) => bookLabelFromSource(n.sourceBook)))
+  ];
+  const books = ['all', ...derivedBooks];
+  if (state.songBookFilter !== 'all' && !derivedBooks.includes(state.songBookFilter)) {
+    state.songBookFilter = 'all';
+  }
 
   const q = state.songSearchQuery.trim().toLowerCase();
   const filtered = allNotes.filter((n) => {
@@ -366,14 +381,14 @@ export function renderSongNotesInteractiveSlide(container, currentCase) {
       成品试玩：《宋代笔记》多标签筛选与荧光笔高亮检索台
     </h2>
     <p style="font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 0.85rem;">
-      在下方搜索框尝试输入“夜市”、“活板”或“史记”，体验实时关键词荧光高亮：
+      在下方搜索框尝试输入“夜市”、“活板”或“野史”，体验实时关键词荧光高亮：
     </p>
 
     <input
       type="search"
       id="song-live-input"
       class="search-input-bar"
-      placeholder="输入字词实时高亮搜索（如：夜市、活板）"
+      placeholder="输入字词实时高亮搜索（如：夜市、活板、野史）"
       value="${escapeHtml(state.songSearchQuery)}"
     />
 
@@ -384,15 +399,31 @@ export function renderSongNotesInteractiveSlide(container, currentCase) {
         <button
           type="button"
           class="chip-btn song-book-chip ${state.songBookFilter === b ? 'active' : ''}"
-          data-book="${b}"
+          data-book="${escapeHtml(b)}"
         >
-          ${b === 'all' ? '全部书目 (4)' : b}
+          ${b === 'all' ? `全部书目 (${allNotes.length})` : escapeHtml(b)}
         </button>
       `
         )
         .join('')}
     </div>
 
+    ${
+      filtered.length === 0
+        ? `
+      <div class="view-header-card" style="text-align: center; margin-top: 0.5rem;">
+        <p style="font-family: var(--font-serif); font-size: 1.05rem; margin: 0 0 0.5rem;">
+          未找到符合条件的笔记
+        </p>
+        <p style="font-size: 0.86rem; color: var(--text-secondary); margin: 0 0 1rem;">
+          当前书目筛选与关键词组合没有命中条目。可以清空后重试，或换一个更宽的检索词。
+        </p>
+        <button type="button" id="song-clear-filters-btn" class="btn-primary-pill" style="min-height: 44px;">
+          一键清空筛选
+        </button>
+      </div>
+    `
+        : `
     <div class="cards-feed-grid">
       ${filtered
         .map(
@@ -418,6 +449,8 @@ export function renderSongNotesInteractiveSlide(container, currentCase) {
         )
         .join('')}
     </div>
+    `
+    }
   `;
 
   const input = document.getElementById('song-live-input');
@@ -440,6 +473,15 @@ export function renderSongNotesInteractiveSlide(container, currentCase) {
       renderSongNotesInteractiveSlide(container, currentCase);
     });
   });
+
+  const clearBtn = document.getElementById('song-clear-filters-btn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      state.songSearchQuery = '';
+      state.songBookFilter = 'all';
+      renderSongNotesInteractiveSlide(container, currentCase);
+    });
+  }
 }
 
 export function renderCorpusDesktopInteractiveSlide(container, currentCase) {
@@ -478,7 +520,7 @@ export function renderCorpusDesktopInteractiveSlide(container, currentCase) {
     <div style="background: var(--bg-subtle); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden;">
       <div style="padding: 0.55rem 0.9rem; background: var(--bg-recessed); border-bottom: 1px solid var(--border-hairline); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-secondary);">
         <span>Electron Desktop Window · 唐宋贬谪诗文双栏阅读器.app</span>
-        <span id="ipc-save-status" style="color: var(--sage);">● 已连接电脑硬盘 ./data/scholar_notes.json</span>
+        <span id="ipc-save-status" style="color: var(--sage);">● 已连接电脑硬盘 userData/scholar_notes.json</span>
       </div>
 
       <div class="cards-feed-grid" style="padding: 1rem;">
@@ -533,7 +575,7 @@ export function renderCorpusDesktopInteractiveSlide(container, currentCase) {
     saveBtn.addEventListener('click', () => {
       state.corpusCustomNotes[activeItem.id] = textarea.value;
       if (statusEl) {
-        statusEl.textContent = '✓ 已实时写入电脑硬盘 ./data/scholar_notes.json';
+        statusEl.textContent = '✓ 已实时写入电脑硬盘 userData/scholar_notes.json';
       }
       saveBtn.textContent = '已保存至本地硬盘 ✓';
       setTimeout(() => {

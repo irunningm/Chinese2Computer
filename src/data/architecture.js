@@ -20,14 +20,14 @@ export const ARCHITECTURE_NODES = [
         desc: '就像没加任何样式的 Word 初稿，只负责标记“哪句是一级标题 (`<h1>`)、哪段是正文 (`<p>`)、哪里放按钮 (`<button>`)”。'
       },
       {
-        lit: '套用秀米/杂志排版模板（配色、字号、留白）',
+        lit: '阅览室展板与导览牌的版式（配色、字号、留白；就像排秀米推文）',
         eng: 'CSS (视觉样式表)',
-        desc: '负责给光秃秃的文字穿衣服：定背景底色、选衬线字体、调卡片圆角与左右边距，让版面高级好看。'
+        desc: '负责给光秃秃的文字穿衣服：定背景底色、选衬线字体、调卡片圆角与左右边距，让展陈版面高级好看。'
       },
       {
-        lit: '公众号里的互动机关（点击展开答案、切换标签）',
+        lit: '电子导览屏上的互动按钮（点击展开简介、切换专题）',
         eng: 'JavaScript (交互逻辑)',
-        desc: '让静态页面“活”起来：比如读者点击“查看解析”弹出抽屉，或者在搜索框打字时实时筛选卡片。'
+        desc: '让静态展陈“活”起来：比如读者点击“查看解析”弹出抽屉，或者在搜索框打字时实时筛选卡片。'
       }
     ],
     codeComparison: {
@@ -105,8 +105,8 @@ export const ARCHITECTURE_NODES = [
       }
     ],
     codeComparison: {
-      litLabel: '编辑部后台处理流程',
-      litContent: `1. 先检查来访者是否持有管理权限，没有则礼貌拦下。\n2. 从保险柜取出 AI 密钥，调用大模型生成文章摘要。\n3. 把生成好的摘要传回前台页面展示。`,
+      litLabel: '借阅台后馆员处理流程',
+      litContent: `1. 先核验来访者是否持有相应权限的读者证，没有则礼貌拦下。\n2. 从管理处保险柜取出 AI 密钥，调用大模型生成文献摘要。\n3. 把生成好的摘要传回阅览大厅页面展示。`,
       engLabel: '后端处理逻辑 (Node.js)',
       engContent: `app.post('/api/summarize', async (req, res) => {\n  if (!req.user.isEditor) return res.status(403).send('无权限');\n  const summary = await callAI(process.env.AI_KEY, req.body.text);\n  res.json({ summary });\n});`
     },

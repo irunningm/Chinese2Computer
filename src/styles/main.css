@@ -2,49 +2,50 @@
    《文心雕码》 — M3 tonal roles × Mobile-First Progressive Disclosure UX
    Color system: https://m3.material.io/styles/color/system/overview
    Switch via html[data-palette]. Seeds documented in docs/palette-options.md
+   Live themes: 杂志大胆 (magazine-bold) · 海报大胆 (poster-bold)
    ========================================================================== */
 
 :root {
   /* Typography & shape (palette-independent) */
   --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --font-sans: "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace;
 
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
 
-  /* Default: 墨色纸本 — near-black ink on restrained warm paper */
-  --palette-seed: #1C1B1A;
-  --md-sys-color-primary: #1C1B1A;
-  --md-sys-color-on-primary: #F7F6F3;
-  --md-sys-color-primary-container: #E4E2DC;
-  --md-sys-color-on-primary-container: #2A2927;
-  --md-sys-color-secondary: #5A5853;
-  --md-sys-color-on-secondary: #F7F6F3;
-  --md-sys-color-secondary-container: #E8E6E0;
-  --md-sys-color-on-secondary-container: #3A3935;
-  --md-sys-color-tertiary: #46584A;
-  --md-sys-color-on-tertiary: #F4F7F4;
-  --md-sys-color-tertiary-container: #D8E3D9;
-  --md-sys-color-on-tertiary-container: #2C3A30;
-  --md-sys-color-error: #8F3A3A;
-  --md-sys-color-error-container: #F3DADA;
-  --md-sys-color-surface: #F7F6F3;
-  --md-sys-color-surface-dim: #E8E7E2;
-  --md-sys-color-surface-bright: #FBFBF9;
+  /* Default: 杂志大胆 — lacquer-crimson editorial seed, cool paper surface */
+  --palette-seed: #9B1D1F;
+  --md-sys-color-primary: #9B1D1F;
+  --md-sys-color-on-primary: #FFF7F5;
+  --md-sys-color-primary-container: #F8D3D0;
+  --md-sys-color-on-primary-container: #3F090B;
+  --md-sys-color-secondary: #2C333A;
+  --md-sys-color-on-secondary: #F4F6F8;
+  --md-sys-color-secondary-container: #D7DCE2;
+  --md-sys-color-on-secondary-container: #1A2025;
+  --md-sys-color-tertiary: #0F4C5C;
+  --md-sys-color-on-tertiary: #EAF7FA;
+  --md-sys-color-tertiary-container: #C5E4EB;
+  --md-sys-color-on-tertiary-container: #06313B;
+  --md-sys-color-error: #8B1E1E;
+  --md-sys-color-error-container: #F5D4D4;
+  --md-sys-color-surface: #F3F4F6;
+  --md-sys-color-surface-dim: #DCDFE4;
+  --md-sys-color-surface-bright: #FAFBFC;
   --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #F1F0EC;
-  --md-sys-color-surface-container: #EBEAE5;
-  --md-sys-color-surface-container-high: #E3E2DC;
-  --md-sys-color-surface-container-highest: #DCDBD5;
-  --md-sys-color-on-surface: #1C1B1A;
-  --md-sys-color-on-surface-variant: #5C5A55;
-  --md-sys-color-outline: #7A7872;
-  --md-sys-color-outline-variant: #D4D2CB;
-  --md-sys-color-inverse-surface: #1A1918;
-  --md-sys-color-inverse-on-surface: #EFEDE8;
+  --md-sys-color-surface-container-low: #EAECEF;
+  --md-sys-color-surface-container: #E1E4E8;
+  --md-sys-color-surface-container-high: #D5D9DF;
+  --md-sys-color-surface-container-highest: #C9CED5;
+  --md-sys-color-on-surface: #12161A;
+  --md-sys-color-on-surface-variant: #454C54;
+  --md-sys-color-outline: #6A727B;
+  --md-sys-color-outline-variant: #C4C9D0;
+  --md-sys-color-inverse-surface: #101418;
+  --md-sys-color-inverse-on-surface: #E8EBEE;
 
   /* App aliases ← M3 roles (keep existing component CSS working) */
   --bg-canvas: var(--md-sys-color-surface);
@@ -60,8 +61,8 @@
 
   --accent: var(--md-sys-color-primary);
   --accent-hover: color-mix(in srgb, var(--md-sys-color-primary) 88%, #000);
-  --accent-soft: color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
-  --accent-border: color-mix(in srgb, var(--md-sys-color-primary) 32%, transparent);
+  --accent-soft: color-mix(in srgb, var(--md-sys-color-primary) 14%, transparent);
+  --accent-border: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);
   --on-primary: var(--md-sys-color-on-primary);
 
   --sage: var(--md-sys-color-tertiary);
@@ -70,222 +71,132 @@
   --crimson-soft: color-mix(in srgb, var(--md-sys-color-error) 10%, transparent);
 
   --border-hairline: var(--md-sys-color-outline-variant);
-  --border-strong: color-mix(in srgb, var(--md-sys-color-outline) 42%, var(--md-sys-color-outline-variant));
-  --ring-card: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 7%, transparent),
+  --border-strong: color-mix(in srgb, var(--md-sys-color-outline) 48%, var(--md-sys-color-outline-variant));
+  --ring-card: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent),
     0 2px 8px color-mix(in srgb, var(--md-sys-color-on-surface) 3%, transparent);
-  --ring-hover: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 45%, transparent),
+  --ring-hover: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 48%, transparent),
     0 6px 20px color-mix(in srgb, var(--md-sys-color-on-surface) 6%, transparent);
   --ring-active: 0 0 0 1.5px var(--accent),
     0 4px 14px color-mix(in srgb, var(--md-sys-color-primary) 12%, transparent);
 }
 
-/* ---- 1. 墨色纸本 (explicit; same as :root default) ---- */
-[data-palette="ink-paper"] {
-  --palette-seed: #1C1B1A;
-  --md-sys-color-primary: #1C1B1A;
-  --md-sys-color-on-primary: #F7F6F3;
-  --md-sys-color-primary-container: #E4E2DC;
-  --md-sys-color-on-primary-container: #2A2927;
-  --md-sys-color-secondary: #5A5853;
-  --md-sys-color-on-secondary: #F7F6F3;
-  --md-sys-color-secondary-container: #E8E6E0;
-  --md-sys-color-on-secondary-container: #3A3935;
-  --md-sys-color-tertiary: #46584A;
-  --md-sys-color-on-tertiary: #F4F7F4;
-  --md-sys-color-tertiary-container: #D8E3D9;
-  --md-sys-color-on-tertiary-container: #2C3A30;
-  --md-sys-color-error: #8F3A3A;
-  --md-sys-color-error-container: #F3DADA;
-  --md-sys-color-surface: #F7F6F3;
-  --md-sys-color-surface-dim: #E8E7E2;
-  --md-sys-color-surface-bright: #FBFBF9;
-  --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #F1F0EC;
-  --md-sys-color-surface-container: #EBEAE5;
-  --md-sys-color-surface-container-high: #E3E2DC;
-  --md-sys-color-surface-container-highest: #DCDBD5;
-  --md-sys-color-on-surface: #1C1B1A;
-  --md-sys-color-on-surface-variant: #5C5A55;
-  --md-sys-color-outline: #7A7872;
-  --md-sys-color-outline-variant: #D4D2CB;
-  --md-sys-color-inverse-surface: #1A1918;
-  --md-sys-color-inverse-on-surface: #EFEDE8;
-}
-
-/* ---- 2. 冷灰编辑 — cool gray magazine / blue-gray primary ---- */
-[data-palette="cool-editorial"] {
-  --palette-seed: #3E5568;
-  --md-sys-color-primary: #3E5568;
-  --md-sys-color-on-primary: #F4F7FA;
-  --md-sys-color-primary-container: #D5E0E9;
-  --md-sys-color-on-primary-container: #1E2F3C;
-  --md-sys-color-secondary: #5B6770;
-  --md-sys-color-on-secondary: #F4F7FA;
-  --md-sys-color-secondary-container: #DEE4E9;
-  --md-sys-color-on-secondary-container: #2C353B;
-  --md-sys-color-tertiary: #4A6570;
-  --md-sys-color-on-tertiary: #F2F7F8;
-  --md-sys-color-tertiary-container: #D2E3E8;
-  --md-sys-color-on-tertiary-container: #243740;
-  --md-sys-color-error: #8B3D45;
-  --md-sys-color-error-container: #F1DADD;
-  --md-sys-color-surface: #F2F4F6;
-  --md-sys-color-surface-dim: #E0E4E8;
+/* ---- 1. 杂志大胆 — editorial crimson + cool paper, sharp rules ---- */
+[data-palette="magazine-bold"] {
+  --palette-seed: #9B1D1F;
+  --md-sys-color-primary: #9B1D1F;
+  --md-sys-color-on-primary: #FFF7F5;
+  --md-sys-color-primary-container: #F8D3D0;
+  --md-sys-color-on-primary-container: #3F090B;
+  --md-sys-color-secondary: #2C333A;
+  --md-sys-color-on-secondary: #F4F6F8;
+  --md-sys-color-secondary-container: #D7DCE2;
+  --md-sys-color-on-secondary-container: #1A2025;
+  --md-sys-color-tertiary: #0F4C5C;
+  --md-sys-color-on-tertiary: #EAF7FA;
+  --md-sys-color-tertiary-container: #C5E4EB;
+  --md-sys-color-on-tertiary-container: #06313B;
+  --md-sys-color-error: #8B1E1E;
+  --md-sys-color-error-container: #F5D4D4;
+  --md-sys-color-surface: #F3F4F6;
+  --md-sys-color-surface-dim: #DCDFE4;
   --md-sys-color-surface-bright: #FAFBFC;
   --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #EAEFF3;
-  --md-sys-color-surface-container: #E2E8ED;
-  --md-sys-color-surface-container-high: #D8E0E6;
-  --md-sys-color-surface-container-highest: #CED7DE;
-  --md-sys-color-on-surface: #1B2329;
-  --md-sys-color-on-surface-variant: #4F5B64;
-  --md-sys-color-outline: #6E7A84;
-  --md-sys-color-outline-variant: #C8D0D7;
-  --md-sys-color-inverse-surface: #161C21;
-  --md-sys-color-inverse-on-surface: #E8EDF1;
+  --md-sys-color-surface-container-low: #EAECEF;
+  --md-sys-color-surface-container: #E1E4E8;
+  --md-sys-color-surface-container-high: #D5D9DF;
+  --md-sys-color-surface-container-highest: #C9CED5;
+  --md-sys-color-on-surface: #12161A;
+  --md-sys-color-on-surface-variant: #454C54;
+  --md-sys-color-outline: #6A727B;
+  --md-sys-color-outline-variant: #C4C9D0;
+  --md-sys-color-inverse-surface: #101418;
+  --md-sys-color-inverse-on-surface: #E8EBEE;
 }
 
-/* ---- 3. 青绿通识 — muted teal classroom ---- */
-[data-palette="teal-classroom"] {
-  --palette-seed: #2F5F58;
-  --md-sys-color-primary: #2F5F58;
-  --md-sys-color-on-primary: #F2F8F6;
-  --md-sys-color-primary-container: #CDE3DE;
-  --md-sys-color-on-primary-container: #163832;
-  --md-sys-color-secondary: #556864;
-  --md-sys-color-on-secondary: #F2F7F5;
-  --md-sys-color-secondary-container: #D9E5E1;
-  --md-sys-color-on-secondary-container: #2A3935;
-  --md-sys-color-tertiary: #4A6B52;
-  --md-sys-color-on-tertiary: #F3F8F3;
-  --md-sys-color-tertiary-container: #D4E5D8;
-  --md-sys-color-on-tertiary-container: #263D2D;
-  --md-sys-color-error: #8A3F3F;
-  --md-sys-color-error-container: #F1DBDB;
-  --md-sys-color-surface: #F3F6F5;
-  --md-sys-color-surface-dim: #E1E7E5;
-  --md-sys-color-surface-bright: #FAFCFA;
+/* ---- 2. 海报大胆 — campaign tangerine + high-sat hero fields ---- */
+[data-palette="poster-bold"] {
+  --palette-seed: #E85D04;
+  --md-sys-color-primary: #E85D04;
+  --md-sys-color-on-primary: #FFF8F1;
+  --md-sys-color-primary-container: #FFD7B8;
+  --md-sys-color-on-primary-container: #4A1A00;
+  --md-sys-color-secondary: #14213D;
+  --md-sys-color-on-secondary: #F5F7FC;
+  --md-sys-color-secondary-container: #C9D4F0;
+  --md-sys-color-on-secondary-container: #0B1428;
+  --md-sys-color-tertiary: #008C7A;
+  --md-sys-color-on-tertiary: #E8FFF9;
+  --md-sys-color-tertiary-container: #9FE8DA;
+  --md-sys-color-on-tertiary-container: #003D35;
+  --md-sys-color-error: #C1121F;
+  --md-sys-color-error-container: #FFD6D8;
+  --md-sys-color-surface: #FFF3E8;
+  --md-sys-color-surface-dim: #F0D8C4;
+  --md-sys-color-surface-bright: #FFF9F3;
   --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #EAF0EE;
-  --md-sys-color-surface-container: #E2E9E6;
-  --md-sys-color-surface-container-high: #D8E1DE;
-  --md-sys-color-surface-container-highest: #CED8D4;
-  --md-sys-color-on-surface: #1A2422;
-  --md-sys-color-on-surface-variant: #4E5C58;
-  --md-sys-color-outline: #6D7A76;
-  --md-sys-color-outline-variant: #C5D0CC;
-  --md-sys-color-inverse-surface: #141C1A;
-  --md-sys-color-inverse-on-surface: #E7EEEC;
-}
-
-/* ---- 4. 墨白点睛 — high-contrast mono + one accent ---- */
-[data-palette="mono-accent"] {
-  --palette-seed: #1F4E79;
-  --md-sys-color-primary: #1F4E79;
-  --md-sys-color-on-primary: #F5F8FC;
-  --md-sys-color-primary-container: #D4E3F2;
-  --md-sys-color-on-primary-container: #0F2A44;
-  --md-sys-color-secondary: #4A4A4A;
-  --md-sys-color-on-secondary: #F7F7F7;
-  --md-sys-color-secondary-container: #E8E8E8;
-  --md-sys-color-on-secondary-container: #2A2A2A;
-  --md-sys-color-tertiary: #3D5A45;
-  --md-sys-color-on-tertiary: #F4F8F5;
-  --md-sys-color-tertiary-container: #D5E4D9;
-  --md-sys-color-on-tertiary-container: #213329;
-  --md-sys-color-error: #8B2E2E;
-  --md-sys-color-error-container: #F2D8D8;
-  --md-sys-color-surface: #F7F7F7;
-  --md-sys-color-surface-dim: #E4E4E4;
-  --md-sys-color-surface-bright: #FFFFFF;
-  --md-sys-color-surface-container-lowest: #FFFFFF;
-  --md-sys-color-surface-container-low: #EEEEEE;
-  --md-sys-color-surface-container: #E6E6E6;
-  --md-sys-color-surface-container-high: #DBDBDB;
-  --md-sys-color-surface-container-highest: #D0D0D0;
-  --md-sys-color-on-surface: #111111;
-  --md-sys-color-on-surface-variant: #4D4D4D;
-  --md-sys-color-outline: #6B6B6B;
-  --md-sys-color-outline-variant: #C9C9C9;
-  --md-sys-color-inverse-surface: #111111;
-  --md-sys-color-inverse-on-surface: #F0F0F0;
+  --md-sys-color-surface-container-low: #FFE8D4;
+  --md-sys-color-surface-container: #FFDCC0;
+  --md-sys-color-surface-container-high: #F5CBA8;
+  --md-sys-color-surface-container-highest: #E8B890;
+  --md-sys-color-on-surface: #1A0F08;
+  --md-sys-color-on-surface-variant: #5A3D2A;
+  --md-sys-color-outline: #8A6248;
+  --md-sys-color-outline-variant: #E8C9AE;
+  --md-sys-color-inverse-surface: #1A120C;
+  --md-sys-color-inverse-on-surface: #FFEFE3;
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --accent-soft: color-mix(in srgb, var(--md-sys-color-primary) 22%, transparent);
+  --accent-border: color-mix(in srgb, var(--md-sys-color-primary) 55%, transparent);
 }
 
 /* Night: invert surfaces per active palette seed family */
 [data-theme="night"] {
-  --md-sys-color-surface: #141413;
-  --md-sys-color-surface-dim: #0E0E0D;
-  --md-sys-color-surface-bright: #242421;
-  --md-sys-color-surface-container-lowest: #1C1C1A;
-  --md-sys-color-surface-container-low: #181816;
-  --md-sys-color-surface-container: #0E0E0D;
-  --md-sys-color-surface-container-high: #2B2A27;
-  --md-sys-color-surface-container-highest: #3E3D38;
-  --md-sys-color-on-surface: #F0EFEA;
-  --md-sys-color-on-surface-variant: #A9A79F;
-  --md-sys-color-outline: #8A887F;
-  --md-sys-color-outline-variant: #2B2A27;
-  --md-sys-color-inverse-surface: #0B0B0A;
-  --md-sys-color-inverse-on-surface: #EAE8E1;
-  --md-sys-color-primary: #D4D1C8;
-  --md-sys-color-on-primary: #1C1B1A;
-  --md-sys-color-primary-container: #3A3935;
-  --md-sys-color-on-primary-container: #E8E6E0;
-  --md-sys-color-secondary: #B8B5AD;
-  --md-sys-color-tertiary: #9BB89A;
-  --md-sys-color-error: #D46A6A;
+  --md-sys-color-surface: #12161A;
+  --md-sys-color-surface-dim: #0B0E11;
+  --md-sys-color-surface-bright: #242A31;
+  --md-sys-color-surface-container-lowest: #1A1F25;
+  --md-sys-color-surface-container-low: #161B20;
+  --md-sys-color-surface-container: #0E1216;
+  --md-sys-color-surface-container-high: #2C333A;
+  --md-sys-color-surface-container-highest: #3E464F;
+  --md-sys-color-on-surface: #EEF1F4;
+  --md-sys-color-on-surface-variant: #A8B0B8;
+  --md-sys-color-outline: #8A939C;
+  --md-sys-color-outline-variant: #2C333A;
+  --md-sys-color-inverse-surface: #0A0D10;
+  --md-sys-color-inverse-on-surface: #E4E8EC;
+  --md-sys-color-primary: #F0A0A0;
+  --md-sys-color-on-primary: #3F090B;
+  --md-sys-color-primary-container: #6E1517;
+  --md-sys-color-on-primary-container: #F8D3D0;
+  --md-sys-color-secondary: #C5CCD4;
+  --md-sys-color-tertiary: #7EC8D6;
+  --md-sys-color-error: #E87A7A;
   --accent-hover: color-mix(in srgb, var(--md-sys-color-primary) 88%, #fff);
 }
 
-[data-theme="night"][data-palette="cool-editorial"] {
-  --md-sys-color-surface: #12171B;
-  --md-sys-color-surface-container-lowest: #1A2127;
-  --md-sys-color-surface-container-low: #161C21;
-  --md-sys-color-surface-container: #0E1216;
-  --md-sys-color-surface-bright: #243039;
-  --md-sys-color-on-surface: #E8EDF1;
-  --md-sys-color-on-surface-variant: #A3AEB7;
-  --md-sys-color-outline: #8A96A0;
-  --md-sys-color-outline-variant: #2A343C;
-  --md-sys-color-primary: #A8C2D6;
-  --md-sys-color-on-primary: #1A2A36;
-  --md-sys-color-primary-container: #2F4555;
-  --md-sys-color-on-primary-container: #D5E0E9;
-  --md-sys-color-tertiary: #9EC0CC;
-}
-
-[data-theme="night"][data-palette="teal-classroom"] {
-  --md-sys-color-surface: #121916;
-  --md-sys-color-surface-container-lowest: #1A2320;
-  --md-sys-color-surface-container-low: #161E1B;
-  --md-sys-color-surface-container: #0E1412;
-  --md-sys-color-surface-bright: #24332E;
-  --md-sys-color-on-surface: #E7EEEC;
-  --md-sys-color-on-surface-variant: #A3B2AD;
-  --md-sys-color-outline: #8A9893;
-  --md-sys-color-outline-variant: #2A3632;
-  --md-sys-color-primary: #9BC7BE;
-  --md-sys-color-on-primary: #163832;
-  --md-sys-color-primary-container: #2A4F49;
-  --md-sys-color-on-primary-container: #CDE3DE;
-  --md-sys-color-tertiary: #A3C9AE;
-}
-
-[data-theme="night"][data-palette="mono-accent"] {
-  --md-sys-color-surface: #111111;
-  --md-sys-color-surface-container-lowest: #1A1A1A;
-  --md-sys-color-surface-container-low: #161616;
-  --md-sys-color-surface-container: #0A0A0A;
-  --md-sys-color-surface-bright: #2A2A2A;
-  --md-sys-color-on-surface: #F0F0F0;
-  --md-sys-color-on-surface-variant: #A8A8A8;
-  --md-sys-color-outline: #8E8E8E;
-  --md-sys-color-outline-variant: #2E2E2E;
-  --md-sys-color-primary: #8BB4DB;
-  --md-sys-color-on-primary: #0F2A44;
-  --md-sys-color-primary-container: #2A4F6F;
-  --md-sys-color-on-primary-container: #D4E3F2;
-  --md-sys-color-tertiary: #A3C4AE;
+[data-theme="night"][data-palette="poster-bold"] {
+  --md-sys-color-surface: #1A120C;
+  --md-sys-color-surface-dim: #0F0A07;
+  --md-sys-color-surface-bright: #2E2016;
+  --md-sys-color-surface-container-lowest: #241810;
+  --md-sys-color-surface-container-low: #1F150E;
+  --md-sys-color-surface-container: #140E09;
+  --md-sys-color-surface-container-high: #3A2A1C;
+  --md-sys-color-surface-container-highest: #4C3826;
+  --md-sys-color-on-surface: #FFEFE3;
+  --md-sys-color-on-surface-variant: #D0B09A;
+  --md-sys-color-outline: #B08A70;
+  --md-sys-color-outline-variant: #3A2A1C;
+  --md-sys-color-primary: #FF9A4D;
+  --md-sys-color-on-primary: #3A1400;
+  --md-sys-color-primary-container: #A84300;
+  --md-sys-color-on-primary-container: #FFD7B8;
+  --md-sys-color-secondary: #A8B8E0;
+  --md-sys-color-tertiary: #5ED4C0;
 }
 
 /* ==========================================================================
@@ -2000,24 +1911,14 @@ body:has(.sheet-backdrop.is-open) .dict-thumb-dock {
   line-height: 1.3;
 }
 
-.palette-option[data-palette-id="ink-paper"] {
-  --swatch-primary: #1C1B1A;
-  --swatch-surface: #F7F6F3;
+.palette-option[data-palette-id="magazine-bold"] {
+  --swatch-primary: #9B1D1F;
+  --swatch-surface: #F3F4F6;
 }
 
-.palette-option[data-palette-id="cool-editorial"] {
-  --swatch-primary: #3E5568;
-  --swatch-surface: #F2F4F6;
-}
-
-.palette-option[data-palette-id="teal-classroom"] {
-  --swatch-primary: #2F5F58;
-  --swatch-surface: #F3F6F5;
-}
-
-.palette-option[data-palette-id="mono-accent"] {
-  --swatch-primary: #1F4E79;
-  --swatch-surface: #F7F7F7;
+.palette-option[data-palette-id="poster-bold"] {
+  --swatch-primary: #E85D04;
+  --swatch-surface: #FFF3E8;
 }
 
 @media (max-width: 760px) {
@@ -2025,4 +1926,415 @@ body:has(.sheet-backdrop.is-open) .dict-thumb-dock {
     right: -0.5rem;
     min-width: 200px;
   }
+}
+
+/* ==========================================================================
+   Theme chrome: 杂志大胆 vs 海报大胆 (same content, different look)
+   ========================================================================== */
+
+/* —— Magazine: sharp hierarchy, confident color bars/rules, airy spread —— */
+[data-palette="magazine-bold"] .top-bar {
+  border-bottom: 3px solid var(--md-sys-color-on-surface);
+  background: var(--bg-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-palette="magazine-bold"] .brand-title {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+[data-palette="magazine-bold"] .brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 0;
+}
+
+[data-palette="magazine-bold"] .desktop-tabs {
+  background: transparent;
+  border-bottom: 2px solid var(--md-sys-color-on-surface);
+  border-radius: 0;
+  padding: 0;
+  gap: 0;
+}
+
+[data-palette="magazine-bold"] .desktop-tab-btn {
+  border-radius: 0;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  font-weight: 500;
+}
+
+[data-palette="magazine-bold"] .desktop-tab-btn.active {
+  background: transparent;
+  box-shadow: none;
+  border-bottom-color: var(--accent);
+  font-weight: 700;
+}
+
+[data-palette="magazine-bold"] .view-container {
+  padding-top: 2rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-shell {
+  gap: 2rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-masthead {
+  border-bottom: 4px solid var(--md-sys-color-on-surface);
+  padding: 0.5rem 0 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-masthead::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  height: auto;
+  background: var(--accent);
+  border-radius: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+[data-palette="magazine-bold"] .dict-course-masthead > * {
+  position: relative;
+  padding-left: 1.15rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  font-size: 0.7rem;
+  color: var(--accent);
+}
+
+[data-palette="magazine-bold"] .dict-course-progress {
+  border-radius: 0;
+  border: 1.5px solid var(--md-sys-color-on-surface);
+  background: var(--bg-surface);
+  font-weight: 600;
+}
+
+[data-palette="magazine-bold"] .dict-course-title {
+  font-size: clamp(1.7rem, 3.6vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  max-width: 18em;
+  margin-bottom: 1rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-desc {
+  font-size: 0.98rem;
+  max-width: 36em;
+  margin-bottom: 1.35rem;
+}
+
+[data-palette="magazine-bold"] .dict-course-path-step {
+  border-radius: 0;
+  border-width: 1.5px;
+}
+
+[data-palette="magazine-bold"] .btn-primary-pill {
+  border-radius: 0;
+  background: var(--accent);
+  color: var(--on-primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+[data-palette="magazine-bold"] .btn-secondary-pill {
+  border-radius: 0;
+  border-width: 1.5px;
+  border-color: var(--md-sys-color-on-surface);
+}
+
+[data-palette="magazine-bold"] .dict-course-toolbar {
+  border-radius: 0;
+  border: 1.5px solid var(--md-sys-color-on-surface);
+  box-shadow: none;
+}
+
+[data-palette="magazine-bold"] .dict-search-field {
+  border-radius: 0;
+  border-width: 1.5px;
+}
+
+[data-palette="magazine-bold"] .dict-segmented {
+  border-radius: 0;
+  background: var(--bg-subtle);
+}
+
+[data-palette="magazine-bold"] .dict-segment {
+  border-radius: 0;
+}
+
+[data-palette="magazine-bold"] .dict-section-label {
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-left: 4px solid var(--accent);
+  padding-left: 0.65rem;
+}
+
+[data-palette="magazine-bold"] .dict-unit-row {
+  border-radius: 0;
+  border: 1.5px solid var(--border-hairline);
+  border-left: 4px solid var(--accent);
+  box-shadow: none;
+}
+
+[data-palette="magazine-bold"] .dict-unit-row:hover {
+  border-color: var(--md-sys-color-on-surface);
+  border-left-color: var(--accent);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 18%, transparent);
+  transform: none;
+}
+
+[data-palette="magazine-bold"] .dict-unit-index {
+  border-radius: 0;
+  font-weight: 700;
+}
+
+[data-palette="magazine-bold"] .dict-unit-lit {
+  font-weight: 700;
+}
+
+[data-palette="magazine-bold"] .dict-practice-shell {
+  border-radius: 0;
+  border: 1.5px solid var(--md-sys-color-on-surface);
+}
+
+/* —— Poster: oversized titles, saturated hero field, campaign punch —— */
+[data-palette="poster-bold"] body {
+  background-image:
+    radial-gradient(ellipse 90% 50% at 100% -10%, color-mix(in srgb, var(--accent) 28%, transparent), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, color-mix(in srgb, var(--md-sys-color-tertiary) 18%, transparent), transparent 50%);
+}
+
+[data-palette="poster-bold"] .top-bar {
+  background: var(--md-sys-color-secondary);
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+[data-palette="poster-bold"] .brand-title,
+[data-palette="poster-bold"] .brand-badge,
+[data-palette="poster-bold"] .util-btn,
+[data-palette="poster-bold"] .desktop-tab-btn {
+  color: var(--md-sys-color-on-secondary);
+}
+
+[data-palette="poster-bold"] .brand-badge {
+  background: color-mix(in srgb, var(--md-sys-color-on-secondary) 14%, transparent);
+  color: color-mix(in srgb, var(--md-sys-color-on-secondary) 82%, transparent);
+}
+
+[data-palette="poster-bold"] .brand-dot {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+[data-palette="poster-bold"] .brand-title {
+  font-family: var(--font-sans);
+  font-weight: 900;
+  font-size: 1.28rem;
+  letter-spacing: 0.02em;
+}
+
+[data-palette="poster-bold"] .desktop-tabs {
+  background: color-mix(in srgb, var(--md-sys-color-on-secondary) 10%, transparent);
+}
+
+[data-palette="poster-bold"] .desktop-tab-btn .tab-idx {
+  color: color-mix(in srgb, var(--md-sys-color-on-secondary) 55%, transparent);
+}
+
+[data-palette="poster-bold"] .desktop-tab-btn.active {
+  background: var(--accent);
+  color: var(--on-primary);
+  font-weight: 800;
+  box-shadow: none;
+}
+
+[data-palette="poster-bold"] .desktop-tab-btn.active .tab-idx {
+  color: var(--on-primary);
+}
+
+[data-palette="poster-bold"] .util-btn {
+  background: color-mix(in srgb, var(--md-sys-color-on-secondary) 10%, transparent);
+  border-color: color-mix(in srgb, var(--md-sys-color-on-secondary) 28%, transparent);
+}
+
+[data-palette="poster-bold"] .util-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+[data-palette="poster-bold"] .dict-course-masthead {
+  background: var(--accent);
+  color: var(--on-primary);
+  border: none;
+  border-radius: 0;
+  margin: -0.35rem -0.35rem 0.5rem;
+  padding: 1.75rem 1.5rem 1.6rem;
+  box-shadow: 10px 10px 0 var(--md-sys-color-secondary);
+}
+
+[data-palette="poster-bold"] .dict-course-masthead::before {
+  display: none;
+}
+
+[data-palette="poster-bold"] .dict-course-kicker {
+  color: var(--on-primary);
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  opacity: 0.92;
+}
+
+[data-palette="poster-bold"] .dict-course-progress {
+  background: color-mix(in srgb, var(--on-primary) 16%, transparent);
+  border: 2px solid color-mix(in srgb, var(--on-primary) 45%, transparent);
+  color: var(--on-primary);
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+[data-palette="poster-bold"] .dict-course-progress-dot {
+  background: var(--on-primary);
+}
+
+[data-palette="poster-bold"] .dict-course-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4.8vw, 3rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--on-primary);
+  max-width: 14em;
+  margin-bottom: 0.85rem;
+  text-shadow: 3px 3px 0 color-mix(in srgb, var(--md-sys-color-secondary) 55%, transparent);
+}
+
+[data-palette="poster-bold"] .dict-course-desc {
+  color: color-mix(in srgb, var(--on-primary) 88%, transparent);
+  font-size: 1.02rem;
+  font-weight: 500;
+  max-width: 38em;
+}
+
+[data-palette="poster-bold"] .dict-course-path-step {
+  background: color-mix(in srgb, var(--on-primary) 14%, transparent);
+  border: 2px solid color-mix(in srgb, var(--on-primary) 40%, transparent);
+  color: var(--on-primary);
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+[data-palette="poster-bold"] .dict-course-path-step.is-current {
+  background: var(--md-sys-color-secondary);
+  border-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+}
+
+[data-palette="poster-bold"] .dict-course-path-arrow {
+  color: color-mix(in srgb, var(--on-primary) 70%, transparent);
+}
+
+[data-palette="poster-bold"] .btn-primary-pill {
+  background: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  min-height: 48px;
+  padding: 0.7rem 1.4rem;
+  box-shadow: 4px 4px 0 color-mix(in srgb, #000 25%, transparent);
+}
+
+[data-palette="poster-bold"] .btn-secondary-pill {
+  background: transparent;
+  color: var(--on-primary);
+  border: 2px solid color-mix(in srgb, var(--on-primary) 70%, transparent);
+  border-radius: 999px;
+  font-weight: 700;
+  min-height: 48px;
+}
+
+[data-palette="poster-bold"] .dict-course-toolbar {
+  border: 3px solid var(--md-sys-color-secondary);
+  border-radius: 16px;
+  background: var(--bg-surface);
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+[data-palette="poster-bold"] .dict-search-field {
+  border-width: 2.5px;
+  border-color: var(--md-sys-color-secondary);
+  border-radius: 14px;
+  font-weight: 500;
+}
+
+[data-palette="poster-bold"] .dict-segmented {
+  background: var(--md-sys-color-secondary-container);
+  border-radius: 14px;
+}
+
+[data-palette="poster-bold"] .dict-segment.active {
+  background: var(--accent);
+  color: var(--on-primary);
+  font-weight: 800;
+}
+
+[data-palette="poster-bold"] .dict-section-label {
+  font-family: var(--font-sans);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+
+[data-palette="poster-bold"] .dict-unit-row {
+  border: 2.5px solid var(--md-sys-color-secondary);
+  border-radius: 16px;
+  background: var(--bg-surface);
+  box-shadow: 5px 5px 0 color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+[data-palette="poster-bold"] .dict-unit-row:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--accent);
+  border-color: var(--accent);
+}
+
+[data-palette="poster-bold"] .dict-unit-index {
+  background: var(--accent);
+  color: var(--on-primary);
+  font-weight: 800;
+  border-radius: 999px;
+}
+
+[data-palette="poster-bold"] .dict-unit-lit {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: 1.12rem;
+}
+
+[data-palette="poster-bold"] .dict-unit-eng {
+  font-weight: 700;
+  color: var(--md-sys-color-secondary);
+}
+
+[data-palette="poster-bold"] .dict-practice-shell {
+  border: 3px solid var(--accent);
+  border-radius: 18px;
+  background: var(--md-sys-color-primary-container);
+  box-shadow: 8px 8px 0 var(--md-sys-color-secondary);
 }

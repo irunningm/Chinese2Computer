@@ -18,10 +18,8 @@ import { PROMPT_TEMPLATES, COMPOSER_PRESETS } from './data/prompts.js';
 
 // ==================== Global State ====================
 const PALETTE_OPTIONS = [
-  { id: 'ink-paper', label: '墨色纸本', seed: '#1C1B1A' },
-  { id: 'cool-editorial', label: '冷灰编辑', seed: '#3E5568' },
-  { id: 'teal-classroom', label: '青绿通识', seed: '#2F5F58' },
-  { id: 'mono-accent', label: '墨白点睛', seed: '#1F4E79' }
+  { id: 'magazine-bold', label: '杂志大胆', seed: '#9B1D1F' },
+  { id: 'poster-bold', label: '海报大胆', seed: '#E85D04' }
 ];
 
 const PALETTE_STORAGE_KEY = 'wenxin-palette';
@@ -35,7 +33,7 @@ function readStoredPalette() {
   } catch {
     /* ignore */
   }
-  return 'ink-paper';
+  return 'magazine-bold';
 }
 
 const state = {
@@ -2535,7 +2533,7 @@ function applyPalette(paletteId) {
   }
 
   const summary = document.getElementById('palette-switcher-summary');
-  if (summary) summary.textContent = `色板 · ${option.label}`;
+  if (summary) summary.textContent = option.label;
 
   document.querySelectorAll('.palette-option').forEach((btn) => {
     btn.classList.toggle('is-active', btn.dataset.paletteId === option.id);

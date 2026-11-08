@@ -5,7 +5,8 @@ import {
 } from './data/architecture.js';
 import {
   DICTIONARY_CATEGORIES,
-  DICTIONARY_ENTRIES
+  DICTIONARY_ENTRIES,
+  DICTIONARY_MINI_TASK
 } from './data/dictionary.js';
 import {
   TECH_STACK_CARRIERS,
@@ -635,6 +636,11 @@ function getFilteredDictEntries() {
       entry.epiphany,
       entry.litPerspective,
       entry.engPerspective,
+      entry.uniRecall,
+      entry.analogyFits,
+      entry.analogyBreaks,
+      entry.practiceFails,
+      entry.chineseFamiliarity,
       ...entry.engKeywords
     ]
       .join(' ')
@@ -643,17 +649,86 @@ function getFilteredDictEntries() {
   });
 }
 
+function renderDictMiniTaskHtml() {
+  const task = DICTIONARY_MINI_TASK;
+  const fields = task.schemaFields
+    .map(
+      (f) =>
+        `<li><code>${escapeHtml(f.key)}</code> · ${escapeHtml(f.label)}</li>`
+    )
+    .join('');
+
+  return `
+    <section class="dict-mini-task" aria-labelledby="dict-mini-task-title">
+      <div class="dict-mini-task-kicker">${escapeHtml(task.badge)}</div>
+      <h2 id="dict-mini-task-title" class="dict-mini-task-title">${escapeHtml(task.title)}</h2>
+      <p class="dict-mini-task-why">${escapeHtml(task.why)}</p>
+      <p class="dict-mini-task-scenario"><strong>情境：</strong>${escapeHtml(task.scenario)}</p>
+
+      <details class="code-disclosure dict-mini-task-notes">
+        <summary>
+          <span>展开课堂笔记原文（可先自己试着拆字段）</span>
+          <span class="toggle-hint">点击展开 +</span>
+        </summary>
+        <div class="code-disclosure-body">
+          <pre class="code-pre-block" style="font-family: var(--font-serif); white-space: pre-wrap;">${escapeHtml(task.sampleNotes)}</pre>
+        </div>
+      </details>
+
+      <div class="dict-boundary-grid" style="margin-top: 0.85rem;">
+        <div class="dict-boundary-block is-fit">
+          <strong>四字段约定</strong>
+          <ul class="dict-mini-task-list">${fields}</ul>
+        </div>
+        <div class="dict-boundary-block is-break">
+          <strong>常见翻车</strong>
+          <ul class="dict-mini-task-list">
+            ${task.failureModes.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <div class="dict-role-grid">
+        <div class="dict-role-block">
+          <strong>你负责</strong>
+          <ul class="dict-mini-task-list">
+            ${task.youDo.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+          </ul>
+        </div>
+        <div class="dict-role-block">
+          <strong>AI 负责</strong>
+          <ul class="dict-mini-task-list">
+            ${task.aiDoes.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+
+      <div class="dict-mini-task-prompt-wrap">
+        <div class="dict-mini-task-prompt-head">
+          <strong>可复制提示词</strong>
+          <button type="button" id="dict-mini-task-copy-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
+            复制提示词
+          </button>
+        </div>
+        <pre class="dict-mini-task-prompt">${escapeHtml(task.copyablePrompt)}</pre>
+      </div>
+    </section>
+  `;
+}
+
 function renderDictView(mount) {
   const filtered = getFilteredDictEntries();
 
   mount.innerHTML = `
     <div class="view-header-card">
-      <div class="view-kicker">02 · Concept Dictionary · 16 个最常遇到的编程概念</div>
-      <h1 class="view-title">用《现代汉语》语法、列提纲与写论文的经验，秒懂编程黑话</h1>
+      <div class="view-kicker">02 · Concept Dictionary · 16 个常遇到的编程概念</div>
+      <h1 class="view-title">用《现代汉语》语法、列提纲与写论文的经验，对照理解编程用语</h1>
       <p class="view-desc">
-        其实你早就学过软件工程的底层逻辑：主谓宾就是变量与函数，关联词就是条件循环，写论文列提纲就是软件架构。点击任意卡片查看大白话拆解。
+        类比只是入门梯子，不是等式：每条详解都先温习大学中文常见讲法，再映射到软件工程，并标明「像在哪 / 不像在哪」。点开卡片看边界与人机分工；下方有一个今晚就能跑的迷你任务。
       </p>
     </div>
+
+    ${renderDictMiniTaskHtml()}
 
     <input
       type="search"
@@ -707,7 +782,7 @@ function renderDictView(mount) {
               <div>
                 <div class="card-top-meta">
                   <span class="card-index-pill">${num} · ${escapeHtml(entry.categoryLabel)}</span>
-                  <span class="card-badge-text">${escapeHtml(entry.engKeywords[0] || '')}</span>
+                  <span class="card-badge-text">${escapeHtml(entry.chineseFamiliarity || entry.engKeywords[0] || '')}</span>
                 </div>
                 <h2 class="card-lit-heading" style="margin-top: 0.6rem;">
                   ${highlightText(entry.literaryTerm, state.dictSearch)}
@@ -723,7 +798,7 @@ function renderDictView(mount) {
 
               <div class="card-action-footer">
                 <span style="font-size: 0.75rem; color: var(--text-tertiary);">
-                  含生活例子与 AI 提问话术
+                  含类比边界 · 人机分工 · 温习提示
                 </span>
                 <span class="tap-cue">点击查看详解 →</span>
               </div>
@@ -750,7 +825,7 @@ function renderDictView(mount) {
     });
   }
 
-  mount.querySelectorAll('.chip-btn').forEach((btn) => {
+  mount.querySelectorAll('.chip-btn[data-cat-id]').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.dictCategory = btn.dataset.catId;
       renderDictView(mount);
@@ -764,6 +839,13 @@ function renderDictView(mount) {
       state.dictSearch = '';
       renderDictView(mount);
     });
+  }
+
+  const miniCopyBtn = document.getElementById('dict-mini-task-copy-btn');
+  if (miniCopyBtn) {
+    miniCopyBtn.addEventListener('click', () =>
+      copyToClipboard(DICTIONARY_MINI_TASK.copyablePrompt, miniCopyBtn)
+    );
   }
 
   mount.querySelectorAll('.dict-entry-card').forEach((card) => {
@@ -782,6 +864,11 @@ function openDictEntrySheet(entryId) {
   const bodyHtml = `
     <div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem;">
+        ${
+          entry.chineseFamiliarity
+            ? `<span class="dict-familiarity-pill">${escapeHtml(entry.chineseFamiliarity)}</span>`
+            : ''
+        }
         ${entry.engKeywords
           .map(
             (k) =>
@@ -800,14 +887,30 @@ function openDictEntrySheet(entryId) {
       </blockquote>
     </div>
 
+    <div class="dict-recall-block">
+      <strong>先温习：大学中文怎么讲</strong>
+      <p>${escapeHtml(entry.uniRecall || entry.litPerspective)}</p>
+    </div>
+
     <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.92rem;">
-      <strong>一句话点透：</strong>${escapeHtml(entry.epiphany)}
+      <strong>对照理解：</strong>${escapeHtml(entry.epiphany)}
+    </div>
+
+    <div class="dict-boundary-grid">
+      <div class="dict-boundary-block is-fit">
+        <strong>类比像在哪</strong>
+        <p>${escapeHtml(entry.analogyFits || '（本条待补）')}</p>
+      </div>
+      <div class="dict-boundary-block is-break">
+        <strong>类比不像在哪</strong>
+        <p>${escapeHtml(entry.analogyBreaks || '（本条待补）')}</p>
+      </div>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          一、我们熟悉的汉语/写作常识
+          一、汉语 / 写作侧再展开
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.litPerspective)}
@@ -816,7 +919,7 @@ function openDictEntrySheet(entryId) {
 
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          二、对应的软件工程原理
+          二、再映射到软件工程
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.engPerspective)}
@@ -827,15 +930,29 @@ function openDictEntrySheet(entryId) {
     <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--accent);">
-          怎么用这个概念指导 AI 写代码？
+          怎么用来完成今晚的作业 / 和小工具？
         </strong>
         <button type="button" id="dict-copy-action-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
           复制话术
         </button>
       </div>
-      <p style="font-size: 0.88rem; color: var(--text-primary); line-height: 1.65;">
+      <p style="font-size: 0.88rem; color: var(--text-primary); line-height: 1.65; margin-bottom: 0.75rem;">
         ${escapeHtml(entry.aiAction)}
       </p>
+      <div class="dict-role-grid">
+        <div class="dict-role-block">
+          <strong>你负责</strong>
+          <p>${escapeHtml(entry.youDo || '审需求、核字段、按清单验收。')}</p>
+        </div>
+        <div class="dict-role-block">
+          <strong>AI 负责</strong>
+          <p>${escapeHtml(entry.aiDoes || '按你确认过的约束起草与修改。')}</p>
+        </div>
+      </div>
+      <div class="dict-fail-block">
+        <strong>何时别用 / 常见翻车</strong>
+        <p>${escapeHtml(entry.practiceFails || '（本条待补）')}</p>
+      </div>
     </div>
 
     <details class="code-disclosure">

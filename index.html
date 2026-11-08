@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-palette="ink-paper">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>文心雕码 — 用写文章的直觉读懂软件工程与 AI 编程</title>
   <link rel="stylesheet" href="./src/styles/main.css" />
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(location.search);
+        var fromQuery = params.get('palette');
+        var allowed = { 'ink-paper': 1, 'cool-editorial': 1, 'teal-classroom': 1, 'mono-accent': 1 };
+        var p = (fromQuery && allowed[fromQuery]) ? fromQuery : localStorage.getItem('wenxin-palette');
+        if (p && allowed[p]) document.documentElement.setAttribute('data-palette', p);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div class="app-root">
@@ -36,8 +47,39 @@
           </button>
         </nav>
 
-        <!-- Utility Actions: Mobile Viewport Preview & Theme Toggle -->
+        <!-- Utility Actions: Palette / Mobile Preview / Theme -->
         <div class="top-actions">
+          <details class="palette-switcher" id="palette-switcher">
+            <summary
+              class="util-btn"
+              id="palette-switcher-summary"
+              title="切换 M3 色板方案（即时预览，无需重新部署）"
+            >
+              色板 · 墨色纸本
+            </summary>
+            <div class="palette-menu" role="listbox" aria-label="M3 色板方案">
+              <button type="button" class="palette-option is-active" data-palette-id="ink-paper" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">墨色纸本</span>
+                <span class="palette-option-hint">seed #1C1B1A · 纸本阅读</span>
+              </button>
+              <button type="button" class="palette-option" data-palette-id="cool-editorial" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">冷灰编辑</span>
+                <span class="palette-option-hint">seed #3E5568 · 杂志编辑</span>
+              </button>
+              <button type="button" class="palette-option" data-palette-id="teal-classroom" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">青绿通识</span>
+                <span class="palette-option-hint">seed #2F5F58 · 课堂通识</span>
+              </button>
+              <button type="button" class="palette-option" data-palette-id="mono-accent" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">墨白点睛</span>
+                <span class="palette-option-hint">seed #1F4E79 · 高对比</span>
+              </button>
+            </div>
+          </details>
           <button
             type="button"
             id="mobile-sim-toggle"

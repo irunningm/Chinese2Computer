@@ -17,9 +17,31 @@ import { CASE_STUDIES } from './data/cases.js';
 import { PROMPT_TEMPLATES, COMPOSER_PRESETS } from './data/prompts.js';
 
 // ==================== Global State ====================
+const PALETTE_OPTIONS = [
+  { id: 'ink-paper', label: '墨色纸本', seed: '#1C1B1A' },
+  { id: 'cool-editorial', label: '冷灰编辑', seed: '#3E5568' },
+  { id: 'teal-classroom', label: '青绿通识', seed: '#2F5F58' },
+  { id: 'mono-accent', label: '墨白点睛', seed: '#1F4E79' }
+];
+
+const PALETTE_STORAGE_KEY = 'wenxin-palette';
+
+function readStoredPalette() {
+  try {
+    const fromQuery = new URLSearchParams(window.location.search).get('palette');
+    if (fromQuery && PALETTE_OPTIONS.some((p) => p.id === fromQuery)) return fromQuery;
+    const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
+    if (stored && PALETTE_OPTIONS.some((p) => p.id === stored)) return stored;
+  } catch {
+    /* ignore */
+  }
+  return 'ink-paper';
+}
+
 const state = {
   activeTab: 'arch', // 'arch' | 'dict' | 'stacks' | 'cases' | 'prompts'
   theme: 'day',
+  palette: readStoredPalette(),
   mobileSimulator: false,
 
   // Tab 01: Architecture Sub-modes ('nodes' | 'flow' | 'clinic')
@@ -2449,7 +2471,8 @@ function renderPromptComposerForm(container) {
 
 // ==================== App Initialization ====================
 function initApp() {
-  renderActiveView();
+  // Sync chrome + content for query/default tab (also paints active tab buttons).
+  switchTab(state.activeTab);
 
   document.querySelectorAll('.desktop-tab-btn, .bottom-tab-item').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -2497,6 +2520,60 @@ function initApp() {
       }
     });
   }
+
+  initPaletteSwitcher();
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+function applyPalette(paletteId) {
+  const option = PALETTE_OPTIONS.find((p) => p.id === paletteId) || PALETTE_OPTIONS[0];
+  state.palette = option.id;
+  document.documentElement.setAttribute('data-palette', option.id);
+  try {
+    localStorage.setItem(PALETTE_STORAGE_KEY, option.id);
+  } catch {
+    /* ignore */
+  }
+
+  const summary = document.getElementById('palette-switcher-summary');
+  if (summary) summary.textContent = `色板 · ${option.label}`;
+
+  document.querySelectorAll('.palette-option').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.paletteId === option.id);
+  });
+}
+
+function initPaletteSwitcher() {
+  applyPalette(state.palette);
+
+  const switcher = document.getElementById('palette-switcher');
+  if (!switcher) return;
+
+  switcher.querySelectorAll('.palette-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyPalette(btn.dataset.paletteId);
+      switcher.open = false;
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (switcher.open && !switcher.contains(e.target)) {
+      switcher.open = false;
+    }
+  });
+}
+
+function bootFromQuery() {
+  try {
+    const tab = new URLSearchParams(window.location.search).get('tab');
+    if (tab && ['arch', 'dict', 'stacks', 'cases', 'prompts'].includes(tab)) {
+      state.activeTab = tab;
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  bootFromQuery();
+  initApp();
+});

@@ -16,15 +16,14 @@
 
 ---
 
-## 二、 本地启卷方式（零第三方依赖，即开即用）
-
-在项目根目录下运行：
+## 二、 本地启卷方式（Vite + `@material/web`）
 
 ```bash
+npm install
 npm run dev
 ```
 
-随后在浏览器中访问：`http://127.0.0.1:3000`
+随后在浏览器中访问：`http://127.0.0.1:5173`（词典样页默认打开；软蓝 soft-dashboard 皮肤，见 `docs/blue-soft-material-note.md`）。
 
 ---
 

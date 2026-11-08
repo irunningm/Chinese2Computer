@@ -1,24 +1,13 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-palette="magazine-bold">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>文心雕码 — 用写文章的直觉读懂软件工程与 AI 编程</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./src/styles/main.css" />
-  <script>
-    (function () {
-      try {
-        var params = new URLSearchParams(location.search);
-        var fromQuery = params.get('palette');
-        var allowed = { 'magazine-bold': 1, 'poster-bold': 1 };
-        var p = (fromQuery && allowed[fromQuery]) ? fromQuery : localStorage.getItem('wenxin-palette');
-        if (p && allowed[p]) document.documentElement.setAttribute('data-palette', p);
-      } catch (e) {}
-    })();
-  </script>
 </head>
 <body>
   <div class="app-root">
@@ -33,10 +22,10 @@
 
         <!-- Desktop Segmented Switcher -->
         <nav class="desktop-tabs" aria-label="主导航">
-          <button type="button" class="desktop-tab-btn active" data-tab="arch">
+          <button type="button" class="desktop-tab-btn" data-tab="arch">
             <span class="tab-idx">01</span>全局全景
           </button>
-          <button type="button" class="desktop-tab-btn" data-tab="dict">
+          <button type="button" class="desktop-tab-btn active" data-tab="dict">
             <span class="tab-idx">02</span>概念词典
           </button>
           <button type="button" class="desktop-tab-btn" data-tab="stacks">
@@ -50,29 +39,7 @@
           </button>
         </nav>
 
-        <!-- Utility Actions: Palette / Mobile Preview / Theme -->
         <div class="top-actions">
-          <details class="palette-switcher" id="palette-switcher">
-            <summary
-              class="util-btn"
-              id="palette-switcher-summary"
-              title="切换视觉风格：杂志大胆 / 海报大胆"
-            >
-              杂志大胆
-            </summary>
-            <div class="palette-menu" role="listbox" aria-label="视觉风格：杂志大胆 / 海报大胆">
-              <button type="button" class="palette-option is-active" data-palette-id="magazine-bold" role="option">
-                <span class="palette-swatch" aria-hidden="true"></span>
-                <span class="palette-option-name">杂志大胆</span>
-                <span class="palette-option-hint">seed #9B1D1F · 编辑杂志</span>
-              </button>
-              <button type="button" class="palette-option" data-palette-id="poster-bold" role="option">
-                <span class="palette-swatch" aria-hidden="true"></span>
-                <span class="palette-option-name">海报大胆</span>
-                <span class="palette-option-hint">seed #E85D04 · 活动海报</span>
-              </button>
-            </div>
-          </details>
           <button
             type="button"
             id="mobile-sim-toggle"
@@ -85,7 +52,7 @@
             type="button"
             id="theme-toggle-btn"
             class="util-btn"
-            title="切换浅色纸本与深色夜间模式"
+            title="切换浅色与深色模式"
           >
             夜间模式
           </button>
@@ -98,12 +65,12 @@
 
     <!-- Mobile Thumb-Zone Bottom Tab Bar -->
     <nav class="bottom-tab-bar" aria-label="底部五模块切换">
-      <button type="button" class="bottom-tab-item active" data-tab="arch">
+      <button type="button" class="bottom-tab-item" data-tab="arch">
         <span class="b-num">01</span>
         <span class="b-label">全景</span>
         <span class="b-sub">六大分工</span>
       </button>
-      <button type="button" class="bottom-tab-item" data-tab="dict">
+      <button type="button" class="bottom-tab-item active" data-tab="dict">
         <span class="b-num">02</span>
         <span class="b-label">词典</span>
         <span class="b-sub">16个概念</span>
@@ -130,7 +97,7 @@
   <div id="sheet-backdrop" class="sheet-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
     <div id="sheet-drawer" class="sheet-drawer">
       <div class="sheet-handle-bar">
-        <span id="sheet-kicker" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent);"></span>
+        <span id="sheet-kicker" style="font-family: var(--font-sans); font-size: 0.72rem; font-weight: 700; color: var(--accent);"></span>
         <div class="sheet-pill-indicator" aria-hidden="true"></div>
         <button type="button" id="sheet-close-btn" class="sheet-close-btn">关闭 ✕</button>
       </div>

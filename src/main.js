@@ -1,3 +1,10 @@
+import '@material/web/button/filled-button.js';
+import '@material/web/button/outlined-button.js';
+import '@material/web/textfield/outlined-text-field.js';
+import '@material/web/chips/assist-chip.js';
+import '@material/web/chips/filter-chip.js';
+import '@material/web/ripple/ripple.js';
+
 import {
   ARCHITECTURE_NODES,
   REQUEST_FLOW_STEPS,
@@ -16,30 +23,13 @@ import {
 import { CASE_STUDIES } from './data/cases.js';
 import { PROMPT_TEMPLATES, COMPOSER_PRESETS } from './data/prompts.js';
 
+// Soft blue dashboard seed (Material Web + CSS --md-sys-color-*)
+export const THEME_SEED = '#3B82F6';
+
 // ==================== Global State ====================
-const PALETTE_OPTIONS = [
-  { id: 'magazine-bold', label: '杂志大胆', seed: '#9B1D1F' },
-  { id: 'poster-bold', label: '海报大胆', seed: '#E85D04' }
-];
-
-const PALETTE_STORAGE_KEY = 'wenxin-palette';
-
-function readStoredPalette() {
-  try {
-    const fromQuery = new URLSearchParams(window.location.search).get('palette');
-    if (fromQuery && PALETTE_OPTIONS.some((p) => p.id === fromQuery)) return fromQuery;
-    const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
-    if (stored && PALETTE_OPTIONS.some((p) => p.id === stored)) return stored;
-  } catch {
-    /* ignore */
-  }
-  return 'magazine-bold';
-}
-
 const state = {
-  activeTab: 'arch', // 'arch' | 'dict' | 'stacks' | 'cases' | 'prompts'
+  activeTab: 'dict', // sample lands on dictionary for visual review
   theme: 'day',
-  palette: readStoredPalette(),
   mobileSimulator: false,
 
   // Tab 01: Architecture Sub-modes ('nodes' | 'flow' | 'clinic')
@@ -94,7 +84,7 @@ function highlightText(text, keyword) {
   if (!kw) return safeText;
   const escapedKw = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const regex = new RegExp(`(${escapedKw})`, 'gi');
-  return safeText.replace(regex, '<mark class="terracotta-mark">$1</mark>');
+  return safeText.replace(regex, '<mark class="search-mark">$1</mark>');
 }
 
 async function copyToClipboard(text, btnElement) {
@@ -109,11 +99,18 @@ async function copyToClipboard(text, btnElement) {
     document.body.removeChild(textarea);
   }
   if (btnElement) {
-    const prev = btnElement.textContent;
-    btnElement.textContent = '已复制至剪贴板 ✓';
-    btnElement.disabled = true;
+    const isChip = btnElement.tagName === 'MD-ASSIST-CHIP';
+    const prev = isChip ? btnElement.label : btnElement.textContent;
+    if (isChip) {
+      btnElement.label = '已复制 ✓';
+      btnElement.disabled = true;
+    } else {
+      btnElement.textContent = '已复制至剪贴板 ✓';
+      btnElement.disabled = true;
+    }
     setTimeout(() => {
-      btnElement.textContent = prev;
+      if (isChip) btnElement.label = prev;
+      else btnElement.textContent = prev;
       btnElement.disabled = false;
     }, 1500);
   }
@@ -692,14 +689,13 @@ function renderDictMiniTaskHtml() {
           <h2 id="dict-mini-task-title" class="dict-practice-title">${escapeHtml(task.title)}</h2>
           <p class="dict-practice-lede">${escapeHtml(task.why)}</p>
         </div>
-        <button
-          type="button"
+        <md-filled-button
           id="dict-practice-toggle-btn"
-          class="btn-terracotta-pill dict-practice-toggle"
+          class="dict-practice-toggle"
           aria-expanded="${isOpen ? 'true' : 'false'}"
         >
           ${isOpen ? '收起练习说明' : '展开完整练习'}
-        </button>
+        </md-filled-button>
       </div>
 
       <div class="dict-practice-body" ${isOpen ? '' : 'hidden'}>
@@ -746,9 +742,7 @@ function renderDictMiniTaskHtml() {
         <div class="dict-mini-task-prompt-wrap">
           <div class="dict-mini-task-prompt-head">
             <strong>可复制提示词</strong>
-            <button type="button" id="dict-mini-task-copy-btn" class="chip-btn" style="min-height: 36px; padding: 0.25rem 0.75rem; font-size: 0.78rem;">
-              复制提示词
-            </button>
+            <md-assist-chip id="dict-mini-task-copy-btn" label="复制提示词"></md-assist-chip>
           </div>
           <pre class="dict-mini-task-prompt">${escapeHtml(task.copyablePrompt)}</pre>
         </div>
@@ -768,11 +762,11 @@ function renderDictView(mount) {
       <header class="dict-course-masthead">
         <div class="dict-course-masthead-top">
           <p class="dict-course-kicker">02 · 本节课 · 概念词典</p>
-          <p class="dict-course-progress" aria-label="本节进度">
-            <span>${DICTIONARY_ENTRIES.length} 词条</span>
-            <span class="dict-course-progress-dot" aria-hidden="true"></span>
-            <span>1 节练习</span>
-          </p>
+          <md-assist-chip
+            class="dict-status-chip"
+            label="${DICTIONARY_ENTRIES.length} 词条 · 进行中"
+            aria-label="本节进度"
+          ></md-assist-chip>
         </div>
         <h1 class="dict-course-title">用《现代汉语》语法、列提纲与写论文的经验，对照理解编程用语</h1>
         <p class="dict-course-desc">
@@ -786,23 +780,22 @@ function renderDictView(mount) {
           <span class="dict-course-path-step">3 本节练习</span>
         </div>
         <div class="dict-course-cta-row">
-          <a href="#dict-unit-list" class="btn-primary-pill dict-course-jump">开始浏览词条</a>
-          <button type="button" id="dict-jump-practice-btn" class="btn-secondary-pill">
+          <md-filled-button id="dict-jump-units-btn" class="dict-course-jump">
+            开始浏览词条
+          </md-filled-button>
+          <md-outlined-button id="dict-jump-practice-btn">
             跳到本节练习 ↓
-          </button>
+          </md-outlined-button>
         </div>
       </header>
 
       <div class="dict-course-toolbar" role="search">
-        <label class="dict-search-label" for="dict-search-input">检索词条</label>
-        <input
-          type="search"
+        <md-outlined-text-field
           id="dict-search-input"
-          class="dict-search-field"
+          label="检索词条"
           placeholder="搜：主谓宾、提纲、病句、Git、组件、JSON…"
           value="${escapeHtml(state.dictSearch)}"
-          autocomplete="off"
-        />
+        ></md-outlined-text-field>
 
         <div class="dict-segmented" role="tablist" aria-label="词条分类">
           ${DICTIONARY_CATEGORIES.map((cat) => {
@@ -814,18 +807,16 @@ function renderDictView(mount) {
               cat.id === 'all'
                 ? '全部'
                 : cat.name.replace(/·.*$/, '').replace(/篇$/, '');
+            const selected = state.dictCategory === cat.id;
             return `
-              <button
-                type="button"
+              <md-filter-chip
                 role="tab"
-                class="dict-segment ${state.dictCategory === cat.id ? 'active' : ''}"
+                class="dict-segment-chip ${selected ? 'is-active' : ''}"
                 data-cat-id="${cat.id}"
-                aria-selected="${state.dictCategory === cat.id ? 'true' : 'false'}"
+                label="${escapeHtml(shortName)} · ${count}"
                 title="${escapeHtml(cat.name)} · ${escapeHtml(cat.sub || '')}"
-              >
-                <span class="dict-segment-name">${escapeHtml(shortName)}</span>
-                <span class="dict-segment-count">${count}</span>
-              </button>
+                ${selected ? 'selected' : ''}
+              ></md-filter-chip>
             `;
           }).join('')}
         </div>
@@ -846,9 +837,9 @@ function renderDictView(mount) {
             ? `
           <div class="dict-empty-state">
             <p class="dict-empty-title">没有找到与「${escapeHtml(state.dictSearch)}」相关的词条</p>
-            <button type="button" id="reset-dict-btn" class="btn-primary-pill">
+            <md-filled-button id="reset-dict-btn">
               清空搜索条件
-            </button>
+            </md-filled-button>
           </div>
         `
             : `
@@ -922,20 +913,17 @@ function renderDictView(mount) {
   const searchInput = document.getElementById('dict-search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-      state.dictSearch = e.target.value;
-      const pos = e.target.selectionStart;
+      state.dictSearch = e.target.value ?? searchInput.value ?? '';
       renderDictView(mount);
       const nextInput = document.getElementById('dict-search-input');
-      if (nextInput) {
-        nextInput.focus();
-        nextInput.setSelectionRange(pos, pos);
-      }
+      if (nextInput) nextInput.focus();
     });
   }
 
-  mount.querySelectorAll('.dict-segment[data-cat-id]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      state.dictCategory = btn.dataset.catId;
+  mount.querySelectorAll('[data-cat-id]').forEach((chip) => {
+    chip.addEventListener('click', (e) => {
+      e.preventDefault();
+      state.dictCategory = chip.dataset.catId;
       renderDictView(mount);
     });
   });
@@ -962,6 +950,14 @@ function renderDictView(mount) {
       });
     }
   };
+
+  const jumpUnitsBtn = document.getElementById('dict-jump-units-btn');
+  if (jumpUnitsBtn) {
+    jumpUnitsBtn.addEventListener('click', () => {
+      const list = document.getElementById('dict-unit-list');
+      if (list) list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
 
   const jumpPracticeBtn = document.getElementById('dict-jump-practice-btn');
   if (jumpPracticeBtn) {
@@ -2519,45 +2515,6 @@ function initApp() {
     });
   }
 
-  initPaletteSwitcher();
-}
-
-function applyPalette(paletteId) {
-  const option = PALETTE_OPTIONS.find((p) => p.id === paletteId) || PALETTE_OPTIONS[0];
-  state.palette = option.id;
-  document.documentElement.setAttribute('data-palette', option.id);
-  try {
-    localStorage.setItem(PALETTE_STORAGE_KEY, option.id);
-  } catch {
-    /* ignore */
-  }
-
-  const summary = document.getElementById('palette-switcher-summary');
-  if (summary) summary.textContent = option.label;
-
-  document.querySelectorAll('.palette-option').forEach((btn) => {
-    btn.classList.toggle('is-active', btn.dataset.paletteId === option.id);
-  });
-}
-
-function initPaletteSwitcher() {
-  applyPalette(state.palette);
-
-  const switcher = document.getElementById('palette-switcher');
-  if (!switcher) return;
-
-  switcher.querySelectorAll('.palette-option').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      applyPalette(btn.dataset.paletteId);
-      switcher.open = false;
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (switcher.open && !switcher.contains(e.target)) {
-      switcher.open = false;
-    }
-  });
 }
 
 function bootFromQuery() {

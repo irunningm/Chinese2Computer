@@ -5,7 +5,8 @@ import {
 } from './data/architecture.js';
 import {
   DICTIONARY_CATEGORIES,
-  DICTIONARY_ENTRIES
+  DICTIONARY_ENTRIES,
+  DICTIONARY_MINI_TASK
 } from './data/dictionary.js';
 import {
   TECH_STACK_CARRIERS,
@@ -16,9 +17,29 @@ import { CASE_STUDIES } from './data/cases.js';
 import { PROMPT_TEMPLATES, COMPOSER_PRESETS } from './data/prompts.js';
 
 // ==================== Global State ====================
+const PALETTE_OPTIONS = [
+  { id: 'magazine-bold', label: '杂志大胆', seed: '#9B1D1F' },
+  { id: 'poster-bold', label: '海报大胆', seed: '#E85D04' }
+];
+
+const PALETTE_STORAGE_KEY = 'wenxin-palette';
+
+function readStoredPalette() {
+  try {
+    const fromQuery = new URLSearchParams(window.location.search).get('palette');
+    if (fromQuery && PALETTE_OPTIONS.some((p) => p.id === fromQuery)) return fromQuery;
+    const stored = localStorage.getItem(PALETTE_STORAGE_KEY);
+    if (stored && PALETTE_OPTIONS.some((p) => p.id === stored)) return stored;
+  } catch {
+    /* ignore */
+  }
+  return 'magazine-bold';
+}
+
 const state = {
   activeTab: 'arch', // 'arch' | 'dict' | 'stacks' | 'cases' | 'prompts'
   theme: 'day',
+  palette: readStoredPalette(),
   mobileSimulator: false,
 
   // Tab 01: Architecture Sub-modes ('nodes' | 'flow' | 'clinic')
@@ -30,6 +51,7 @@ const state = {
   // Tab 02: Dictionary
   dictCategory: 'all',
   dictSearch: '',
+  dictPracticeOpen: false,
 
   // Tab 03: Tech Stacks & Best Practices ('carriers' | 'compass' | 'roadmap')
   stacksSubMode: 'carriers',
@@ -635,6 +657,11 @@ function getFilteredDictEntries() {
       entry.epiphany,
       entry.litPerspective,
       entry.engPerspective,
+      entry.uniRecall,
+      entry.analogyFits,
+      entry.analogyBreaks,
+      entry.practiceFails,
+      entry.chineseFamiliarity,
       ...entry.engKeywords
     ]
       .join(' ')
@@ -643,97 +670,253 @@ function getFilteredDictEntries() {
   });
 }
 
-function renderDictView(mount) {
-  const filtered = getFilteredDictEntries();
+function renderDictMiniTaskHtml() {
+  const task = DICTIONARY_MINI_TASK;
+  const fields = task.schemaFields
+    .map(
+      (f) =>
+        `<li><code>${escapeHtml(f.key)}</code> · ${escapeHtml(f.label)}</li>`
+    )
+    .join('');
+  const isOpen = Boolean(state.dictPracticeOpen);
 
-  mount.innerHTML = `
-    <div class="view-header-card">
-      <div class="view-kicker">02 · Concept Dictionary · 16 个最常遇到的编程概念</div>
-      <h1 class="view-title">用《现代汉语》语法、列提纲与写论文的经验，秒懂编程黑话</h1>
-      <p class="view-desc">
-        其实你早就学过软件工程的底层逻辑：主谓宾就是变量与函数，关联词就是条件循环，写论文列提纲就是软件架构。点击任意卡片查看大白话拆解。
-      </p>
-    </div>
-
-    <input
-      type="search"
-      id="dict-search-input"
-      class="search-input-bar"
-      placeholder="输入关键词搜索（如：主谓宾、提纲、病句、Git、组件、JSON）"
-      value="${escapeHtml(state.dictSearch)}"
-    />
-
-    <div class="chips-scroll-row" role="tablist">
-      ${DICTIONARY_CATEGORIES.map((cat) => {
-        const count =
-          cat.id === 'all'
-            ? DICTIONARY_ENTRIES.length
-            : DICTIONARY_ENTRIES.filter((e) => e.category === cat.id).length;
-        return `
-          <button
-            type="button"
-            class="chip-btn ${state.dictCategory === cat.id ? 'active' : ''}"
-            data-cat-id="${cat.id}"
-          >
-            ${escapeHtml(cat.name)} (${count})
-          </button>
-        `;
-      }).join('')}
-    </div>
-
-    ${
-      filtered.length === 0
-        ? `
-      <div class="view-header-card" style="text-align: center; padding: 2.5rem 1.5rem;">
-        <p style="font-family: var(--font-serif); font-size: 1.15rem; margin-bottom: 0.5rem;">
-          没有找到与「${escapeHtml(state.dictSearch)}」相关的词条
-        </p>
-        <button type="button" id="reset-dict-btn" class="btn-primary-pill" style="margin-top: 0.75rem;">
-          清空搜索条件
+  return `
+    <section
+      id="dict-practice-section"
+      class="dict-practice-shell ${isOpen ? 'is-open' : ''}"
+      aria-labelledby="dict-mini-task-title"
+    >
+      <div class="dict-practice-head">
+        <div class="dict-practice-head-copy">
+          <div class="dict-practice-kicker">本节练习 · 学完再做</div>
+          <h2 id="dict-mini-task-title" class="dict-practice-title">${escapeHtml(task.title)}</h2>
+          <p class="dict-practice-lede">${escapeHtml(task.why)}</p>
+        </div>
+        <button
+          type="button"
+          id="dict-practice-toggle-btn"
+          class="btn-terracotta-pill dict-practice-toggle"
+          aria-expanded="${isOpen ? 'true' : 'false'}"
+        >
+          ${isOpen ? '收起练习说明' : '展开完整练习'}
         </button>
       </div>
-    `
-        : `
-      <div class="cards-feed-grid">
-        ${filtered
-          .map((entry, idx) => {
-            const num = String(idx + 1).padStart(2, '0');
-            return `
-            <button
-              type="button"
-              class="intuition-card dict-entry-card"
-              data-entry-id="${entry.id}"
-            >
-              <div>
-                <div class="card-top-meta">
-                  <span class="card-index-pill">${num} · ${escapeHtml(entry.categoryLabel)}</span>
-                  <span class="card-badge-text">${escapeHtml(entry.engKeywords[0] || '')}</span>
-                </div>
-                <h2 class="card-lit-heading" style="margin-top: 0.6rem;">
-                  ${highlightText(entry.literaryTerm, state.dictSearch)}
-                </h2>
-                <div class="card-eng-mapping">
-                  ↔ ${highlightText(entry.engTerm, state.dictSearch)}
-                </div>
-              </div>
 
-              <div class="card-epiphany-text">
-                ${highlightText(entry.epiphany, state.dictSearch)}
-              </div>
+      <div class="dict-practice-body" ${isOpen ? '' : 'hidden'}>
+        <p class="dict-mini-task-scenario"><strong>情境：</strong>${escapeHtml(task.scenario)}</p>
 
-              <div class="card-action-footer">
-                <span style="font-size: 0.75rem; color: var(--text-tertiary);">
-                  含生活例子与 AI 提问话术
-                </span>
-                <span class="tap-cue">点击查看详解 →</span>
-              </div>
+        <details class="code-disclosure dict-mini-task-notes">
+          <summary>
+            <span>展开课堂笔记原文（可先自己试着拆字段）</span>
+            <span class="toggle-hint">点击展开 +</span>
+          </summary>
+          <div class="code-disclosure-body">
+            <pre class="code-pre-block" style="font-family: var(--font-serif); white-space: pre-wrap;">${escapeHtml(task.sampleNotes)}</pre>
+          </div>
+        </details>
+
+        <div class="dict-boundary-grid" style="margin-top: 0.85rem;">
+          <div class="dict-boundary-block is-fit">
+            <strong>四字段约定</strong>
+            <ul class="dict-mini-task-list">${fields}</ul>
+          </div>
+          <div class="dict-boundary-block is-break">
+            <strong>常见翻车</strong>
+            <ul class="dict-mini-task-list">
+              ${task.failureModes.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <div class="dict-role-grid">
+          <div class="dict-role-block">
+            <strong>你负责</strong>
+            <ul class="dict-mini-task-list">
+              ${task.youDo.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="dict-role-block">
+            <strong>AI 负责</strong>
+            <ul class="dict-mini-task-list">
+              ${task.aiDoes.map((m) => `<li>${escapeHtml(m)}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+
+        <div class="dict-mini-task-prompt-wrap">
+          <div class="dict-mini-task-prompt-head">
+            <strong>可复制提示词</strong>
+            <button type="button" id="dict-mini-task-copy-btn" class="chip-btn" style="min-height: 36px; padding: 0.25rem 0.75rem; font-size: 0.78rem;">
+              复制提示词
             </button>
-          `;
-          })
-          .join('')}
+          </div>
+          <pre class="dict-mini-task-prompt">${escapeHtml(task.copyablePrompt)}</pre>
+        </div>
       </div>
-    `
-    }
+    </section>
+  `;
+}
+
+function renderDictView(mount) {
+  const filtered = getFilteredDictEntries();
+  const activeCat =
+    DICTIONARY_CATEGORIES.find((c) => c.id === state.dictCategory) ||
+    DICTIONARY_CATEGORIES[0];
+
+  mount.innerHTML = `
+    <article class="dict-course-shell">
+      <header class="dict-course-masthead">
+        <div class="dict-course-masthead-top">
+          <p class="dict-course-kicker">02 · 本节课 · 概念词典</p>
+          <p class="dict-course-progress" aria-label="本节进度">
+            <span>${DICTIONARY_ENTRIES.length} 词条</span>
+            <span class="dict-course-progress-dot" aria-hidden="true"></span>
+            <span>1 节练习</span>
+          </p>
+        </div>
+        <h1 class="dict-course-title">用《现代汉语》语法、列提纲与写论文的经验，对照理解编程用语</h1>
+        <p class="dict-course-desc">
+          类比只是入门梯子，不是等式。先点词条：温习大学中文讲法 → 再看软件映射 → 标明「像在哪 / 不像在哪」。学完再做本节练习。
+        </p>
+        <div class="dict-course-path" aria-label="本节学习路径">
+          <span class="dict-course-path-step is-current">1 浏览词条</span>
+          <span class="dict-course-path-arrow" aria-hidden="true">→</span>
+          <span class="dict-course-path-step">2 打开对照详解</span>
+          <span class="dict-course-path-arrow" aria-hidden="true">→</span>
+          <span class="dict-course-path-step">3 本节练习</span>
+        </div>
+        <div class="dict-course-cta-row">
+          <a href="#dict-unit-list" class="btn-primary-pill dict-course-jump">开始浏览词条</a>
+          <button type="button" id="dict-jump-practice-btn" class="btn-secondary-pill">
+            跳到本节练习 ↓
+          </button>
+        </div>
+      </header>
+
+      <div class="dict-course-toolbar" role="search">
+        <label class="dict-search-label" for="dict-search-input">检索词条</label>
+        <input
+          type="search"
+          id="dict-search-input"
+          class="dict-search-field"
+          placeholder="搜：主谓宾、提纲、病句、Git、组件、JSON…"
+          value="${escapeHtml(state.dictSearch)}"
+          autocomplete="off"
+        />
+
+        <div class="dict-segmented" role="tablist" aria-label="词条分类">
+          ${DICTIONARY_CATEGORIES.map((cat) => {
+            const count =
+              cat.id === 'all'
+                ? DICTIONARY_ENTRIES.length
+                : DICTIONARY_ENTRIES.filter((e) => e.category === cat.id).length;
+            const shortName =
+              cat.id === 'all'
+                ? '全部'
+                : cat.name.replace(/·.*$/, '').replace(/篇$/, '');
+            return `
+              <button
+                type="button"
+                role="tab"
+                class="dict-segment ${state.dictCategory === cat.id ? 'active' : ''}"
+                data-cat-id="${cat.id}"
+                aria-selected="${state.dictCategory === cat.id ? 'true' : 'false'}"
+                title="${escapeHtml(cat.name)} · ${escapeHtml(cat.sub || '')}"
+              >
+                <span class="dict-segment-name">${escapeHtml(shortName)}</span>
+                <span class="dict-segment-count">${count}</span>
+              </button>
+            `;
+          }).join('')}
+        </div>
+
+        <p class="dict-toolbar-meta">
+          当前：${escapeHtml(activeCat.name)} · 显示 ${filtered.length} / ${DICTIONARY_ENTRIES.length}
+        </p>
+      </div>
+
+      <section id="dict-unit-list" class="dict-unit-section" aria-labelledby="dict-unit-heading">
+        <div class="dict-section-label-row">
+          <h2 id="dict-unit-heading" class="dict-section-label">词条一览</h2>
+          <p class="dict-section-hint">中文概念在上 · 软件对照在下 · 点按打开边界详解</p>
+        </div>
+
+        ${
+          filtered.length === 0
+            ? `
+          <div class="dict-empty-state">
+            <p class="dict-empty-title">没有找到与「${escapeHtml(state.dictSearch)}」相关的词条</p>
+            <button type="button" id="reset-dict-btn" class="btn-primary-pill">
+              清空搜索条件
+            </button>
+          </div>
+        `
+            : `
+          <div class="dict-unit-list">
+            ${filtered
+              .map((entry, idx) => {
+                const num = String(idx + 1).padStart(2, '0');
+                return `
+                <button
+                  type="button"
+                  class="dict-unit-row"
+                  data-entry-id="${entry.id}"
+                >
+                  <div class="dict-unit-meta">
+                    <span class="dict-unit-index">${num}</span>
+                    <span class="dict-unit-cat">${escapeHtml(entry.categoryLabel)}</span>
+                    ${
+                      entry.chineseFamiliarity
+                        ? `<span class="dict-unit-familiarity">${escapeHtml(entry.chineseFamiliarity)}</span>`
+                        : ''
+                    }
+                  </div>
+
+                  <div class="dict-unit-analogy" aria-label="中文与软件对照">
+                    <div class="dict-unit-zh">
+                      <span class="dict-unit-side-label">中文侧</span>
+                      <h3 class="dict-unit-lit">${highlightText(entry.literaryTerm, state.dictSearch)}</h3>
+                    </div>
+                    <div class="dict-unit-bridge" aria-hidden="true">
+                      <span class="dict-unit-bridge-line"></span>
+                      <span class="dict-unit-bridge-mark">↔</span>
+                      <span class="dict-unit-bridge-line"></span>
+                    </div>
+                    <div class="dict-unit-se">
+                      <span class="dict-unit-side-label">软件侧</span>
+                      <p class="dict-unit-eng">${highlightText(entry.engTerm, state.dictSearch)}</p>
+                    </div>
+                  </div>
+
+                  <p class="dict-unit-epiphany">${highlightText(entry.epiphany, state.dictSearch)}</p>
+
+                  <div class="dict-unit-footer">
+                    <span class="dict-unit-tags">类比边界 · 人机分工 · 温习提示</span>
+                    <span class="dict-unit-cue">点开对照详解 →</span>
+                  </div>
+                </button>
+              `;
+              })
+              .join('')}
+          </div>
+        `
+        }
+      </section>
+
+      ${renderDictMiniTaskHtml()}
+    </article>
+
+    <div class="dict-thumb-dock" aria-label="词典快捷操作">
+      <button type="button" id="dict-thumb-search-btn" class="dict-thumb-btn">
+        检索
+      </button>
+      <button type="button" id="dict-thumb-top-btn" class="dict-thumb-btn">
+        回顶
+      </button>
+      <button type="button" id="dict-thumb-practice-btn" class="dict-thumb-btn is-accent">
+        本节练习
+      </button>
+    </div>
   `;
 
   const searchInput = document.getElementById('dict-search-input');
@@ -750,7 +933,7 @@ function renderDictView(mount) {
     });
   }
 
-  mount.querySelectorAll('.chip-btn').forEach((btn) => {
+  mount.querySelectorAll('.dict-segment[data-cat-id]').forEach((btn) => {
     btn.addEventListener('click', () => {
       state.dictCategory = btn.dataset.catId;
       renderDictView(mount);
@@ -766,11 +949,79 @@ function renderDictView(mount) {
     });
   }
 
-  mount.querySelectorAll('.dict-entry-card').forEach((card) => {
+  const scrollToPractice = () => {
+    const practice = document.getElementById('dict-practice-section');
+    if (!practice) return;
+    practice.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!state.dictPracticeOpen) {
+      state.dictPracticeOpen = true;
+      renderDictView(mount);
+      requestAnimationFrame(() => {
+        const again = document.getElementById('dict-practice-section');
+        if (again) again.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  };
+
+  const jumpPracticeBtn = document.getElementById('dict-jump-practice-btn');
+  if (jumpPracticeBtn) {
+    jumpPracticeBtn.addEventListener('click', scrollToPractice);
+  }
+
+  const practiceToggle = document.getElementById('dict-practice-toggle-btn');
+  if (practiceToggle) {
+    practiceToggle.addEventListener('click', () => {
+      state.dictPracticeOpen = !state.dictPracticeOpen;
+      renderDictView(mount);
+      if (state.dictPracticeOpen) {
+        requestAnimationFrame(() => {
+          const practice = document.getElementById('dict-practice-section');
+          if (practice) practice.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    });
+  }
+
+  const miniCopyBtn = document.getElementById('dict-mini-task-copy-btn');
+  if (miniCopyBtn) {
+    miniCopyBtn.addEventListener('click', () =>
+      copyToClipboard(DICTIONARY_MINI_TASK.copyablePrompt, miniCopyBtn)
+    );
+  }
+
+  mount.querySelectorAll('.dict-unit-row').forEach((card) => {
     card.addEventListener('click', () => {
       openDictEntrySheet(card.dataset.entryId);
     });
   });
+
+  const thumbSearch = document.getElementById('dict-thumb-search-btn');
+  if (thumbSearch) {
+    thumbSearch.addEventListener('click', () => {
+      const toolbar = mount.querySelector('.dict-course-toolbar');
+      if (toolbar) toolbar.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const input = document.getElementById('dict-search-input');
+      if (input) {
+        requestAnimationFrame(() => input.focus());
+      }
+    });
+  }
+
+  const thumbTop = document.getElementById('dict-thumb-top-btn');
+  if (thumbTop) {
+    thumbTop.addEventListener('click', () => {
+      const appRoot = document.querySelector('.app-root');
+      if (appRoot && document.body.classList.contains('mobile-simulator-active')) {
+        appRoot.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  const thumbPractice = document.getElementById('dict-thumb-practice-btn');
+  if (thumbPractice) {
+    thumbPractice.addEventListener('click', scrollToPractice);
+  }
 }
 
 function openDictEntrySheet(entryId) {
@@ -782,6 +1033,11 @@ function openDictEntrySheet(entryId) {
   const bodyHtml = `
     <div>
       <div style="display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem;">
+        ${
+          entry.chineseFamiliarity
+            ? `<span class="dict-familiarity-pill">${escapeHtml(entry.chineseFamiliarity)}</span>`
+            : ''
+        }
         ${entry.engKeywords
           .map(
             (k) =>
@@ -800,14 +1056,30 @@ function openDictEntrySheet(entryId) {
       </blockquote>
     </div>
 
+    <div class="dict-recall-block">
+      <strong>先温习：大学中文怎么讲</strong>
+      <p>${escapeHtml(entry.uniRecall || entry.litPerspective)}</p>
+    </div>
+
     <div style="background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.92rem;">
-      <strong>一句话点透：</strong>${escapeHtml(entry.epiphany)}
+      <strong>对照理解：</strong>${escapeHtml(entry.epiphany)}
+    </div>
+
+    <div class="dict-boundary-grid">
+      <div class="dict-boundary-block is-fit">
+        <strong>类比像在哪</strong>
+        <p>${escapeHtml(entry.analogyFits || '（本条待补）')}</p>
+      </div>
+      <div class="dict-boundary-block is-break">
+        <strong>类比不像在哪</strong>
+        <p>${escapeHtml(entry.analogyBreaks || '（本条待补）')}</p>
+      </div>
     </div>
 
     <div style="display: flex; flex-direction: column; gap: 0.75rem;">
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          一、我们熟悉的汉语/写作常识
+          一、汉语 / 写作侧再展开
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.litPerspective)}
@@ -816,7 +1088,7 @@ function openDictEntrySheet(entryId) {
 
       <div style="background: var(--bg-subtle); padding: 0.9rem 1rem; border-radius: var(--radius-xs);">
         <strong style="font-family: var(--font-serif); font-size: 0.88rem; display: block; margin-bottom: 0.25rem;">
-          二、对应的软件工程原理
+          二、再映射到软件工程
         </strong>
         <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7;">
           ${escapeHtml(entry.engPerspective)}
@@ -827,15 +1099,29 @@ function openDictEntrySheet(entryId) {
     <div style="background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 1rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
         <strong style="font-family: var(--font-serif); font-size: 0.92rem; color: var(--accent);">
-          怎么用这个概念指导 AI 写代码？
+          怎么用来完成今晚的作业 / 和小工具？
         </strong>
         <button type="button" id="dict-copy-action-btn" class="chip-btn" style="min-height: 30px; padding: 0.2rem 0.65rem; font-size: 0.75rem;">
           复制话术
         </button>
       </div>
-      <p style="font-size: 0.88rem; color: var(--text-primary); line-height: 1.65;">
+      <p style="font-size: 0.88rem; color: var(--text-primary); line-height: 1.65; margin-bottom: 0.75rem;">
         ${escapeHtml(entry.aiAction)}
       </p>
+      <div class="dict-role-grid">
+        <div class="dict-role-block">
+          <strong>你负责</strong>
+          <p>${escapeHtml(entry.youDo || '审需求、核字段、按清单验收。')}</p>
+        </div>
+        <div class="dict-role-block">
+          <strong>AI 负责</strong>
+          <p>${escapeHtml(entry.aiDoes || '按你确认过的约束起草与修改。')}</p>
+        </div>
+      </div>
+      <div class="dict-fail-block">
+        <strong>何时别用 / 常见翻车</strong>
+        <p>${escapeHtml(entry.practiceFails || '（本条待补）')}</p>
+      </div>
     </div>
 
     <details class="code-disclosure">
@@ -2183,7 +2469,8 @@ function renderPromptComposerForm(container) {
 
 // ==================== App Initialization ====================
 function initApp() {
-  renderActiveView();
+  // Sync chrome + content for query/default tab (also paints active tab buttons).
+  switchTab(state.activeTab);
 
   document.querySelectorAll('.desktop-tab-btn, .bottom-tab-item').forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -2231,6 +2518,60 @@ function initApp() {
       }
     });
   }
+
+  initPaletteSwitcher();
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+function applyPalette(paletteId) {
+  const option = PALETTE_OPTIONS.find((p) => p.id === paletteId) || PALETTE_OPTIONS[0];
+  state.palette = option.id;
+  document.documentElement.setAttribute('data-palette', option.id);
+  try {
+    localStorage.setItem(PALETTE_STORAGE_KEY, option.id);
+  } catch {
+    /* ignore */
+  }
+
+  const summary = document.getElementById('palette-switcher-summary');
+  if (summary) summary.textContent = option.label;
+
+  document.querySelectorAll('.palette-option').forEach((btn) => {
+    btn.classList.toggle('is-active', btn.dataset.paletteId === option.id);
+  });
+}
+
+function initPaletteSwitcher() {
+  applyPalette(state.palette);
+
+  const switcher = document.getElementById('palette-switcher');
+  if (!switcher) return;
+
+  switcher.querySelectorAll('.palette-option').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyPalette(btn.dataset.paletteId);
+      switcher.open = false;
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (switcher.open && !switcher.contains(e.target)) {
+      switcher.open = false;
+    }
+  });
+}
+
+function bootFromQuery() {
+  try {
+    const tab = new URLSearchParams(window.location.search).get('tab');
+    if (tab && ['arch', 'dict', 'stacks', 'cases', 'prompts'].includes(tab)) {
+      state.activeTab = tab;
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  bootFromQuery();
+  initApp();
+});

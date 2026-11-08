@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-palette="magazine-bold">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>文心雕码 — 用写文章的直觉读懂软件工程与 AI 编程</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./src/styles/main.css" />
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(location.search);
+        var fromQuery = params.get('palette');
+        var allowed = { 'magazine-bold': 1, 'poster-bold': 1 };
+        var p = (fromQuery && allowed[fromQuery]) ? fromQuery : localStorage.getItem('wenxin-palette');
+        if (p && allowed[p]) document.documentElement.setAttribute('data-palette', p);
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div class="app-root">
@@ -36,8 +50,29 @@
           </button>
         </nav>
 
-        <!-- Utility Actions: Mobile Viewport Preview & Theme Toggle -->
+        <!-- Utility Actions: Palette / Mobile Preview / Theme -->
         <div class="top-actions">
+          <details class="palette-switcher" id="palette-switcher">
+            <summary
+              class="util-btn"
+              id="palette-switcher-summary"
+              title="切换视觉风格：杂志大胆 / 海报大胆"
+            >
+              杂志大胆
+            </summary>
+            <div class="palette-menu" role="listbox" aria-label="视觉风格：杂志大胆 / 海报大胆">
+              <button type="button" class="palette-option is-active" data-palette-id="magazine-bold" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">杂志大胆</span>
+                <span class="palette-option-hint">seed #9B1D1F · 编辑杂志</span>
+              </button>
+              <button type="button" class="palette-option" data-palette-id="poster-bold" role="option">
+                <span class="palette-swatch" aria-hidden="true"></span>
+                <span class="palette-option-name">海报大胆</span>
+                <span class="palette-option-hint">seed #E85D04 · 活动海报</span>
+              </button>
+            </div>
+          </details>
           <button
             type="button"
             id="mobile-sim-toggle"

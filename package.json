@@ -7,7 +7,9 @@
     "dev": "node server.mjs",
     "start": "node server.mjs",
     "test": "node --test tests/transfer-logic.test.mjs",
-    "test:browser": "node tests/transfer-browser.mjs"
+    "test:browser": "node tests/transfer-browser.mjs",
+    "build:transfer-standalone": "node scripts/build-transfer-standalone.mjs",
+    "test:standalone": "node tests/transfer-standalone-browser.mjs"
   },
   "keywords": [
     "chinese-literature",

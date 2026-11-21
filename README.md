@@ -30,6 +30,8 @@ npm run dev
 
 逻辑自测：`npm test` · 浏览器行为验收（需先 `npm run dev`）：`npm run test:browser`
 
+自包含离线单文件（可 `file://` 直接打开，无 CDN）：`npm run build:transfer-standalone` → `transfer-demo/transfer-demo-standalone.html`
+
 ---
 
 ## 三、 本项目“四库目录树”解析（你可以如何增补内容？）

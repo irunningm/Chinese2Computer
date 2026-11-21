@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>两店调货小样 · 模拟演示 — 文心雕码</title>
+  <meta name="description" content="模拟演示：西店与东店调货，理解规则、状态、实现与验收。非真实门店系统。" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+    <div class="top-row">
+      <a class="back-link" href="../index.html">← 返回文心雕码首页</a>
+      <span class="sim-badge" role="status">模拟演示 · 非真实门店系统</span>
+    </div>
+
+    <header class="hero">
+      <h1>AI 会写代码后，为何仍需理解软件工程？</h1>
+      <p>
+        一店纸笔够用；二店就要跨店协作。本页用同一商品、单据
+        <strong>T001</strong>，带你走一遍：经营诉求 → 明确规则 → 设计状态 → 实现 → 证据验证。
+        AI 可协助每一环，不是「AI 只写代码 / 人独占思考」。
+      </p>
+    </header>
+
+    <section class="lesson-strip" aria-label="教学步骤">
+      <div class="lesson-chip is-active" data-lesson="rules" id="chip-rules">
+        <div class="step">01</div>
+        <div class="label">明确规则</div>
+        <div class="hint">未发货不能收货</div>
+      </div>
+      <div class="lesson-chip" data-lesson="state" id="chip-state">
+        <div class="step">02</div>
+        <div class="label">设计状态</div>
+        <div class="hint">西店 / 在途 / 东店</div>
+      </div>
+      <div class="lesson-chip" data-lesson="impl" id="chip-impl">
+        <div class="step">03</div>
+        <div class="label">实现</div>
+        <div class="hint">按钮驱动状态机</div>
+      </div>
+      <div class="lesson-chip" data-lesson="verify" id="chip-verify">
+        <div class="step">04</div>
+        <div class="label">验收</div>
+        <div class="hint">点按验证不变量</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">场景设定</h2>
+      <p class="story">
+        同一商品「矿泉水」：<strong>西店 12</strong>、<strong>东店 0</strong>。
+        现要从西店调 <strong>6</strong> 瓶到东店。单据号固定为
+        <span class="ticket-id">T001</span>，贯穿全程。
+        页面内状态即可，无真实数据库；也不假装处理真实并发或网络一致性。
+      </p>
+    </section>
+
+    <section class="panel" aria-live="polite">
+      <h2 class="panel-title">门店与货物</h2>
+      <div class="viz">
+        <div class="store west" id="store-west">
+          <div class="store-name">西店</div>
+          <div class="stock-num" id="west-count">12</div>
+          <div class="stock-unit">瓶在库</div>
+          <div class="crates" id="west-crates" aria-hidden="true"></div>
+        </div>
+
+        <div class="transit">
+          <div class="transit-label">在途</div>
+          <div class="transit-count" id="transit-count">0</div>
+          <div class="arrow-track" aria-hidden="true">
+            <div class="arrow-fill" id="arrow-fill"></div>
+          </div>
+          <div class="transit-label" id="transit-caption">等待发货</div>
+        </div>
+
+        <div class="store east" id="store-east">
+          <div class="store-name">东店</div>
+          <div class="stock-num" id="east-count">0</div>
+          <div class="stock-unit">瓶在库</div>
+          <div class="crates" id="east-crates" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <p class="total-check">
+        总量守恒检查：西店 + 在途 + 东店 =
+        <strong id="total-count">12</strong>
+        （始终应为 12）
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">单据 T001</h2>
+      <div class="ticket">
+        <div class="ticket-row">
+          <span class="ticket-id" id="ticket-id">T001</span>
+          <span class="status-pill draft" id="ticket-status">待发出</span>
+          <span id="ticket-detail">待西店发货</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">操作（请亲自点按）</h2>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="btn-ship">西店发货</button>
+        <button type="button" class="btn btn-secondary" id="btn-receive">东店确认收货</button>
+        <button type="button" class="btn btn-ghost" id="btn-reset">重置</button>
+      </div>
+      <div class="feedback ok" id="feedback" role="status">初态：西店 12 · 在途 0 · 东店 0。单据 T001 待发出。</div>
+      <div class="teach-note" id="teach-note">
+        <div class="tag">本步 · 明确规则</div>
+        <div id="teach-body">
+          先约定：未发货不能收货；发货一次、收货一次；总量始终 12。规则清楚后，才谈写代码。
+        </div>
+      </div>
+      <p class="footnote">
+        建议自测：正常流 → 先点收货（应被拒绝）→ 重复发货/收货（不重复增减）→ 重置彻底恢复。
+      </p>
+    </section>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

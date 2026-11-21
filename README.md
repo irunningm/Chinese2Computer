@@ -26,6 +26,10 @@ npm run dev
 
 随后在浏览器中访问：`http://127.0.0.1:3000`
 
+两店调货教学模拟演示（独立页面）：`http://127.0.0.1:3000/transfer-demo/`
+
+逻辑自测：`npm test` · 浏览器行为验收（需先 `npm run dev`）：`npm run test:browser`
+
 ---
 
 ## 三、 本项目“四库目录树”解析（你可以如何增补内容？）

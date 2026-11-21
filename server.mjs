@@ -27,26 +27,38 @@ const server = http.createServer((req, res) => {
   const filePath = path.join(__dirname, safePath);
 
   fs.stat(filePath, (err, stats) => {
-    if (err || !stats.isFile()) {
+    let resolvedPath = filePath;
+
+    if (!err && stats.isDirectory()) {
+      resolvedPath = path.join(filePath, 'index.html');
+    } else if (err || !stats.isFile()) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
       res.end('404 Not Found - 未寻得此卷轴');
       return;
     }
 
-    const ext = path.extname(filePath).toLowerCase();
-    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-
-    fs.readFile(filePath, (readErr, content) => {
-      if (readErr) {
-        res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
-        res.end('500 Internal Server Error');
+    fs.stat(resolvedPath, (innerErr, innerStats) => {
+      if (innerErr || !innerStats.isFile()) {
+        res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('404 Not Found - 未寻得此卷轴');
         return;
       }
-      res.writeHead(200, {
-        'Content-Type': contentType,
-        'Cache-Control': 'no-cache'
+
+      const ext = path.extname(resolvedPath).toLowerCase();
+      const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+
+      fs.readFile(resolvedPath, (readErr, content) => {
+        if (readErr) {
+          res.writeHead(500, { 'Content-Type': 'text/plain; charset=utf-8' });
+          res.end('500 Internal Server Error');
+          return;
+        }
+        res.writeHead(200, {
+          'Content-Type': contentType,
+          'Cache-Control': 'no-cache'
+        });
+        res.end(content);
       });
-      res.end(content);
     });
   });
 });
